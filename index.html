@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر بنكك المعدل | المطور الرسمي</title>
+    <title>متجر سايكو VIP | المطور الرسمي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --neon-green: #00ff41;
             --dark-bg: #000000;
-            --card-bg: #0a0a0a;
+            --card-bg: rgba(10, 10, 10, 0.9);
         }
 
         body {
@@ -21,6 +21,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* خلفية النجوم المتحركة */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
         .warning-bar {
@@ -44,18 +55,18 @@
 
         header h1 {
             color: var(--neon-green);
-            font-size: 2.5rem;
-            text-shadow: 0 0 15px var(--neon-green);
-            margin-bottom: 10px;
+            font-size: 3rem;
+            text-shadow: 0 0 20px var(--neon-green);
+            margin: 0;
+            letter-spacing: 2px;
         }
 
-        /* مؤقت العرض */
         .countdown-container {
-            background: #111;
+            background: rgba(17, 17, 17, 0.8);
             border: 1px dashed var(--neon-green);
             padding: 15px;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-top: 20px;
         }
 
         #timer {
@@ -71,6 +82,7 @@
             gap: 25px;
             max-width: 1100px;
             width: 90%;
+            margin-top: 30px;
         }
 
         .card {
@@ -81,12 +93,12 @@
             width: 320px;
             text-align: center;
             transition: 0.4s;
-            position: relative;
+            backdrop-filter: blur(5px);
         }
 
         .card:hover {
             border-color: var(--neon-green);
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
             transform: translateY(-10px);
         }
 
@@ -109,89 +121,116 @@
             transition: 0.3s;
         }
 
-        .btn:hover {
-            background-color: white;
-            box-shadow: 0 0 15px white;
-        }
-
         .social-section {
             margin-top: 60px;
             text-align: center;
-            background: #050505;
+            background: rgba(5, 5, 5, 0.9);
             padding: 40px;
             width: 100%;
             border-top: 1px solid #222;
         }
 
-        .social-icons {
+        .contact-box {
             display: flex;
-            justify-content: center;
-            gap: 40px;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
             margin-top: 20px;
         }
 
-        .icon-link {
-            font-size: 3.5rem;
+        .contact-item {
+            display: flex;
+            align-items: center;
+            background: #111;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #222;
             transition: 0.3s;
         }
 
+        .contact-item:hover {
+            border-color: var(--neon-green);
+            background: #001a05;
+        }
+
+        .contact-item i { font-size: 2rem; margin-left: 20px; }
+
+        .contact-text { text-align: right; font-size: 1rem; }
+
         .fa-telegram { color: #229ED9; }
         .fa-facebook { color: #1877F2; }
-
-        .icon-link:hover { transform: scale(1.2); }
 
         footer { padding: 30px; color: #555; }
     </style>
 </head>
 <body>
 
+    <canvas id="canvas"></canvas>
+
     <div class="warning-bar">
-        🔴 تحذير: لا تتعامل إلا مع الروابط الرسمية بالأسفل لتجنب الاحتيال
+        🔴 تحذير: لا تتعامل إلا مع المطور الرسمي (روابطنا بالأسفل فقط)
     </div>
 
     <header>
-        <h1>متجر بنكك VIP</h1>
+        <h1>مَتجَر سَايكُو VIP</h1>
         <div class="countdown-container">
-            <p>ينتهي عرض الخصم خلال:</p>
+            <p>ينتهي عرض الخصم الحصري خلال:</p>
             <div id="timer">05:00:00</div>
         </div>
     </header>
 
     <div class="container">
         <div class="card" style="border-color: var(--neon-green);">
-            <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--neon-green); color:black; padding:5px 15px; font-size:12px; font-weight:bold; border-radius:20px;">الأكثر طلباً</div>
-            <h2>نسخة VIP الماسية</h2>
-            <p>تخطي الحماية، سرعة تنفيذ، ومميزات حصرية</p>
+            <h2>النسخة الماسية VIP</h2>
+            <p>أقوى نسخة معدلة بمميزات لا محدودة</p>
             <span class="price">تواصل للسعر</span>
             <a href="https://T.me/R_I_I_F_vip" class="btn">اطلب من التليجرام</a>
         </div>
 
         <div class="card">
-            <h2>النسخة العادية</h2>
-            <p>النسخة المستقرة للمهام اليومية</p>
+            <h2>النسخة الذهبية</h2>
+            <p>النسخة المستقرة والأكثر أماناً</p>
             <span class="price">تواصل للسعر</span>
             <a href="https://T.me/R_I_I_F_vip" class="btn">اطلب من التليجرام</a>
         </div>
     </div>
 
     <div class="social-section">
-        <h3>روابط التواصل الرسمية مع المطور</h3>
-        <div class="social-icons">
-            <a href="https://T.me/R_I_I_F_vip" class="icon-link" title="تليجرام"><i class="fab fa-telegram"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61562677576193" class="icon-link" title="فيسبوك"><i class="fab fa-facebook"></i></a>
+        <h3 style="color: var(--neon-green);">تواصل مباشر مع المطور</h3>
+        <div class="contact-box">
+            
+            <a href="https://T.me/R_I_I_F_vip" class="contact-item">
+                <i class="fab fa-telegram"></i>
+                <div class="contact-text">
+                    اضغط على الأيقونة للتواصل مع المطور تليجرام
+                    <span style="display:block; color:var(--neon-green);">@R_I_I_F_vip</span>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=61562677576193" class="contact-item">
+                <i class="fab fa-facebook"></i>
+                <div class="contact-text">
+                    اضغط على الأيقونة للتواصل مع المطور فيسبوك
+                    <span style="display:block; color:var(--neon-green);">الصفحة الرسمية</span>
+                </div>
+            </a>
+
         </div>
-        <p style="margin-top: 25px; color: var(--neon-green); font-weight: bold;">ممنوع التعامل مع أي شخص آخر يدعي أنه المطور</p>
+        <p style="margin-top: 30px; color: #ff3e3e; font-weight: bold;">⚠️ انتبه: متجر سايكو VIP غير مسؤول عن أي تعامل خارج هذه الروابط</p>
     </div>
 
     <footer>
-        &copy; 2026 متجر التطبيقات المعدلة | جميع الحقوق محفوظة
+        &copy; 2026 متجر سايكو VIP | المطور الرسمي
     </footer>
 
     <script>
-        // كود مؤقت العد التنازلي البسيط
-        let time = 18000; // 5 ساعات بالثواني
+        // كود مؤقت العد التنازلي
+        let time = 18000;
         const timerElement = document.getElementById('timer');
-
         setInterval(() => {
             let hours = Math.floor(time / 3600);
             let minutes = Math.floor((time % 3600) / 60);
@@ -199,7 +238,27 @@
             timerElement.innerHTML = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
             if (time > 0) time--;
         }, 1000);
-    </script>
 
+        // كود خلفية النجوم (Matrix effect lite)
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const stars = [];
+        for(let i=0; i<100; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*2, speed: Math.random()*0.5});
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff41';
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.speed;
+                if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
