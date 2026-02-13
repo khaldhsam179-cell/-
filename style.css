@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    background-color: #ffffff;
+}
+header {
+    background-color: #d32f2f; /* اللون الأحمر */
+    color: white;
+    padding: 20px;
+}
+.warning-bar {
+    background: #000;
+    color: #ff0;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.container {
+    padding: 20px;
+}
+.offer-section {
+    background: #f1f1f1;
+    border: 2px solid #d32f2f;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+#timer {
+    font-size: 30px;
+    font-weight: bold;
+    color: #d32f2f;
+}
+.btn {
+    width: 90%;
+    padding: 15px;
+    margin: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.btn-vip { background: #000; color: #ffd700; border: 2px solid #ffd700; }
+.btn-normal { background: #d32f2f; color: white; }
+.btn-open { background: #2e7d32; color: white; }
+.btn-s {
+    background: white;
+    border: 1px solid #d32f2f;
+    padding: 10px;
+    margin: 5px;
+    width: 30%;
+}
+.social {
+    display: block;
+    margin: 10px;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.tele { background: #0088cc; }
+.face { background: #1877f2; }
