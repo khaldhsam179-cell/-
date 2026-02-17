@@ -19,21 +19,23 @@
     <main class="container">
         <section class="offer-section">
             <h3>🔥 عرض لفترة محدودة جداً 🔥</h3>
-            <div id="timer">00:00:00</div>
+            <div id="timer">23:59:56</div>
             <p>سارع قبل انتهاء التخفيض!</p>
         </section>
 
         <section class="purchase-grid">
-            <button onclick="showOrder('شراء نسخة VIP', 120)" class="btn btn-vip">شراء نسخة VIP (120ج)</button>
-            <button onclick="showOrder('شراء النسخة العادية', 50)" class="btn btn-normal">شراء النسخة العادية (50ج)</button>
+            <button onclick="openTrade('نسخة VIP (معاملات وهمية)', 120)" class="btn btn-vip">شراء نسخة VIP (معاملات وهمية)</button>
+            <button onclick="openTrade('النسخة العادية', 50)" class="btn btn-normal">شراء النسخة العادية</button>
         </section>
 
         <section class="shipping-section">
             <h3>قسم الشحن السريع</h3>
             <div class="shipping-grid">
-                <button onclick="showOrder('شحن رصيد (الـ 100 بـ 10ج)', 'حسب الكمية')" class="btn-s">شحن رصيد</button>
-                <button onclick="showOrder('فتح حساب في كل النسخ', 20)" class="btn btn-open">فتح حساب شامل (20ج)</button>
+                <button onclick="openTrade('شحن نسخة اسنوكس', '10 لكل 100')" class="btn-s">شحن نسخة اسنوكس</button>
+                <button onclick="openTrade('شحن نسخة ترو بورو', '10 لكل 100')" class="btn-s">شحن نسخة ترو بورو</button>
+                <button onclick="openTrade('شحن نسخة موكا', '10 لكل 100')" class="btn-s">شحن نسخة موكا</button>
             </div>
+            <button onclick="openTrade('فتح حساب في كل النسخ', 20)" class="btn btn-open">تواصل لفتح حساب في كل النسخ</button>
         </section>
 
         <section class="contact-section">
@@ -45,24 +47,21 @@
         </section>
     </main>
 
-    <div id="orderModal" class="modal">
+    <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle" style="color:#ffd700"></h3>
-            <p id="modalPrice"></p>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="itemTitle" style="color:#d9534f;"></h3>
+            <p id="itemPrice" style="font-weight:bold; font-size:1.2rem;"></p>
             <hr>
-            <p>الرجاء تحويل المبلغ لحساب ماي كاش:</p>
-            <h2 style="color:#00ff00; background:#222; padding:10px; border-radius:10px;">300159768</h2>
+            <p>حول المبلغ إلى حساب ماي كاش:</p>
+            <div class="account-number">300159768</div>
             
-            <div style="text-align:right; margin-top:15px;">
-                <label>أدخل رقم حسابك:</label>
-                <input type="text" id="userPhone" placeholder="01xxxxxxxxx" style="width:100%; padding:8px; margin:5px 0;">
-                
-                <label>ارفع صورة الإشعار:</label>
-                <input type="file" id="userFile" style="width:100%; margin:5px 0;">
+            <div class="upload-area">
+                <label>ارفع صورة إشعار التحويل:</label>
+                <input type="file" id="receiptImg" accept="image/*">
             </div>
-
-            <button onclick="finishOrder()" style="background:#00ff00; color:#000; border:none; padding:10px 20px; font-weight:bold; cursor:pointer; margin-top:15px; width:100%; border-radius:5px;">تأكيد الشحن</button>
-            <button onclick="closeModal()" style="background:transparent; color:#ff4444; border:none; cursor:pointer; margin-top:10px;">إلغاء</button>
+            
+            <button onclick="submitOrder()" class="btn-submit">تأكيد وإرسال الإشعار</button>
         </div>
     </div>
 
