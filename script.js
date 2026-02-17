@@ -1,29 +1,31 @@
-function openPayment(name, price) {
-    document.getElementById('itemTitle').innerText = name;
-    document.getElementById('itemPrice').innerText = "السعر المعتمد: " + price;
-    document.getElementById('payModal').style.display = "block";
+function showOrder(name, price) {
+    document.getElementById('modalTitle').innerText = name;
+    document.getElementById('modalPrice').innerText = "السعر: " + price;
+    document.getElementById('orderModal').style.display = "block";
 }
 
 function closeModal() {
-    document.getElementById('payModal').style.display = "none";
+    document.getElementById('orderModal').style.display = "none";
 }
 
-function confirmOrder() {
-    const acc = document.getElementById('accNum').value;
-    const file = document.getElementById('fileUp').value;
+function finishOrder() {
+    const phone = document.getElementById('userPhone').value;
+    const file = document.getElementById('userFile').value;
 
-    if(acc === "" || file === "") {
-        alert("يا بطل، الرجاء إدخال رقم حسابك ورفع صورة الإشعار أولاً!");
+    if (phone === "" || file === "") {
+        alert("الرجاء إدخال رقم حسابك ورفع صورة الإشعار");
     } else {
-        alert("✅ تم رفع الإشعار بنجاح! جاري المراجعة من قبل الإدارة.");
+        alert("✅ تم رفع الإشعار بنجاح!");
         closeModal();
     }
 }
 
-// إغلاق النافذة عند الضغط خارجها
-window.onclick = function(event) {
-    let modal = document.getElementById('payModal');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+// كود العداد التنازلي البسيط
+let timer = 7200;
+setInterval(() => {
+    let h = Math.floor(timer / 3600);
+    let m = Math.floor((timer % 3600) / 60);
+    let s = timer % 60;
+    document.getElementById('timer').innerHTML = `${h}:${m}:${s}`;
+    if (timer > 0) timer--;
+}, 1000);
