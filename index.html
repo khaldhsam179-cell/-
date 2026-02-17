@@ -1,56 +1,35 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سايكو VIP | بنكك المزيف</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<section class="purchase-grid">
+    <button onclick="openPayment('نسخة VIP', '120ج')" class="btn btn-vip">شراء نسخة VIP (120ج)</button>
+    <button onclick="openPayment('النسخة العادية', '50ج')" class="btn btn-normal">شراء النسخة العادية (50ج)</button>
+</section>
 
-    <header>
-        <h1>سايكو VIP</h1>
-        <h2>بنكك المزيف - النسخة الأصلية</h2>
-        <div class="warning-bar">
-            ⚠️ تحذير: التعامل مع المطور فقط عبر الروابط الرسمية أدناه
+<section class="shipping-section">
+    <h3>قسم الشحن السريع</h3>
+    <div class="shipping-grid">
+        <button onclick="openPayment('شحن نسخة (الـ 100 بـ 10ج)', 'حسب الكمية')" class="btn-s">شحن رصيد</button>
+        <button onclick="openPayment('فتح حساب في كل النسخ', '20ج')" class="btn btn-open">فتح حساب شامل (20ج)</button>
+    </div>
+</section>
+
+<div id="payModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="itemTitle" style="color: #ffd700;"></h2>
+        <p id="itemPrice" style="margin-bottom: 15px;"></p>
+        
+        <div class="pay-box">
+            <p>الرجاء تحويل المبلغ إلى حساب ماي كاش:</p>
+            <h1 style="color: #00ff00; letter-spacing: 2px;">300159768</h1>
         </div>
-    </header>
 
-    <main class="container">
-        <section class="offer-section">
-            <h3>🔥 عرض لفترة محدودة جداً 🔥</h3>
-            <div id="timer">00:00:00</div>
-            <p>سارع قبل انتهاء التخفيض!</p>
-        </section>
+        <div class="input-area">
+            <label>أدخل رقم حسابك:</label>
+            <input type="text" id="accNum" placeholder="01xxxxxxxxx">
+            
+            <label style="margin-top: 10px; display: block;">ارفع صورة الإشعار:</label>
+            <input type="file" id="fileUp" style="font-size: 12px;">
+        </div>
 
-        <section class="purchase-grid">
-            <button onclick="contactDev()" class="btn btn-vip">شراء نسخة VIP (معاملات وهمية)</button>
-            <button onclick="contactDev()" class="btn btn-normal">شراء النسخة العادية</button>
-        </section>
-
-        <section class="shipping-section">
-            <h3>قسم الشحن السريع</h3>
-            <div class="shipping-grid">
-                <button onclick="contactDev()" class="btn-s">شحن نسخة اسنوكس</button>
-                <button onclick="contactDev()" class="btn-s">شحن نسخة ترو بورو</button>
-                <button onclick="contactDev()" class="btn-s">شحن نسخة موكا</button>
-            </div>
-            <button onclick="contactDev()" class="btn btn-open">تواصل لفتح حساب في كل النسخ</button>
-        </section>
-
-        <section class="contact-section">
-            <h3>روابط التواصل الرسمية</h3>
-            <div class="social-links">
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="social tele">تلجرام Telegram</a>
-                <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="social face">فيسبوك Facebook</a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>جميع الحقوق محفوظة لـ سايكو VIP &copy; 2026</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        <button onclick="confirmOrder()" class="btn-confirm">تأكيد الشحن</button>
+    </div>
+</div>
