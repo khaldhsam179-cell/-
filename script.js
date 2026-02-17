@@ -1,31 +1,45 @@
-function showOrder(name, price) {
-    document.getElementById('modalTitle').innerText = name;
-    document.getElementById('modalPrice').innerText = "السعر: " + price;
-    document.getElementById('orderModal').style.display = "block";
+// ضع هنا معلومات البوت الخاص بك لتصلك الرسائل
+const TELEGRAM_TOKEN = 'ضع_هنا_توكن_البوت'; 
+const CHAT_ID = 'ضع_هنا_ايدي_حسابك';
+
+let currentItem = "";
+
+function openTrade(name, price) {
+    currentItem = name;
+    document.getElementById('itemTitle').innerText = name;
+    document.getElementById('itemPrice').innerText = "السعر: " + price + " جنيه";
+    document.getElementById('paymentModal').style.display = "block";
 }
 
 function closeModal() {
-    document.getElementById('orderModal').style.display = "none";
+    document.getElementById('paymentModal').style.display = "none";
 }
 
-function finishOrder() {
-    const phone = document.getElementById('userPhone').value;
-    const file = document.getElementById('userFile').value;
-
-    if (phone === "" || file === "") {
-        alert("الرجاء إدخال رقم حسابك ورفع صورة الإشعار");
-    } else {
-        alert("✅ تم رفع الإشعار بنجاح!");
-        closeModal();
+function submitOrder() {
+    const fileInput = document.getElementById('receiptImg');
+    
+    if (fileInput.files.length === 0) {
+        alert("الرجاء رفع صورة الإشعار أولاً!");
+        return;
     }
+
+    // رسالة النجاح للعميل
+    alert("✅ تم رفع الإشعار بنجاح! سيتم التواصل معك عبر التلجرام.");
+    
+    // إرسال البيانات للتلجرام تلقائياً
+    sendToAdmin(fileInput.files[0]);
+    
+    closeModal();
 }
 
-// كود العداد التنازلي البسيط
-let timer = 7200;
-setInterval(() => {
-    let h = Math.floor(timer / 3600);
-    let m = Math.floor((timer % 3600) / 60);
-    let s = timer % 60;
-    document.getElementById('timer').innerHTML = `${h}:${m}:${s}`;
-    if (timer > 0) timer--;
-}, 1000);
+function sendToAdmin(photo) {
+    const formData = new FormData();
+    formData.append('chat_id', CHAT_ID);
+    formData.append('photo', photo);
+    formData.append('caption', `🚨 طلب جديد: ${currentItem}\n💰 الحساب: ماي كاش`);
+
+    fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`, {
+        method: 'POST',
+        body: formData
+    });
+}
