@@ -1,30 +1,29 @@
-// دالة لتوجيه المستخدم عند الضغط على أزرار الشراء أو الشحن
-function contactDev() {
-    window.open("https://t.me/R_I_I_F_vip", "_blank");
+function openPayment(name, price) {
+    document.getElementById('itemTitle').innerText = name;
+    document.getElementById('itemPrice').innerText = "السعر المعتمد: " + price;
+    document.getElementById('payModal').style.display = "block";
 }
 
-// كود العداد التنازلي
-function startTimer(duration, display) {
-    let timer = duration, hours, minutes, seconds;
-    setInterval(function () {
-        hours = parseInt(timer / 3600, 10);
-        minutes = parseInt((timer % 3600) / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = hours + ":" + minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            timer = duration; 
-        }
-    }, 1000);
+function closeModal() {
+    document.getElementById('payModal').style.display = "none";
 }
 
-window.onload = function () {
-    let twentyFourHours = 24 * 60 * 60; 
-    let display = document.querySelector('#timer');
-    startTimer(twentyFourHours, display);
-};
+function confirmOrder() {
+    const acc = document.getElementById('accNum').value;
+    const file = document.getElementById('fileUp').value;
+
+    if(acc === "" || file === "") {
+        alert("يا بطل، الرجاء إدخال رقم حسابك ورفع صورة الإشعار أولاً!");
+    } else {
+        alert("✅ تم رفع الإشعار بنجاح! جاري المراجعة من قبل الإدارة.");
+        closeModal();
+    }
+}
+
+// إغلاق النافذة عند الضغط خارجها
+window.onclick = function(event) {
+    let modal = document.getElementById('payModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
