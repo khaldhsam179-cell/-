@@ -3,63 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سايكو VIP | الأصلي</title>
+    <title>سايكو VIP | النسخة الأصلية</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header class="main-header">
-        <h1>سايكو VIP</h1>
-        <h2>بنكك المزيف - النسخة الأصلية</h2>
-        <div class="warning-bar">⚠️ التعامل مع المطور فقط عبر الروابط الرسمية</div>
+        <div class="header-content">
+            <h1>سايكو VIP</h1>
+            <h2>بنكك المزيف - المنصة الرسمية الأولى</h2>
+            <div class="warning-bar">⚠️ تحذير: التعامل يتم فقط عبر الروابط الموضحة أدناه لتجنب الاحتيال</div>
+        </div>
     </header>
 
     <main class="container">
-        <div class="promo-box">
-            <h3>🔥 عرض لفترة محدودة جداً 🔥</h3>
-            <div id="timer" class="timer">23:59:56</div>
-            <p>سارع قبل انتهاء التخفيض!</p>
-        </div>
+        <section class="promo-section">
+            <div class="promo-box">
+                <h3>🔥 عرض الحصري لفترة محدودة جداً 🔥</h3>
+                <div id="timer" class="timer">23:59:56</div>
+                <p>سارع بالطلب قبل انتهاء مدة التخفيض الحالي!</p>
+            </div>
+        </section>
 
-        <button onclick="openPay('شراء نسخة VIP', 120)" class="btn btn-black">شراء نسخة VIP (معاملات وهمية)</button>
-        <button onclick="openPay('شراء النسخة العادية', 50)" class="btn btn-red">شراء النسخة العادية</button>
+        <section class="services">
+            <button onclick="openPay('نسخة VIP الكاملة', '120,000')" class="btn btn-black">
+                شراء نسخة VIP (معاملات وهمية) <br> <small>السعر: 120,000 جنيه</small>
+            </button>
+            
+            <button onclick="openPay('النسخة العادية', '50,000')" class="btn btn-red">
+                شراء النسخة العادية <br> <small>السعر: 50,000 جنيه</small>
+            </button>
+        </section>
 
-        <h3 class="section-title">قسم الشحن السريع</h3>
+        <h3 class="section-title">⚡ قسم الشحن الفوري والسريع</h3>
         <div class="shipping-grid">
-            <div class="ship-card" onclick="openPay('شحن نسخة اسنوكس', '10 لكل 100')">شحن نسخة اسنوكس</div>
-            <div class="ship-card" onclick="openPay('شحن نسخة ترو بورو', '10 لكل 100')">شحن نسخة ترو بورو</div>
-            <div class="ship-card" onclick="openPay('شحن نسخة موكا', '10 لكل 100')">شحن نسخة موكا</div>
+            <div class="ship-card" onclick="openPay('شحن نسخة اسنوكس', '10,000 لكل 100ألف')">
+                <strong>نسخة اسنوكس</strong><br>10ألف لكل 100ألف
+            </div>
+            <div class="ship-card" onclick="openPay('شحن نسخة ترو بورو', '10,000 لكل 100ألف')">
+                <strong>ترو بورو</strong><br>10ألف لكل 100ألف
+            </div>
+            <div class="ship-card" onclick="openPay('شحن نسخة موكا', '10,000 لكل 100ألف')">
+                <strong>نسخة موكا</strong><br>10ألف لكل 100ألف
+            </div>
         </div>
 
-        <button onclick="openPay('فتح حساب شامل', 20)" class="btn btn-green">تواصل لفتح حساب في كل النسخ</button>
+        <button onclick="openPay('فتح حساب شامل', '20,000')" class="btn btn-green">
+            فتح حساب في كل النسخ (20,000 جنيه)
+        </button>
 
-        <h3 class="section-title">روابط التواصل الرسمية</h3>
-        <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">تلجرام Telegram</a>
-        <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn btn-blue">فيسبوك Facebook</a>
+        <h3 class="section-title">🔗 قنوات التواصل الرسمية</h3>
+        <div class="social-grid">
+            <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">قناتنا على Telegram</a>
+            <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn btn-blue">حسابنا على Facebook</a>
+        </div>
     </main>
 
     <div id="payModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
-            <p id="modalPrice" style="color: #333; font-weight: bold;"></p>
+            <p id="modalPrice" class="price-tag"></p>
+            
             <div class="account-box">
-                <small>حول المبلغ لحساب ماي كاش:</small>
+                <small>قم بتحويل المبلغ المطلوب إلى حساب ماي كاش:</small>
                 <div class="acc-num">300159768</div>
             </div>
-            <p class="threat-msg">⚠️ إذا حاولت خداعي وأرسلت إشعاراً مزيفاً فلن تحصل على شيء وسيتم حظرك نهائياً!</p>
+
+            <div class="alert-danger">
+                ⚠️ تنبيه صارم: أي محاولة لإرسال إشعار مزيف أو تعديل الصور ستؤدي لحظر جهازك نهائياً من كافة النسخ ولن تسترد أموالك.
+            </div>
             
             <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
-            <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">رفع صورة الإشعار</button>
+            <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">
+                📸 ارفع صورة إشعار التحويل الآن
+            </button>
             
             <div id="successArea" style="display:none;">
-                <p style="color:green; font-weight:bold;">✅ تم رفع الإشعار بنجاح!</p>
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">تواصل معي عبر التلجرام الآن</a>
+                <div class="success-msg">✅ تم استلام الإشعار بنجاح!</div>
+                <p>اضغط على الزر أدناه لإتمام العملية مع المطور:</p>
+                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">التوجه للمطور (تلجرام)</a>
             </div>
-            <button class="btn-close" onclick="closeModal()">إغلاق</button>
+            
+            <button class="btn-close" onclick="closeModal()">إغلاق النافذة</button>
         </div>
     </div>
 
-    <footer>VIP &copy; 2026 جميع الحقوق محفوظة</footer>
+    <footer>جميع الحقوق محفوظة لـ سايكو VIP &copy; 2026</footer>
 
     <script src="script.js"></script>
 </body>
