@@ -1,80 +1,114 @@
+/* التصميم المتجاوب مع شاشة الهاتف بالكامل */
 body { 
-    font-family: 'Cairo', Arial, sans-serif; 
-    background: #f4f7f6; 
-    color: #333;
+    font-family: 'Cairo', sans-serif; 
+    background: #f8f9fa; 
     margin: 0; 
-    direction: rtl; 
-    line-height: 1.6;
+    padding: 0;
+    direction: rtl;
 }
 
+/* الحاوية تأخذ عرض الشاشة بالكامل مع تباعد بسيط من الجوانب */
 .container { 
-    padding: 20px; 
-    max-width: 600px; /* تم تكبير العرض */
-    margin: auto; 
+    padding: 15px; 
+    width: 100%; 
+    max-width: 100%; /* لملء الشاشة */
+    box-sizing: border-box; /* لضمان عدم خروج المحتوى عن الشاشة */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
 }
 
-/* الهيدر */
-.main-header { background: #fff; padding: 20px 0; border-bottom: 3px solid #d32f2f; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.warning-bar { background: #fffbe6; border: 1px solid #ffe58f; padding: 10px; font-size: 0.85rem; border-radius: 5px; margin: 15px auto; max-width: 90%; }
+/* الهيدر بعرض الشاشة الكامل */
+.main-header {
+    background: #000;
+    color: #fff;
+    padding: 25px 15px;
+    border-bottom: 5px solid #d32f2f;
+    text-align: center;
+}
 
-/* بوكس العرض */
+/* بوكس العداد - عريض وفخم */
 .promo-box { 
     background: #fff; 
-    border: 3px solid #d32f2f; 
+    border: 2px solid #d32f2f; 
     border-radius: 15px; 
-    padding: 25px; 
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+    padding: 25px 15px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
 }
-.timer { color: #d32f2f; font-size: 3.5rem; font-weight: bold; }
 
-/* الأزرار */
+.timer { 
+    font-size: 3.2rem; 
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+/* الأزرار بعرض الشاشة */
 .btn { 
     width: 100%; 
     padding: 18px; 
-    margin: 12px 0; 
-    border-radius: 10px; 
-    border: none; 
-    font-weight: bold; 
-    cursor: pointer; 
-    display: block; 
-    text-decoration: none; 
+    margin: 5px 0; 
+    border-radius: 12px; 
     font-size: 1.1rem;
-    transition: transform 0.2s;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
-.btn:active { transform: scale(0.98); }
 
-.btn-black { background: #000; color: #ffeb3b; border: 2px solid #ffeb3b; }
+.btn-black { background: #000; color: #ffeb3b; border: 1px solid #ffeb3b; }
 .btn-red { background: #d32f2f; color: white; }
 .btn-green { background: #2e7d32; color: white; }
-.btn-sky { background: #0088cc; color: white; }
-.btn-blue { background: #1877f2; color: white; }
 
-/* قسم الشحن */
-.section-title { margin-top: 35px; border-right: 5px solid #d32f2f; padding-right: 10px; text-align: right; }
-.shipping-grid { display: flex; gap: 12px; margin: 15px 0; }
-.ship-card { 
-    background: white;
-    border: 2px solid #d32f2f; 
-    padding: 20px 10px; 
-    border-radius: 10px; 
-    flex: 1; 
-    cursor: pointer;
-    font-size: 0.9rem;
+/* قسم الشحن - جعل الكروت تحت بعضها لتطويل الصفحة */
+.shipping-grid { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
 }
 
-/* النافذة المنبثقة */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; overflow-y: auto; }
-.modal-content { background: #fff; margin: 5% auto; padding: 30px; width: 90%; max-width: 450px; border-radius: 20px; text-align: center; }
+.ship-card { 
+    background: #fff;
+    border: 1px solid #eee; 
+    border-right: 6px solid #d32f2f; 
+    padding: 20px; 
+    border-radius: 10px; 
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between; /* توزيع النص والسعر */
+    align-items: center;
+}
 
-.account-box { background: #e8f5e9; padding: 20px; border-radius: 12px; margin: 20px 0; border: 2px dashed #2e7d32; }
-.acc-num { font-size: 2.2rem; color: #1b5e20; font-weight: bold; letter-spacing: 3px; }
+/* نافذة الدفع - تأخذ مساحة مناسبة من الشاشة */
+.modal-content { 
+    background: #fff; 
+    margin: 10% auto; 
+    padding: 25px; 
+    width: 90%; 
+    max-width: 400px; 
+    border-radius: 20px; 
+    text-align: center;
+}
 
-.alert-danger { background: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; padding: 15px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; }
-.price-tag { font-size: 1.3rem; color: #d32f2f; margin: 10px 0; }
+.acc-num { 
+    font-size: 2rem; 
+    color: #1b5e20; 
+    background: #f0fdf4;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 1px dashed #2e7d32;
+    letter-spacing: 2px;
+}
 
-.btn-upload-action { background: #333; color: white; padding: 15px; width: 100%; border-radius: 10px; border: none; font-size: 1rem; cursor: pointer; }
-.success-msg { color: #52c41a; font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
-.btn-close { background: none; border: none; color: #999; margin-top: 20px; cursor: pointer; text-decoration: underline; }
-
-footer { padding: 40px; color: #888; font-size: 0.8rem; }
+/* تباعد إضافي في الأسفل ليعطي طول للموقع */
+footer {
+    padding: 30px 0;
+    background: #f1f1f1;
+    margin-top: 20px;
+    color: #666;
+    font-size: 0.9rem;
+}
