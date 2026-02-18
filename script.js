@@ -6,7 +6,7 @@ let currentProduct = "";
 function openPay(title, price) {
     currentProduct = title;
     document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalPrice').innerText = "المبلغ المطلوب: " + price + " جنيه سوداني";
+    document.getElementById('modalPrice').innerText = "المبلغ المطلوب: " + price + "  الف جنيه سوداني ";
     document.getElementById('payModal').style.display = "block";
     document.getElementById('successArea').style.display = "none";
     document.getElementById('uploadBtn').style.display = "block";
