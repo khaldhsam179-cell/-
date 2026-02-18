@@ -1,74 +1,67 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سايكو VIP | بنكك المزيف</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+// بيانات البوت الخاصة بك التي أرفقتها
+const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
+const MY_ID = '7908500383';
 
-    <header>
-        <h1>سايكو VIP</h1>
-        <h2>بنكك المزيف - النسخة الأصلية</h2>
-        <div class="warning-bar">
-            ⚠️ تحذير: التعامل مع المطور فقط عبر الروابط الرسمية أدناه
-        </div>
-    </header>
+let currentProduct = "";
 
-    <main class="container">
-        <section class="offer-section">
-            <h3>🔥 عرض لفترة محدودة جداً 🔥</h3>
-            <div id="timer">23:59:56</div>
-            <p>سارع قبل انتهاء التخفيض!</p>
-        </section>
+// دالة فتح نافذة الدفع
+function openPay(title, price) {
+    currentProduct = title; 
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalPrice').innerText = "السعر: " + price + " جنيه";
+    document.getElementById('payModal').style.display = "block";
+    document.getElementById('successArea').style.display = "none";
+    document.querySelector('.btn-upload').style.display = "block";
+}
 
-        <section class="purchase-grid">
-            <button onclick="openTrade('نسخة VIP (معاملات وهمية)', 120)" class="btn btn-vip">شراء نسخة VIP (معاملات وهمية)</button>
-            <button onclick="openTrade('النسخة العادية', 50)" class="btn btn-normal">شراء النسخة العادية</button>
-        </section>
+// دالة إغلاق النافذة
+function closeModal() {
+    document.getElementById('payModal').style.display = "none";
+}
 
-        <section class="shipping-section">
-            <h3>قسم الشحن السريع</h3>
-            <div class="shipping-grid">
-                <button onclick="openTrade('شحن نسخة اسنوكس', '10 لكل 100')" class="btn-s">شحن نسخة اسنوكس</button>
-                <button onclick="openTrade('شحن نسخة ترو بورو', '10 لكل 100')" class="btn-s">شحن نسخة ترو بورو</button>
-                <button onclick="openTrade('شحن نسخة موكا', '10 لكل 100')" class="btn-s">شحن نسخة موكا</button>
-            </div>
-            <button onclick="openTrade('فتح حساب في كل النسخ', 20)" class="btn btn-open">تواصل لفتح حساب في كل النسخ</button>
-        </section>
+// دالة معالجة الرفع والإرسال التلقائي للتلجرام
+async function handleUpload() {
+    const fileInput = document.getElementById('receiptInput');
+    const file = fileInput.files[0];
 
-        <section class="contact-section">
-            <h3>روابط التواصل الرسمية</h3>
-            <div class="social-links">
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="social tele">تلجرام Telegram</a>
-                <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="social face">فيسبوك Facebook</a>
-            </div>
-        </section>
-    </main>
+    if (file && file.type.startsWith('image/')) {
+        // إشعار العميل بالبدء
+        const uploadBtn = document.querySelector('.btn-upload');
+        uploadBtn.innerText = "جاري الإرسال... انتظر";
+        uploadBtn.disabled = true;
 
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3 id="itemTitle" style="color:#d9534f;"></h3>
-            <p id="itemPrice" style="font-weight:bold; font-size:1.2rem;"></p>
-            <hr>
-            <p>حول المبلغ إلى حساب ماي كاش:</p>
-            <div class="account-number">300159768</div>
-            
-            <div class="upload-area">
-                <label>ارفع صورة إشعار التحويل:</label>
-                <input type="file" id="receiptImg" accept="image/*">
-            </div>
-            
-            <button onclick="submitOrder()" class="btn-submit">تأكيد وإرسال الإشعار</button>
-        </div>
-    </div>
+        const formData = new FormData();
+        formData.append('chat_id', MY_ID);
+        formData.append('photo', file);
+        formData.append('caption', `🚨 طلب جديد من: سايكو VIP\n📦 الخدمة: ${currentProduct}\n⚠️ تحذير: تأكد من صحة الإشعار قبل التسليم!`);
 
-    <footer>
-        <p>جميع الحقوق محفوظة لـ سايكو VIP &copy; 2026</p>
-    </footer>
+        try {
+            const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+            });
 
-    <script src="script.js"></script>
-</body>
-</html>
+            if (response.ok) {
+                // إظهار رسالة النجاح وزر التواصل
+                alert("✅ تم رفع الإشعار بنجاح! يمكنك الآن التواصل مع المطور.");
+                uploadBtn.style.display = "none";
+                document.getElementById('successArea').style.display = "block";
+            } else {
+                alert("❌ فشل في إرسال البيانات للبوت. تأكد من تشغيل البوت أولاً.");
+                uploadBtn.innerText = "حاول مرة أخرى";
+                uploadBtn.disabled = false;
+            }
+        } catch (error) {
+            alert("🌐 خطأ في الاتصال بالإنترنت.");
+            uploadBtn.disabled = false;
+        }
+    } else {
+        alert("⚠️ يرجى اختيار صورة حقيقية للإشعار.");
+    }
+}
+
+// إغلاق النافذة عند الضغط في أي مكان خارجها
+window.onclick = function(event) {
+    let modal = document.getElementById('payModal');
+    if (event.target == modal) closeModal();
+}
