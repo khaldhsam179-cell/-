@@ -1,45 +1,65 @@
-// ضع هنا معلومات البوت الخاص بك لتصلك الرسائل
-const TELEGRAM_TOKEN = 'ضع_هنا_توكن_البوت'; 
-const CHAT_ID = 'ضع_هنا_ايدي_حسابك';
+// بيانات البوت الخاصة بك
+const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
+const MY_ID = '7908500383';
 
-let currentItem = "";
+let currentProduct = "";
 
-function openTrade(name, price) {
-    currentItem = name;
-    document.getElementById('itemTitle').innerText = name;
-    document.getElementById('itemPrice').innerText = "السعر: " + price + " جنيه";
-    document.getElementById('paymentModal').style.display = "block";
+// فتح نافذة الدفع
+function openPay(title, price) {
+    currentProduct = title;
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalPrice').innerText = "السعر: " + price + " جنيه";
+    document.getElementById('payModal').style.display = "block";
+    document.getElementById('successArea').style.display = "none";
+    document.getElementById('uploadBtn').style.display = "block";
+    document.getElementById('uploadBtn').innerText = "رفع صورة الإشعار";
 }
 
+// إغلاق نافذة الدفع
 function closeModal() {
-    document.getElementById('paymentModal').style.display = "none";
+    document.getElementById('payModal').style.display = "none";
 }
 
-function submitOrder() {
-    const fileInput = document.getElementById('receiptImg');
-    
-    if (fileInput.files.length === 0) {
-        alert("الرجاء رفع صورة الإشعار أولاً!");
-        return;
+// معالجة الرفع والإرسال للتلجرام
+async function handleUpload() {
+    const fileInput = document.getElementById('receiptInput');
+    const file = fileInput.files[0];
+    const uploadBtn = document.getElementById('uploadBtn');
+
+    if (file && file.type.startsWith('image/')) {
+        uploadBtn.innerText = "جاري الإرسال... انتظر";
+        uploadBtn.disabled = true;
+
+        const formData = new FormData();
+        formData.append('chat_id', MY_ID);
+        formData.append('photo', file);
+        formData.append('caption', `🚨 طلب جديد من: سايكو VIP\n📦 الخدمة: ${currentProduct}\n💰 الحساب: ماي كاش`);
+
+        try {
+            const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert("✅ تم رفع الإشعار بنجاح!");
+                uploadBtn.style.display = "none";
+                document.getElementById('successArea').style.display = "block";
+            } else {
+                alert("❌ خطأ في الإرسال. تأكد من تشغيل البوت.");
+                uploadBtn.disabled = false;
+                uploadBtn.innerText = "حاول مرة أخرى";
+            }
+        } catch (error) {
+            alert("🌐 خطأ في الاتصال بالإنترنت.");
+            uploadBtn.disabled = false;
+        }
+    } else {
+        alert("⚠️ يرجى اختيار صورة إشعار حقيقية.");
     }
-
-    // رسالة النجاح للعميل
-    alert("✅ تم رفع الإشعار بنجاح! سيتم التواصل معك عبر التلجرام.");
-    
-    // إرسال البيانات للتلجرام تلقائياً
-    sendToAdmin(fileInput.files[0]);
-    
-    closeModal();
 }
 
-function sendToAdmin(photo) {
-    const formData = new FormData();
-    formData.append('chat_id', CHAT_ID);
-    formData.append('photo', photo);
-    formData.append('caption', `🚨 طلب جديد: ${currentItem}\n💰 الحساب: ماي كاش`);
-
-    fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`, {
-        method: 'POST',
-        body: formData
-    });
+// إغلاق عند الضغط خارج النافذة
+window.onclick = function(event) {
+    if (event.target == document.getElementById('payModal')) closeModal();
 }
