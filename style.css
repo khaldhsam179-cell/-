@@ -1,65 +1,61 @@
-/* تصميم نافذة الدفع لتظهر "فوق" الموقع (Overlay) */
+body { 
+    font-family: 'Cairo', sans-serif; 
+    background-color: #e0f7fa; /* لبني فاتح جداً */
+    margin: 0; direction: rtl; color: #006064; 
+}
+
+.main-header {
+    background: #00bcd4; /* لبني */
+    color: white; padding: 25px; text-align: center;
+    border-radius: 0 0 25px 25px;
+}
+
+.container { padding: 15px; display: flex; flex-direction: column; gap: 15px; }
+
+.promo-box { 
+    background: white; border: 2px solid #00bcd4; 
+    padding: 20px; border-radius: 15px; text-align: center; 
+}
+
+.timer { font-size: 2.5rem; color: #00bcd4; font-weight: bold; }
+
+.btn-main { 
+    width: 100%; padding: 18px; margin-bottom: 10px;
+    background: #00bcd4; color: white; border: none;
+    border-radius: 12px; font-weight: bold; font-size: 1.1rem;
+}
+
+.ship-card { 
+    background: white; padding: 18px; border-radius: 12px;
+    border-right: 5px solid #00bcd4; display: flex;
+    justify-content: space-between; margin-bottom: 10px;
+}
+
+/* تصميم النافذة المنبثقة فوق الموقع */
 .modal {
-    display: none; /* مخفية في البداية */
-    position: fixed; /* ثابتة فوق كل شيء */
-    z-index: 9999; /* أعلى طبقة في الموقع */
-    left: 0;
-    top: 0;
-    width: 100%; /* ملء الشاشة عرضاً */
-    height: 100%; /* ملء الشاشة طولاً */
-    background-color: rgba(0, 0, 0, 0.85); /* خلفية سوداء شفافة لتغبيش الموقع بالخلف */
-    backdrop-filter: blur(5px); /* تأثير ضبابي للموقع خلف النافذة */
-    overflow-y: auto; /* السماح بالتمرير إذا كانت النافذة طويلة */
+    display: none; position: fixed; z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* خلفية سوداء شفافة */
+    backdrop-filter: blur(5px); /* تغبيش الموقع */
 }
 
-/* صندوق المحتوى الذي يظهر في المنتصف */
 .modal-content {
-    background-color: #ffffff;
-    margin: 10% auto; /* تبعد عن الأعلى 10% وتتوسط العرض */
-    padding: 25px;
-    width: 90%; /* عرض النافذة بالنسبة للشاشة */
-    max-width: 400px; /* أقصى عرض للنافذة */
-    border-radius: 20px; /* حواف دائرية فخمة */
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); /* ظل قوي لتبدو مرتفعة */
-    text-align: center;
-    animation: slideIn 0.3s ease-out; /* حركة دخول ناعمة */
+    background: white; margin: 15% auto; padding: 25px;
+    width: 85%; max-width: 380px; border-radius: 20px;
+    border: 3px solid #00bcd4; text-align: center;
 }
 
-/* حركة ظهور النافذة من الأسفل للأعلى */
-@keyframes slideIn {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.acc-num { 
+    font-size: 1.8rem; color: #006064; background: #e0f7fa;
+    padding: 15px; border-radius: 12px; border: 2px dashed #00bcd4;
+    margin: 15px 0; font-weight: bold;
 }
 
-/* رقم الحساب - جعله بارز جداً */
-.acc-num {
-    background: #f0fdf4;
-    color: #1b5e20;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 15px;
-    border-radius: 12px;
-    border: 2px dashed #2e7d32;
-    margin: 20px 0;
-    display: block;
+.threat-msg { 
+    color: #c62828; background: #ffebee; padding: 10px;
+    border-radius: 8px; font-size: 0.8rem; margin-bottom: 15px;
 }
 
-/* زر إغلاق النافذة */
-.btn-close {
-    background: #eee;
-    color: #333;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-top: 15px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* رسالة التهديد الصارمة */
-.threat-msg {
-    color: #d32f2f;
-    background: #fff1f0;
-    padding: 15px;
-    border-radius: 10px;
+.btn-upload { background: #006064; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; }
+.btn-tele { background: #00bcd4; color: white; padding: 12px; display: block; text-decoration: none; border-radius: 10px; margin-top: 10px; font-weight: bold; }
+.btn-close { background: none; border: none; color: #999; margin-top: 15px; cursor: pointer; text-decoration: underline; }
