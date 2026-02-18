@@ -1,36 +1,45 @@
 const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
-
 let currentProduct = "";
 
+// هذه الدالة هي التي تفتح النافذة
 function openPay(title, price) {
+    console.log("Opening modal for: " + title); // للتأكد في المتصفح
     currentProduct = title;
+    
+    // ربط النصوص داخل النافذة
     document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalPrice').innerText = "المبلغ المطلوب: " + price + "  الف جنيه سوداني ";
+    document.getElementById('modalPrice').innerText = "المبلغ المطلوب: " + price + " جنيه";
+    
+    // إظهار النافذة
     document.getElementById('payModal').style.display = "block";
+    
+    // إعادة ضبط الواجهة
     document.getElementById('successArea').style.display = "none";
     document.getElementById('uploadBtn').style.display = "block";
     document.getElementById('uploadBtn').disabled = false;
     document.getElementById('uploadBtn').innerText = "📸 ارفع صورة إشعار التحويل الآن";
 }
 
+// دالة إغلاق النافذة
 function closeModal() {
     document.getElementById('payModal').style.display = "none";
 }
 
+// دالة رفع الصورة والارسال للتلجرام
 async function handleUpload() {
     const fileInput = document.getElementById('receiptInput');
     const file = fileInput.files[0];
     const uploadBtn = document.getElementById('uploadBtn');
 
-    if (file && file.type.startsWith('image/')) {
-        uploadBtn.innerText = "⏳ جاري تشفير وإرسال الإشعار...";
+    if (file) {
+        uploadBtn.innerText = "⏳ جاري الإرسال...";
         uploadBtn.disabled = true;
 
         const formData = new FormData();
         formData.append('chat_id', MY_ID);
         formData.append('photo', file);
-        formData.append('caption', `🔔 طلب جديد وصل!\n━━━━━━━━━━━━━\n📦 الخدمة: ${currentProduct}\n💰 المبلغ: ${document.getElementById('modalPrice').innerText}\n⚠️ حالة الفحص: بانتظار مراجعتك`);
+        formData.append('caption', `🔔 طلب جديد!\n📦 الخدمة: ${currentProduct}\n💰 المبلغ: ${document.getElementById('modalPrice').innerText}`);
 
         try {
             const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
@@ -42,29 +51,24 @@ async function handleUpload() {
                 uploadBtn.style.display = "none";
                 document.getElementById('successArea').style.display = "block";
             } else {
-                alert("❌ خطأ: لم يتمكن النظام من إرسال الصورة. تأكد من اتصالك بالإنترنت.");
+                alert("❌ فشل الإرسال، تأكد من اتصال الإنترنت.");
                 uploadBtn.disabled = false;
-                uploadBtn.innerText = "إعادة المحاولة";
             }
         } catch (error) {
-            alert("🌐 عذراً، يوجد مشكلة في الاتصال بالخادم.");
+            alert("🌐 خطأ في الاتصال بالخادم.");
             uploadBtn.disabled = false;
         }
-    } else {
-        alert("⚠️ خطأ: الملف المرفوع ليس صورة إشعار صحيحة.");
     }
 }
 
-// عداد تنازلي حقيقي
+// عداد الوقت
 let time = 86396; 
 setInterval(() => {
     let h = Math.floor(time / 3600);
     let m = Math.floor((time % 3600) / 60);
     let s = time % 60;
-    document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+    if(document.getElementById('timer')) {
+        document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+    }
     if (time > 0) time--;
 }, 1000);
-
-window.onclick = function(event) {
-    if (event.target == document.getElementById('payModal')) closeModal();
-}
