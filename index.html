@@ -26,8 +26,9 @@
         </section>
 
         <section class="services">
-            <button onclick="openPay('نسخة VIP الكاملة', '120,000')" class="btn btn-black">
-                شراء نسخة VIP (معاملات وهمية) <br> <small>السعر: 120,000 جنيه</small>
+            <button onclick="openPay('نسخة VIP الكاملة', '120,000')" class="btn btn-gold">
+                👑 شراء نسخة VIP (معاملات وهمية) 👑<br> 
+                <small>السعر الفاخر: 120,000 جنيه</small>
             </button>
             
             <button onclick="openPay('النسخة العادية', '50,000')" class="btn btn-red">
@@ -48,9 +49,11 @@
             </div>
         </div>
 
-        <button onclick="openPay('فتح حساب شامل', '20,000')" class="btn btn-green">
-            فتح حساب في كل النسخ (20,000 جنيه)
-        </button>
+        <div class="large-action-area">
+            <button onclick="openPay('فتح حساب شامل', '20,000')" class="btn btn-premium-large">
+                🚀 تفعيل وفتح حساب في كل النسخ (20,000 جنيه) 🚀
+            </button>
+        </div>
 
         <h3 class="section-title">🔗 قنوات التواصل الرسمية</h3>
         <div class="social-grid">
@@ -63,33 +66,13 @@
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
             <p id="modalPrice" class="price-tag"></p>
-            
             <div class="account-box">
                 <small>قم بتحويل المبلغ المطلوب إلى حساب ماي كاش:</small>
                 <div class="acc-num">300159768</div>
             </div>
-
-            <div class="alert-danger">
-                ⚠️ تنبيه صارم: أي محاولة لإرسال إشعار مزيف أو تعديل الصور ستؤدي لحظر جهازك نهائياً من كافة النسخ ولن تسترد أموالك.
-            </div>
-            
+            <div class="alert-danger">⚠️ تنبيه صارم: أي محاولة لإرسال إشعار مزيف ستؤدي لحظر جهازك نهائياً.</div>
             <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
-            <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">
-                📸 ارفع صورة إشعار التحويل الآن
-            </button>
-            
+            <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">📸 ارفع صورة إشعار التحويل الآن</button>
             <div id="successArea" style="display:none;">
                 <div class="success-msg">✅ تم استلام الإشعار بنجاح!</div>
-                <p>اضغط على الزر أدناه لإتمام العملية مع المطور:</p>
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">التوجه للمطور (تلجرام)</a>
-            </div>
-            
-            <button class="btn-close" onclick="closeModal()">إغلاق النافذة</button>
-        </div>
-    </div>
-
-    <footer>جميع الحقوق محفوظة لـ سايكو VIP &copy; 2026</footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn
