@@ -66,22 +66,43 @@
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
             <p id="modalPrice" class="price-tag"></p>
-            <div class="account-box">
-                <small>قم بتحويل المبلغ المطلوب إلى حساب ماي كاش:</small>
-                <div class="acc-num">300159768</div>
+            
+            <div class="account-box" onclick="copyAccountNumber()" style="cursor: pointer;">
+                <small>اضغط لنسخ رقم حساب ماي كاش:</small>
+                <div class="acc-num" id="accNo">300159768</div>
+                <span id="copyStatus" style="display:none; font-size:12px; color:#00bcd4;">تم النسخ ✅</span>
             </div>
-            <div class="alert-danger">⚠️ تنبيه صارم: أي محاولة لإرسال إشعار مزيف ستؤدي لحظر جهازك نهائياً.</div>
+
+            <div class="input-group" style="margin-top: 15px; text-align: right;">
+                <label style="display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">أدخل رقم العملية (Ref Number):</label>
+                <input type="number" id="refNumber" placeholder="مثلاً: 543210" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+            </div>
+
+            <div class="alert-danger" id="securityAlert">
+                🚨 نظام الحماية: يتم تسجيل الـ IP الخاص بجهازك حالياً. النظام لا يقبل إلا الإشعارات الأصلية (الخضراء والبيضاء). التلاعب يؤدي للحظر.
+            </div>
             
             <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
             
-            <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">
-                📸 ارفع صورة إشعار التحويل الآن
+            <button id="uploadBtn" class="btn-upload-action" onclick="validateBeforeUpload()">
+                📸 ارفع صورة إشعار التحويل (فحص ذكي)
             </button>
+
+            <div id="loadingArea" style="display:none; text-align:center; padding: 20px;">
+                <div class="spinner"></div>
+                <p>جاري مطابقة ألوان الإشعار مع قاعدة البيانات...</p>
+            </div>
             
             <div id="successArea" style="display:none;">
-                <div class="success-msg">✅ تم استلام الإشعار بنجاح!</div>
-                <p>اضغط على الزر أدناه لإتمام العملية مع المطور:</p>
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">التوجه للمطور (تلجرام)</a>
+                <div class="success-msg">✅ تم استلام الإشعار والتحقق بنجاح!</div>
+                
+                <p style="font-weight: bold; margin-top: 10px;">حمل النسخة الآن:</p>
+                <a href="https://www.mediafire.com/file/1pu19egrzrrwen9/base+(1)+(1).apk/file" target="_blank" class="btn btn-download-app" style="background: #27ae60; color: white; display: block; padding: 15px; text-decoration: none; border-radius: 10px; margin-bottom: 10px;">
+                    📥 تنزيل التطبيق مباشرة
+                </a>
+
+                <p>تواصل مع المطور لفتح وتفعيل الحساب:</p>
+                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">💬 تواصل تلجرام لفتح حساب</a>
             </div>
             
             <button class="btn-close" onclick="closeModal()">إغلاق النافذة</button>
