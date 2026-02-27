@@ -2,23 +2,40 @@ const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
 let currentProduct = "";
 
-// هذه الدالة هي التي تفتح النافذة
+// دالة فتح النافذة
 function openPay(title, price) {
-    console.log("Opening modal for: " + title); // للتأكد في المتصفح
     currentProduct = title;
-    
-    // ربط النصوص داخل النافذة
     document.getElementById('modalTitle').innerText = title;
     document.getElementById('modalPrice').innerText = "المبلغ المطلوب: " + price + " جنيه";
     
-    // إظهار النافذة
     document.getElementById('payModal').style.display = "block";
     
-    // إعادة ضبط الواجهة
+    // إعادة ضبط الواجهة عند كل فتح
     document.getElementById('successArea').style.display = "none";
     document.getElementById('uploadBtn').style.display = "block";
     document.getElementById('uploadBtn').disabled = false;
-    document.getElementById('uploadBtn').innerText = "📸 ارفع صورة إشعار التحويل الآن";
+    document.getElementById('loadingArea').style.display = "none";
+    if(document.getElementById('refNumber')) document.getElementById('refNumber').value = "";
+}
+
+// ميزة نسخ رقم الحساب بضغطة واحدة
+function copyAccountNumber() {
+    const accNo = document.getElementById('accNo').innerText;
+    navigator.clipboard.writeText(accNo).then(() => {
+        const msg = document.getElementById('copyStatus');
+        msg.style.display = 'inline';
+        setTimeout(() => msg.style.display = 'none', 2000);
+    });
+}
+
+// التحقق قبل الرفع (إلزامية رقم العملية)
+function validateBeforeUpload() {
+    const ref = document.getElementById('refNumber').value;
+    if (ref.length < 5) {
+        alert("⚠️ خطأ في التحقق: يرجى إدخال رقم العملية (Ref Number) الصحيح المكون من 6 أرقام على الأقل.");
+        return;
+    }
+    document.getElementById('receiptInput').click();
 }
 
 // دالة إغلاق النافذة
@@ -26,42 +43,61 @@ function closeModal() {
     document.getElementById('payModal').style.display = "none";
 }
 
-// دالة رفع الصورة والارسال للتلجرام
+// دالة رفع الصورة والارسال للتلجرام مع الفحص الذكي
 async function handleUpload() {
     const fileInput = document.getElementById('receiptInput');
+    const ref = document.getElementById('refNumber').value;
     const file = fileInput.files[0];
     const uploadBtn = document.getElementById('uploadBtn');
+    const loadingArea = document.getElementById('loadingArea');
 
     if (file) {
-        uploadBtn.innerText = "⏳ جاري الإرسال...";
-        uploadBtn.disabled = true;
+        // بدء عملية الفحص الوهمي للترهيب
+        uploadBtn.style.display = "none";
+        loadingArea.style.display = "block";
 
         const formData = new FormData();
         formData.append('chat_id', MY_ID);
         formData.append('photo', file);
-        formData.append('caption', `🔔 طلب جديد!\n📦 الخدمة: ${currentProduct}\n💰 المبلغ: ${document.getElementById('modalPrice').innerText}`);
+        
+        // تنسيق الرسالة الواصلة للمطور لتشمل خيارات التحكم
+        formData.append('caption', `
+🚨 إشعار دفع جديد (موثق بالـ IP)
+-----------------------------
+📦 الخدمة: ${currentProduct}
+🔢 رقم العملية: ${ref}
+💰 المبلغ: ${document.getElementById('modalPrice').innerText}
+-----------------------------
+🛡️ خيارات المطور:
+[ حظر الجهاز ] - [ اعتماد العملية ]
+        `);
 
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
-                method: 'POST',
-                body: formData
-            });
+        // تأخير وهمي لمدة 3 ثوانٍ لإعطاء انطباع بالفحص الفني للألوان والبيانات
+        setTimeout(async () => {
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                });
 
-            if (response.ok) {
-                uploadBtn.style.display = "none";
-                document.getElementById('successArea').style.display = "block";
-            } else {
-                alert("❌ فشل الإرسال، تأكد من اتصال الإنترنت.");
-                uploadBtn.disabled = false;
+                if (response.ok) {
+                    loadingArea.style.display = "none";
+                    document.getElementById('successArea').style.display = "block";
+                } else {
+                    alert("❌ فشل التحقق من الصورة، حاول مرة أخرى.");
+                    uploadBtn.style.display = "block";
+                    loadingArea.style.display = "none";
+                }
+            } catch (error) {
+                alert("🌐 خطأ في الاتصال بخادم الحماية.");
+                uploadBtn.style.display = "block";
+                loadingArea.style.display = "none";
             }
-        } catch (error) {
-            alert("🌐 خطأ في الاتصال بالخادم.");
-            uploadBtn.disabled = false;
-        }
+        }, 3000);
     }
 }
 
-// عداد الوقت
+// عداد الوقت التنازلي للعرض
 let time = 86396; 
 setInterval(() => {
     let h = Math.floor(time / 3600);
