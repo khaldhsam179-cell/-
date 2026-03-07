@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سايكو VIP | النسخة الأصلية</title>
+    <title>سايكو VIP | المتجر الرسمي</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div id="welcomeMessage" class="welcome-overlay">
+        <div class="welcome-box">
+            <h2>مرحباً بك في متجر المطور الرسمي 👑</h2>
+            <p>هذا المتجر مخصص لبيع تطبيق بنكك المزيف، صُمم للتعامل بأمان وضمان. يرجى التعامل بصدق لكي لا يتعرض حسابك أو جهازك للحظر.</p>
+            <button onclick="closeWelcome()" class="btn btn-sky">فهمت، دخول المتجر</button>
+        </div>
+    </div>
 
     <header class="main-header">
         <div class="header-content">
@@ -34,24 +42,28 @@
             <button onclick="openPay('النسخة العادية', '50,000')" class="btn btn-red">
                 شراء النسخة العادية <br> <small>السعر: 50,000 جنيه</small>
             </button>
+
+            <button onclick="openPay('النسخة المجانية', '0')" class="btn btn-free">
+                📥 تحميل النسخة المجانية (محدودة) 📥
+            </button>
         </section>
 
         <h3 class="section-title">⚡ قسم الشحن الفوري والسريع</h3>
         <div class="shipping-grid">
-            <div class="ship-card" onclick="openPay('شحن نسخة اسنوكس', '10,000 لكل 100ألف')">
+            <div class="ship-card" onclick="openShipping('شحن نسخة اسنوكس')">
                 <strong>نسخة اسنوكس</strong><br>10ألف لكل 100ألف
             </div>
-            <div class="ship-card" onclick="openPay('شحن نسخة ترو بورو', '10,000 لكل 100ألف')">
+            <div class="ship-card" onclick="openShipping('شحن نسخة ترو بورو')">
                 <strong>ترو بورو</strong><br>10ألف لكل 100ألف
             </div>
-            <div class="ship-card" onclick="openPay('شحن نسخة موكا', '10,000 لكل 100ألف')">
+            <div class="ship-card" onclick="openShipping('شحن نسخة موكا')">
                 <strong>نسخة موكا</strong><br>10ألف لكل 100ألف
             </div>
         </div>
 
         <div class="large-action-area">
-            <button onclick="openPay('فتح حساب شامل', '20,000')" class="btn btn-premium-large">
-                🚀 تفعيل وفتح حساب في كل النسخ (20,000 جنيه) 🚀
+            <button onclick="openAccountSystem()" class="btn btn-premium-large">
+                🚀 فتح وتفعيل حساب جديد 🚀
             </button>
         </div>
 
@@ -65,47 +77,63 @@
     <div id="payModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
-            <p id="modalPrice" class="price-tag"></p>
             
-            <div class="account-box" onclick="copyAccountNumber()" style="cursor: pointer;">
-                <small>اضغط لنسخ رقم حساب ماي كاش:</small>
-                <div class="acc-num" id="accNo">300159768</div>
-                <span id="copyStatus" style="display:none; font-size:12px; color:#00bcd4;">تم النسخ ✅</span>
+            <div id="shippingInputs" style="display:none;">
+                <input type="number" id="shipAccount" placeholder="أدخل رقم حسابك للشحن" class="main-input">
+                <input type="number" id="shipAmount" placeholder="الكمية المطلوبة (أقل مبلغ 100 ألف)" class="main-input" oninput="calculatePrice()">
+                <p id="calcResult" class="price-tag">المبلغ المطلوب تحويله: 0 جنيه</p>
+                <button onclick="submitShippingInfo()" class="btn btn-gold">إرسال البيانات وبدء الدفع</button>
             </div>
 
-            <div class="input-group" style="margin-top: 15px; text-align: right;">
-                <label style="display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">أدخل رقم العملية (Ref Number):</label>
-                <input type="number" id="refNumber" placeholder="مثلاً: 543210" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+            <div id="accountInputs" style="display:none;">
+                <select id="accType" class="main-input">
+                    <option value="اسنوكس">نسخة اسنوكس</option>
+                    <option value="موكا">نسخة موكا</option>
+                    <option value="ترو بورو">نسخة ترو بورو</option>
+                    <option value="VIP معاملات">نسخة VIP معاملات</option>
+                </select>
+                <input type="text" id="userFullName" placeholder="الاسم الرباعي" class="main-input">
+                <input type="password" id="userPass" placeholder="اختر كلمة مرور" class="main-input">
+                <button onclick="submitAccountInfo()" class="btn btn-gold">أنشئ حساب وابدأ الدفع</button>
             </div>
 
-            <div class="alert-danger" id="securityAlert">
-                🚨 نظام الحماية: يتم تسجيل الـ IP الخاص بجهازك حالياً. النظام لا يقبل إلا الإشعارات الأصلية (الخضراء والبيضاء). التلاعب يؤدي للحظر.
+            <div id="paymentArea" style="display:none;">
+                <p id="modalPrice" class="price-tag"></p>
+                <div class="account-box" onclick="copyAccountNumber()">
+                    <small>اضغط لنسخ رقم حساب ماي كاش:</small>
+                    <div class="acc-num" id="accNo">300159768</div>
+                    <span id="copyStatus" style="display:none; font-size:12px; color:#00bcd4;">تم النسخ ✅</span>
+                </div>
+                <input type="number" id="refNumber" placeholder="أدخل رقم العملية (Ref Number)" class="main-input">
+                <div class="alert-danger">🚨 تحذير: أي إشعار مزيف يعرض حسابك وجهازك للحظر النهائي.</div>
+                <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
+                <button id="uploadBtn" class="btn-upload-action" onclick="validateBeforeUpload()">📸 ارفع إشعار التحويل</button>
             </div>
-            
-            <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
-            
-            <button id="uploadBtn" class="btn-upload-action" onclick="validateBeforeUpload()">
-                📸 ارفع صورة إشعار التحويل (فحص ذكي)
-            </button>
 
-            <div id="loadingArea" style="display:none; text-align:center; padding: 20px;">
+            <div id="loadingArea" style="display:none;">
                 <div class="spinner"></div>
-                <p>جاري مطابقة ألوان الإشعار مع قاعدة البيانات...</p>
+                <p>جاري مطابقة البيانات وفحص الإشعار...</p>
             </div>
-            
-            <div id="successArea" style="display:none;">
-                <div class="success-msg">✅ تم استلام الإشعار والتحقق بنجاح!</div>
-                
-                <p style="font-weight: bold; margin-top: 10px;">حمل النسخة الآن:</p>
-                <a href="https://www.mediafire.com/file/1pu19egrzrrwen9/base+(1)+(1).apk/file" target="_blank" class="btn btn-download-app" style="background: #27ae60; color: white; display: block; padding: 15px; text-decoration: none; border-radius: 10px; margin-bottom: 10px;">
-                    📥 تنزيل التطبيق مباشرة
-                </a>
 
-                <p>تواصل مع المطور لفتح وتفعيل الحساب:</p>
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">💬 تواصل تلجرام لفتح حساب</a>
+            <div id="successArea" style="display:none;">
+                <div id="finalMessage" class="success-msg">✅ تم الاستلام بنجاح!</div>
+                
+                <div id="accountCard" class="account-card" style="display:none;">
+                    <h4>بيانات حسابك الجديد:</h4>
+                    <p>الاسم: <span id="resName"></span></p>
+                    <p>كلمة المرور: <span id="resPass"></span></p>
+                    <p>رقم الحساب: <span id="resAcc"></span></p>
+                </div>
+
+                <div id="downloadSection" style="display:none;">
+                    <a href="https://www.mediafire.com/file/sc3v9iwts725tp2/BOK.apk/file" target="_blank" class="btn btn-download-app">📥 تنزيل التطبيق الآن</a>
+                </div>
+
+                <p id="afterActionText"></p>
+                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">💬 تواصل مع المطور للتفعيل</a>
             </div>
             
-            <button class="btn-close" onclick="closeModal()">إغلاق النافذة</button>
+            <button class="btn-close" onclick="closeModal()">إغلاق</button>
         </div>
     </div>
 
