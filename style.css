@@ -1,12 +1,12 @@
 /* الألوان والخطوط الأساسية */
 body { 
     font-family: 'Cairo', sans-serif; 
-    background-color: #e0f7fa; /* لبني فاتح جداً */
+    background-color: #e0f7fa; 
     margin: 0; direction: rtl; color: #006064; 
 }
 
 .main-header {
-    background: #00bcd4; /* لبني */
+    background: #00bcd4; 
     color: white; padding: 25px; text-align: center;
     border-radius: 0 0 25px 25px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -14,57 +14,35 @@ body {
 
 .container { padding: 15px; display: flex; flex-direction: column; gap: 15px; }
 
-.promo-box { 
-    background: white; border: 2px solid #00bcd4; 
-    padding: 20px; border-radius: 15px; text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.1);
+/* --- رسالة الترحيب --- */
+.welcome-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 96, 100, 0.9); z-index: 2000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
 }
-
-.timer { font-size: 2.5rem; color: #00bcd4; font-weight: bold; }
+.welcome-box {
+    background: white; padding: 30px; border-radius: 20px;
+    text-align: center; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
 /* --- تصميم الأزرار المحدث --- */
-
-/* الزر الذهبي الفاخر (VIP) */
 .btn-gold {
-    width: 100%;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    font-weight: 900;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: 2px solid #5d4111;
+    width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 15px;
+    font-weight: 900; font-size: 1.2rem; cursor: pointer; border: 2px solid #5d4111;
     background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-    color: #000 !important;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
-    transition: transform 0.2s;
+    color: #000 !important; box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
 }
 
-.btn-gold:active { transform: scale(0.98); }
-
-/* الزر اللبني العادي */
-.btn-red { 
-    width: 100%; padding: 18px; margin-bottom: 10px;
-    background: #00bcd4; color: white; border: none;
-    border-radius: 12px; font-weight: bold; font-size: 1.1rem;
-    cursor: pointer;
+.btn-free {
+    width: 100%; padding: 15px; background: #90a4ae; color: white;
+    border: none; border-radius: 12px; font-weight: bold; margin-top: 10px;
+    cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* زر تفعيل الحساب الكبير والنباض */
 .btn-premium-large {
-    width: 100%;
-    padding: 25px !important;
-    background-color: #00bcd4;
-    color: white;
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius: 15px;
-    border: 3px solid #00838f;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3);
-    margin: 20px 0;
-    animation: glow-pulse 2s infinite;
+    width: 100%; padding: 25px !important; background-color: #00bcd4; color: white;
+    font-size: 1.3rem; font-weight: bold; border-radius: 15px; border: 3px solid #00838f;
+    animation: glow-pulse 2s infinite; cursor: pointer;
 }
 
 @keyframes glow-pulse {
@@ -73,81 +51,66 @@ body {
     100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3); }
 }
 
-/* أزرار التواصل الاجتماعي */
-.btn-sky { background: #0088cc; color: white; text-decoration: none; padding: 15px; border-radius: 10px; display: block; text-align: center; font-weight: bold; margin-bottom: 10px; }
-.btn-blue { background: #1877f2; color: white; text-decoration: none; padding: 15px; border-radius: 10px; display: block; text-align: center; font-weight: bold; }
-
-/* زر تنزيل التطبيق الأخضر الفاخر */
-.btn-download-app {
-    background: linear-gradient(45deg, #2ecc71, #27ae60) !important;
-    color: white !important;
-    font-weight: bold;
-    border: 2px solid #1e8449 !important;
-    animation: glow-pulse 2s infinite; /* نبض للفت الانتباه */
+/* --- عناصر المودال والمدخلات --- */
+.main-input {
+    width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px;
+    border: 1px solid #00bcd4; font-family: 'Cairo'; font-size: 1rem;
+    box-sizing: border-box; text-align: center;
 }
 
-/* --- بقية العناصر --- */
+.account-card {
+    background: #f1f8e9; border: 2px solid #4caf50; padding: 15px;
+    border-radius: 15px; margin: 15px 0; text-align: right;
+}
+.account-card span { font-weight: bold; color: #2e7d32; }
 
-.ship-card { 
-    background: white; padding: 18px; border-radius: 12px;
-    border-right: 5px solid #00bcd4; display: flex;
-    justify-content: space-between; margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+.price-tag {
+    font-size: 1.2rem; color: #d32f2f; font-weight: bold;
+    margin: 10px 0; background: #ffebee; padding: 10px; border-radius: 10px;
 }
 
-.modal {
-    display: none; position: fixed; z-index: 1000;
-    left: 0; top: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background: white; margin: 10% auto; padding: 25px;
-    width: 85%; max-width: 380px; border-radius: 20px;
-    border: 3px solid #00bcd4; text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* تنسيق رقم الحساب وزر النسخ */
 .acc-num { 
     font-size: 1.8rem; color: #006064; background: #e0f7fa;
     padding: 15px; border-radius: 12px; border: 2px dashed #00bcd4;
     margin: 10px 0; font-weight: bold;
-    transition: background 0.3s;
 }
-.acc-num:active { background: #b2ebf2; }
 
-/* تنبيه الحماية الصارم */
+.btn-download-app {
+    display: block; background: linear-gradient(45deg, #2ecc71, #27ae60) !important;
+    color: white !important; padding: 18px; border-radius: 12px;
+    text-decoration: none; font-weight: bold; margin-bottom: 10px;
+}
+
+/* --- Spinner --- */
+.spinner {
+    border: 4px solid #f3f3f3; border-top: 4px solid #00bcd4;
+    border-radius: 50%; width: 40px; height: 40px;
+    animation: spin 1s linear infinite; margin: 10px auto;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.modal {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: white; margin: 5% auto; padding: 20px;
+    width: 90%; max-width: 400px; border-radius: 20px; text-align: center;
+    max-height: 90vh; overflow-y: auto;
+}
+
 .alert-danger { 
     color: #c62828; background: #ffebee; padding: 12px;
     border-radius: 10px; font-size: 0.85rem; margin: 15px 0;
     font-weight: bold; border: 1px solid #ffcdd2;
-    text-align: right; line-height: 1.4;
-}
-
-/* أنيميشن التحميل (Spinner) */
-.spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #00bcd4;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 10px auto;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 .btn-upload-action { 
     background: #006064; color: white; border: none; 
-    padding: 18px; width: 100%; border-radius: 12px; 
-    cursor: pointer; font-weight: bold; font-size: 1.1rem;
-    box-shadow: 0 4px 10px rgba(0, 96, 100, 0.2);
+    padding: 18px; width: 100%; border-radius: 12px; font-weight: bold;
 }
 
-.btn-close { background: none; border: none; color: #999; margin-top: 15px; cursor: pointer; text-decoration: underline; }
+.btn-sky { background: #0088cc; color: white; text-decoration: none; padding: 15px; border-radius: 10px; display: block; text-align: center; font-weight: bold; margin-top: 10px; }
+.btn-blue { background: #1877f2; color: white; text-decoration: none; padding: 15px; border-radius: 10px; display: block; text-align: center; font-weight: bold; }
 
 footer { text-align: center; padding: 20px; color: #006064; font-size: 0.8rem; }
