@@ -1,125 +1,116 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر سايكو VIP المعتمد</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        /* --- الألوان والأساسيات --- */
-        body { 
-            font-family: 'Cairo', sans-serif; background-color: #f0faff; 
-            margin: 0; direction: rtl; color: #004d40; 
-            display: flex; flex-direction: column; align-items: center; 
-        }
+/* الألوان والخطوط الأساسية */
+body { 
+    font-family: 'Cairo', sans-serif; 
+    background-color: #e0f7fa; 
+    margin: 0; direction: rtl; color: #006064; 
+}
 
-        /* --- 1. الهيدر الأحمر الصارخ (مربع الاسم) --- */
-        .main-header {
-            width: 100%; 
-            background: #d32f2f; /* لون أحمر صارخ مثل طلبك */
-            color: white; padding: 40px 0; text-align: center;
-            border-radius: 0 0 45px 45px;
-            box-shadow: 0 8px 25px rgba(183, 28, 28, 0.4);
-        }
-        .main-header h1 { font-size: 2.5rem; font-weight: 900; margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+.main-header {
+    background: #00bcd4; 
+    color: white; padding: 25px; text-align: center;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-        /* --- 2. العداد الاحترافي الواضح --- */
-        .timer-box {
-            background: white; border: 4px solid #00bcd4; padding: 25px; 
-            border-radius: 25px; text-align: center; width: 90%; max-width: 440px;
-            margin: 30px 0; box-shadow: 0 10px 30px rgba(0, 188, 212, 0.2);
-        }
-        .timer-digits { font-size: 4rem; color: #00bcd4; font-weight: 900; display: block; }
+.container { padding: 15px; display: flex; flex-direction: column; gap: 15px; }
 
-        /* --- 3. الحاوية العامة للأزرار والمربعات --- */
-        .container { width: 95%; max-width: 480px; display: flex; flex-direction: column; align-items: center; }
+/* --- رسالة الترحيب --- */
+.welcome-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 96, 100, 0.9); z-index: 2000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.welcome-box {
+    background: white; padding: 30px; border-radius: 20px;
+    text-align: center; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
-        /* --- 4. أزرار الشراء (مستطيلات احترافية مثل الصور) --- */
-        .btn-rect {
-            width: 100%; padding: 25px; margin-bottom: 25px; border-radius: 20px;
-            font-weight: 900; font-size: 1.5rem; cursor: pointer; text-align: center;
-            display: flex; flex-direction: column; align-items: center; border: 4px solid transparent;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: 0.3s ease;
-        }
-        .vip-gold { background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728); color: #000; border-color: #5d4111; }
-        .normal-cyan { background: #00bcd4; color: white; border-color: #00838f; }
-        .free-gray { background: #78909c; color: white; border: none; font-size: 1.2rem; }
+/* --- تصميم الأزرار المحدث --- */
+.btn-gold {
+    width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 15px;
+    font-weight: 900; font-size: 1.2rem; cursor: pointer; border: 2px solid #5d4111;
+    background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    color: #000 !important; box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
+}
 
-        /* --- 5. قسم الشحن (مربعات محددة بإطار سماوي) --- */
-        .section-title { width: 100%; text-align: center; margin: 25px 0 15px; font-weight: 900; color: #00838f; }
-        .ship-rect {
-            width: 100%; padding: 22px; background: white; border: 3px solid #00acc1;
-            border-radius: 18px; margin-bottom: 15px; text-align: center; font-weight: 900;
-            box-shadow: 0 5px 15px rgba(0, 172, 193, 0.1);
-        }
+.btn-free {
+    width: 100%; padding: 15px; background: #90a4ae; color: white;
+    border: none; border-radius: 12px; font-weight: bold; margin-top: 10px;
+    cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-        /* --- 6. التوسيط المطلق في منتصف الشاشة (للرسائل والمودال) --- */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9); z-index: 9999;
-            display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px);
-        }
-        .modal-box {
-            background: white; padding: 40px; border-radius: 40px; width: 85%; max-width: 420px;
-            text-align: center; border: 6px solid #b71c1c; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-        }
+.btn-premium-large {
+    width: 100%; padding: 25px !important; background-color: #00bcd4; color: white;
+    font-size: 1.3rem; font-weight: bold; border-radius: 15px; border: 3px solid #00838f;
+    animation: glow-pulse 2s infinite; cursor: pointer;
+}
 
-        /* مربعات النسخ عند الفتح (نظام Grid احترافي) */
-        .grid-selection { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-        .grid-item { 
-            background: #e0f7fa; border: 4px solid #00acc1; padding: 25px; 
-            border-radius: 20px; font-weight: 900; cursor: pointer; text-align: center;
-        }
+@keyframes glow-pulse {
+    0% { transform: scale(1); box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3); }
+    50% { transform: scale(1.02); box-shadow: 0 12px 25px rgba(0, 188, 212, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3); }
+}
 
-        /* --- 7. روابط التواصل (مستطيلات عريضة مقفلة) --- */
-        .social-link {
-            width: 100%; padding: 25px; border-radius: 20px; margin-bottom: 15px;
-            color: white !important; font-weight: 900; text-decoration: none; text-align: center; display: block;
-        }
-        .tg { background: #0088cc; } .fb { background: #1877f2; }
+/* --- عناصر المودال والمدخلات --- */
+.main-input {
+    width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px;
+    border: 1px solid #00bcd4; font-family: 'Cairo'; font-size: 1rem;
+    box-sizing: border-box; text-align: center;
+}
 
-        footer { width: 100%; text-align: center; padding: 40px 0; background: #004d40; color: #e0f7fa; margin-top: 40px; border-radius: 40px 40px 0 0; font-weight: 900; }
-    </style>
-</head>
-<body>
+.account-card {
+    background: #f1f8e9; border: 2px solid #4caf50; padding: 15px;
+    border-radius: 15px; margin: 15px 0; text-align: right;
+}
+.account-card span { font-weight: bold; color: #2e7d32; }
 
-    <div class="overlay" id="welcomeMsg">
-        <div class="modal-box">
-            <h2 style="color: #d32f2f; font-size: 2rem;">مرحباً بك في متجر سايكو الرسمي 👑</h2>
-            <p>المنصة الموثوقة لبيع وتفعيل النسخ الأصلية وضمان أمانك.</p>
-            <button class="btn-rect normal-cyan" style="padding: 15px;" onclick="document.getElementById('welcomeMsg').style.display='none'">دخول المتجر الآن</button>
-        </div>
-    </div>
+.price-tag {
+    font-size: 1.2rem; color: #d32f2f; font-weight: bold;
+    margin: 10px 0; background: #ffebee; padding: 10px; border-radius: 10px;
+}
 
-    <header class="main-header">
-        <h1>سايكو VIP</h1>
-        <p style="color: white; font-weight: bold; margin-top: 10px;">⚠️ تحذير: تعامل فقط عبر الروابط الرسمية أدناه ⚠️</p>
-    </header>
+.acc-num { 
+    font-size: 1.8rem; color: #006064; background: #e0f7fa;
+    padding: 15px; border-radius: 12px; border: 2px dashed #00bcd4;
+    margin: 10px 0; font-weight: bold;
+}
 
-    <div class="timer-box">
-        <span style="color: #d32f2f; font-weight: 900;">🔥 عرض الحصري لفترة محدودة 🔥</span>
-        <span class="timer-digits">23:59:54</span>
-        <p>سارع بالطلب الآن قبل انتهاء صلاحية العرض!</p>
-    </div>
+.btn-download-app {
+    display: block; background: linear-gradient(45deg, #2ecc71, #27ae60) !important;
+    color: white !important; padding: 18px; border-radius: 12px;
+    text-decoration: none; font-weight: bold; margin-bottom: 10px;
+}
 
-    <div class="container">
-        <div class="btn-rect vip-gold">👑 شراء نسخة VIP معاملات 👑<br><small>السعر: 120,000 جنيه</small></div>
-        <div class="btn-rect normal-cyan">💎 شراء النسخة العادية 💎<br><small>السعر: 50,000 جنيه</small></div>
-        <div class="btn-rect free-gray">🎁 تحميل النسخة المجانية 🎁</div>
+/* --- Spinner --- */
+.spinner {
+    border: 4px solid #f3f3f3; border-top: 4px solid #00bcd4;
+    border-radius: 50%; width: 40px; height: 40px;
+    animation: spin 1s linear infinite; margin: 10px auto;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        <div class="section-title">⚡ قسم الشحن الفوري ⚡</div>
-        <div class="ship-rect">نسخة اسنوكس<br><small>10ألف لكل 100ألف</small></div>
-        <div class="ship-rect">نسخة ترو بورو<br><small>10ألف لكل 100ألف</small></div>
-        <div class="ship-rect">نسخة موكا<br><small>10ألف لكل 100ألف</small></div>
+.modal {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: white; margin: 5% auto; padding: 20px;
+    width: 90%; max-width: 400px; border-radius: 20px; text-align: center;
+    max-height: 90vh; overflow-y: auto;
+}
 
-        <button class="btn-rect normal-cyan" style="margin-top: 20px;">🚀 فتح وتفعيل حساب جديد 🚀</button>
+.alert-danger { 
+    color: #c62828; background: #ffebee; padding: 12px;
+    border-radius: 10px; font-size: 0.85rem; margin: 15px 0;
+    font-weight: bold; border: 1px solid #ffcdd2;
+}
 
-        <div class="section-title">🔗 قنوات التواصل الرسمية</div>
-        <a href="#" class="social-link tg">قناتنا على Telegram</a>
-        <a href="#" class="social-link fb">حسابنا على Facebook</a>
-    </div>
+.btn-upload-action { 
+    background: #006064; color: white; border: none; 
+    padding: 18px; width: 100%; border-radius: 12px; font-weight: bold;
+}
 
-    <footer>سايكو VIP - المتجر الرسمي المعتمد 2026</footer>
+.btn-sky { background: #0088cc; color: white; text-decoration: none; padding: 15px; border-radius: 10px; display: block; text-align: center; font-weight: bold; margin-top: 10px; }
+.btn-blue { background: #1877f2; color: white; text-decoration: none; padding: 15px; border-radius: 10px; display: block; text-align: center; font-weight: bold; }
 
-</body>
-</html>
+footer { text-align: center; padding: 20px; color: #006064; font-size: 0.8rem; }
