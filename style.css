@@ -1,106 +1,150 @@
-/* الألوان والخطوط الأساسية */
+/* الألوان والخطوط الأساسية - تم تحسين الألوان */
 body { 
     font-family: 'Cairo', sans-serif; 
-    background-color: #e0f7fa; 
-    margin: 0; direction: rtl; color: #006064; 
-    display: flex; flex-direction: column; align-items: center; /* توسيط المحتوى كاملاً */
-}
-
-/* الهيدر الاحترافي */
-.main-header {
-    width: 100%; background: #00bcd4; 
-    color: white; padding: 20px 0; text-align: center;
-    border-radius: 0 0 30px 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* الحاوية الرئيسية - توسيط مطلق */
-.container { 
-    width: 95%; max-width: 500px; padding: 20px; 
+    background-color: #f0faff; /* خلفية أهدأ للعين */
+    margin: 0; direction: rtl; color: #004d40; 
     display: flex; flex-direction: column; align-items: center; 
-    gap: 20px; box-sizing: border-box;
 }
 
-/* --- رسالة الترحيب الاحترافية --- */
-.welcome-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 48, 52, 0.95); z-index: 3000;
-    display: flex; align-items: center; justify-content: center;
+/* 1. تعديل الهيدر: اللون أحمر تحذيري والاسم باحترافية */
+.main-header {
+    width: 100%; 
+    background: linear-gradient(135deg, #d32f2f, #b71c1c); /* أحمر متدرج تحذيري */
+    color: white; padding: 30px 0; text-align: center;
+    border-radius: 0 0 35px 35px;
+    box-shadow: 0 6px 20px rgba(183, 28, 28, 0.4);
+    position: relative; overflow: hidden;
 }
-.welcome-box {
-    background: white; padding: 35px; border-radius: 30px;
-    text-align: center; width: 85%; max-width: 350px;
-    border: 4px solid #00bcd4; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+/* إضافة الـ "ايموجي" والاحترافية للاسم */
+.main-header h1 {
+    font-size: 2.2rem; font-weight: 900; margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
-.icon-crown { font-size: 50px; margin-bottom: 10px; }
+.main-header h1::before { content: "🛡️ "; } /* درع حماية قبل الاسم */
+.main-header h1::after { content: " 🛡️"; }
 
-/* --- تصميم الأزرار (نفس شكل زر فتح الحساب) --- */
-.btn-gold, .btn-regular-pro, .btn-free-pro, .btn-premium-large {
-    width: 100%; padding: 22px; border-radius: 20px;
-    font-weight: bold; font-size: 1.2rem; cursor: pointer;
-    text-align: center; transition: 0.3s; box-sizing: border-box;
+/* الـ "تنبيه" باللون الأحمر الصارخ وتأثير نبض */
+.warning-bar {
+    background: #ffcdd2; color: #b71c1c; 
+    padding: 10px; border-radius: 10px; margin-top: 15px; 
+    font-weight: bold; font-size: 0.9rem;
+    display: inline-block;
+    border: 1px solid #b71c1c;
+    animation: alert-pulse 1.5s infinite;
 }
 
+@keyframes alert-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(183, 28, 28, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0); }
+}
+
+/* 2. التوسيط المطلق - الحاوية الرئيسية */
+.container { 
+    width: 95%; max-width: 480px; padding: 25px; 
+    display: flex; flex-direction: column; align-items: center; 
+    gap: 25px; box-sizing: border-box;
+}
+
+/* 3. تنزيل مربع الخدمات (البرومو) قليلاً ليصبح باحترافية */
+.promo-box { 
+    margin-top: 20px; /* دفع المربع لأسفل */
+    background: white; border: 3px solid #00bcd4; 
+    padding: 25px; border-radius: 25px; text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 188, 212, 0.2);
+    width: 100%; box-sizing: border-box;
+}
+
+/* تحسين العداد والكلام التحتو للاستعجال */
+.timer { font-size: 2.8rem; color: #00bcd4; font-weight: 900; }
+.promo-box p { color: #d32f2f; font-weight: bold; margin-top: 5px; } /* تخفيض لفترة محدودة بالأحمر */
+
+/* 4. توحيد الأزرار لتكون مربعات احترافية ثابتة */
+.btn-gold, .btn-regular-pro, .btn-free-pro, .btn-premium-large, .ship-card-pro {
+    width: 100%; 
+    padding: 20px; /* لزيادة الحجم والاحترافية */
+    border-radius: 18px; /* شكل مربع بزوايا دائرية احترافية */
+    font-weight: bold; font-size: 1.1rem; cursor: pointer;
+    text-align: center; transition: all 0.2s ease; box-sizing: border-box;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* تمييز الـ VIP بالذهبي كما هو */
 .btn-gold {
     background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
     color: #000 !important; border: 2px solid #5d4111;
+    box-shadow: 0 6px 15px rgba(184, 134, 11, 0.5);
 }
 
-.btn-regular-pro, .btn-premium-large {
-    background-color: #00bcd4; color: white; border: 3px solid #00838f;
-    box-shadow: 0 6px 20px rgba(0, 188, 212, 0.3);
+/* توحيد لون باقي الأزرار (اسنوكس، موكا، ترو بورو، عادية) */
+.btn-regular-pro, .btn-premium-large, .ship-card-pro {
+    background-color: #00acc1; /* لبني غامق قليلاً للاحترافية */
+    color: white; border: 2px solid #00838f;
 }
 
+/* تأثير التكبير عند الضغط */
+.btn-gold:active, .btn-regular-pro:active, .btn-premium-large:active, .ship-card-pro:active {
+    transform: scale(0.97);
+}
+
+/* تحسين زر المجانية ليبقى مميزاً */
 .btn-free-pro {
-    background-color: #78909c; color: white; border: 2px solid #546e7a;
-    margin-top: 10px;
+    background-color: #607d8b; color: white; border: 2px solid #455a64;
+    margin-top: 15px;
 }
 
-.btn-premium-large { animation: glow-pulse 2s infinite; }
-
-/* --- قسم الشحن: مربعات احترافية ثابتة --- */
+/* 5. قسم الشحن: مربعات احترافية موحدة */
 .shipping-grid {
     width: 100%; display: flex; flex-direction: column; gap: 12px;
 }
-.ship-card-pro {
-    background: white; padding: 20px; border-radius: 18px;
-    border: 2px solid #00bcd4; text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer;
-}
+.ship-card-pro small { color: #e0f7fa; font-size: 0.8rem; } /* تصغير الكلام التحتو ليكون احترافياً */
 
-/* --- المودال: توسيط وثبات مطلق --- */
+/* زر فتح الحساب الكبير النباض */
+.btn-premium-large { animation: glow-pulse 2s infinite; padding: 25px; }
+
+/* 6. تعديل أزرار التواصل بالأسفل: مربعات بستايل جديد */
+.social-grid {
+    width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;
+}
+.btn-social-tile {
+    padding: 20px; border-radius: 18px; 
+    text-align: center; color: white; font-weight: bold; text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; align-items: center;
+}
+.btn-social-tile i { font-size: 1.5rem; margin-bottom: 5px; } /* مكان للأيقونة */
+
+.btn-telegram { background-color: #0088cc; border: 2px solid #0077b5; }
+.btn-facebook { background-color: #1877f2; border: 2px solid #1160c8; }
+
+/* 7. المودال: توسيط وثبات مطلق مع تحسينات الترهيب */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0;
     width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px); align-items: center; justify-content: center;
+    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
 }
 .modal-content {
     background: white; padding: 25px; border-radius: 25px;
     width: 90%; max-width: 400px; text-align: center;
-    border: 3px solid #00bcd4; position: relative; /* لضمان الثبات */
+    border: 4px solid #b71c1c; /* إطار أحمر للمودال للترهيب */
+    position: relative; animation: modal-show 0.3s ease;
 }
+@keyframes modal-show { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-/* مربعات اختيار نوع النسخة (فتح الحساب) */
-.type-grid-pro {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0;
-}
-.type-card {
-    padding: 15px; border: 2px solid #00bcd4; border-radius: 15px;
-    font-weight: bold; cursor: pointer; transition: 0.2s;
-}
-.type-card:active { background: #00bcd4; color: white; }
-
-/* صندوق تعليمات الحماية */
+/* صندوق تعليمات الحماية للنسخة المجانية */
 .protection-box {
-    background: #fff3e0; border: 1px solid #ffb74d;
+    background: #fff3e0; border: 2px solid #ffb74d;
     padding: 15px; border-radius: 15px; text-align: right; margin-bottom: 15px;
 }
-.protection-box h4 { margin-top: 0; color: #e65100; }
+.protection-box h4 { margin-top: 0; color: #e65100; font-size: 1rem; }
+.protection-box ol { padding-right: 20px; font-size: 0.85rem; }
 
 /* المدخلات وبطاقة النتائج */
 .main-input {
     width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px;
-    border: 2px solid #b2ebf2; font-family: 'Cairo'; text-align: center;
+    border: 2px solid #00acc1; font-family: 'Cairo'; text-align: center;
+    background-color: #e0f7fa;
 }
 .account-card {
     background: #e8f5e9; border: 2px solid #4caf50; padding: 15px;
@@ -108,27 +152,56 @@ body {
 }
 
 .acc-num { 
-    font-size: 1.8rem; color: #006064; background: #e0f7fa;
+    font-size: 1.8rem; color: #006064; background: #b2ebf2;
     padding: 15px; border-radius: 15px; border: 2px dashed #00bcd4;
     margin: 15px 0; font-weight: bold; cursor: pointer;
 }
 
 .price-tag {
     font-size: 1.3rem; color: #c62828; font-weight: bold;
-    background: #ffebee; padding: 12px; border-radius: 12px;
+    background: #ffebee; padding: 12px; border-radius: 12px; margin-bottom: 10px;
 }
 
-/* الأنيميشن */
-@keyframes glow-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); box-shadow: 0 10px 30px rgba(0, 188, 212, 0.6); }
+/* زر التنزيل الأخضر الاحترافي */
+.btn-download-app {
+    display: block; width: 100%;
+    background: linear-gradient(45deg, #2ecc71, #27ae60) !important;
+    color: white !important; padding: 18px; border-radius: 15px;
+    text-decoration: none; font-weight: bold; margin-bottom: 15px;
+    border: 2px solid #1e8449; animation: glow-pulse-green 2s infinite;
 }
 
+/* التنبيه الأحمر الصارم داخل المودال */
+.alert-danger-strict { 
+    color: #b71c1c; background: #ffcdd2; padding: 12px;
+    border-radius: 12px; font-size: 0.85rem; margin: 15px 0;
+    font-weight: bold; border: 2px solid #b71c1c;
+}
+
+/* Spinner */
 .spinner {
-    border: 5px solid #f3f3f3; border-top: 5px solid #00bcd4;
+    border: 5px solid #f3f3f3; border-top: 5px solid #b71c1c; /* أحمر تحذيري */
     border-radius: 50%; width: 45px; height: 45px;
     animation: spin 1s linear infinite; margin: 20px auto;
 }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-footer { width: 100%; text-align: center; padding: 30px 0; color: #006064; font-size: 0.9rem; }
+/* 8. تعديل الفوتر (حقوق الملكية) بستايل احترافي */
+footer { 
+    width: 100%; text-align: center; padding: 30px 0; 
+    background-color: #004d40; color: #e0f7fa; 
+    font-size: 0.9rem; margin-top: 30px; 
+    border-radius: 35px 35px 0 0;
+}
+footer::before { content: "🔒 "; }
+footer::after { content: " 🔒"; }
+
+/* أنيميشن */
+@keyframes glow-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(0, 188, 212, 0.3); }
+    50% { transform: scale(1.03); box-shadow: 0 10px 30px rgba(0, 188, 212, 0.6); }
+}
+@keyframes glow-pulse-green {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
+    50% { transform: scale(1.03); box-shadow: 0 10px 25px rgba(46, 204, 113, 0.5); }
+}
