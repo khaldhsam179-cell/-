@@ -1,129 +1,115 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر سايكو VIP</title>
+    <title>متجر سايكو VIP المطور</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        /* --- الألوان والأساسيات من الصور الأصلية --- */
-        body { 
-            font-family: 'Cairo', sans-serif; background-color: #e0f7fa; 
-            margin: 0; direction: rtl; color: #004d40; 
-            display: flex; flex-direction: column; align-items: center; 
-        }
+        /* الأساسيات لضمان عدم الانهيار */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Cairo', sans-serif; background-color: #f0faff; display: flex; flex-direction: column; align-items: center; }
 
-        /* --- 1. الهيدر باللون الأحمر مع الحفاظ على التصميم --- */
-        .header-box {
-            width: 100%; background-color: #d32f2f; /* التعديل الجديد: أحمر */
-            color: white; padding: 25px 0; text-align: center;
-            border-radius: 0 0 30px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        /* الهيدر الأحمر الاحترافي */
+        .header-red {
+            width: 100%; background: #d32f2f; color: white; text-align: center;
+            padding: 30px 10px; border-radius: 0 0 40px 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .header-box h1 { font-size: 2.2rem; margin: 0; font-weight: 900; }
+        .header-red h1 { font-size: 2.2rem; font-weight: 900; }
 
-        /* --- 2. العداد والتنبيه كما في الصورة تماماً --- */
-        .timer-section {
-            background: white; border: 2px solid #00bcd4; border-radius: 20px;
-            width: 90%; max-width: 440px; margin: 20px 0; padding: 20px; text-align: center;
+        /* العداد داخل مستطيل */
+        .timer-box {
+            background: white; border: 3px solid #00bcd4; border-radius: 20px;
+            width: 90%; max-width: 440px; margin: 20px auto; padding: 20px; text-align: center;
         }
         .timer-digits { font-size: 3.5rem; color: #00bcd4; font-weight: 900; display: block; }
 
-        /* --- 3. الحاوية والأزرار بنفس ستايل الصور --- */
-        .container { width: 95%; max-width: 450px; }
-        
-        .btn-main {
-            width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 25px;
-            font-weight: 900; font-size: 1.3rem; text-align: center; cursor: pointer;
-            border: 2px solid rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s;
+        /* الحاوية ونظام المستطيلات */
+        .main-container { width: 95%; max-width: 450px; }
+        .rect-card {
+            width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 20px;
+            text-align: center; font-weight: 900; cursor: pointer; border: none;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1); transition: 0.3s; display: block; text-decoration: none;
         }
-        .gold { background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728); color: black; }
-        .cyan { background-color: #00bcd4; color: white; }
-        .gray { background-color: #78909c; color: white; }
+        .gold { background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728); color: #000; }
+        .cyan { background: #00bcd4; color: white; }
+        .gray { background: #78909c; color: white; }
 
-        /* --- 4. قسم الشحن (مربعات مقفلة) --- */
-        .ship-box {
+        /* قسم الشحن */
+        .ship-rect {
             background: white; border: 2px solid #00bcd4; border-radius: 15px;
-            padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between;
-            align-items: center; font-weight: bold;
+            padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; font-weight: bold;
         }
 
-        /* --- 5. التعديل الجديد: رسالة الترحيب في السنتر --- */
+        /* نظام السنتر المطلق (النوافذ المنبثقة) */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 10000;
-            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.85); z-index: 9999; display: flex; align-items: center; justify-content: center;
         }
-        .popup-box {
-            background: white; padding: 30px; border-radius: 30px; width: 85%; max-width: 380px;
-            text-align: center; border: 4px solid #d32f2f;
-        }
-
-        /* --- 6. التعديل الجديد: مربعات النسخ عند فتح الحساب --- */
-        .versions-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;
-        }
-        .ver-item {
-            background: #f0faff; border: 2px solid #00bcd4; padding: 15px;
-            border-radius: 15px; font-weight: 900; text-align: center; cursor: pointer;
+        .modal {
+            background: white; padding: 30px; border-radius: 30px; width: 85%; max-width: 400px;
+            text-align: center; border: 5px solid #d32f2f;
         }
 
-        footer { text-align: center; padding: 20px; font-weight: bold; font-size: 0.8rem; color: #004d40; }
+        /* مربعات النسخ الجريد */
+        .grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .grid-item { background: #e0f7fa; border: 2px solid #00bcd4; padding: 15px; border-radius: 15px; font-weight: 900; }
+
+        footer { padding: 30px; font-weight: 900; color: #004d40; }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="welcomePopup">
-        <div class="popup-box">
+    <div class="overlay" id="welcome">
+        <div class="modal">
             <h2 style="color: #d32f2f;">مرحباً بك في سايكو VIP 🛡️</h2>
-            <p>المنصة الرسمية المعتمدة لبيع وتفعيل النسخ.</p>
-            <button class="btn-main cyan" style="padding: 10px;" onclick="document.getElementById('welcomePopup').style.display='none'">دخول المتجر</button>
+            <p style="margin: 15px 0;">أكبر متجر رسمي لتفعيل النسخ والتعاملات الآمنة.</p>
+            <button class="rect-card cyan" style="padding: 10px;" onclick="document.getElementById('welcome').style.display='none'">دخول المتجر</button>
         </div>
     </div>
 
-    <header class="header-box">
+    <div class="header-red">
         <h1>سايكو VIP</h1>
-        <small>⚠️ تنبيه: تعامل فقط عبر الروابط الرسمية ⚠️</small>
-    </header>
-
-    <div class="timer-section">
-        <span style="color: #ff5722; font-weight: 900;">🔥 عرض الحصري لفترة محدودة 🔥</span>
-        <span class="timer-digits">23:59:52</span>
-        <p>سارع بالطلب قبل انتهاء مدة التخفيض الحالي!</p>
+        <p>⚠️ تنبيه: تعامل فقط مع الروابط الرسمية ⚠️</p>
     </div>
 
-    <div class="container">
-        <div class="btn-main gold">👑 شراء نسخة VIP معاملات 👑<br><small>السعر: 120,000 جنيه</small></div>
-        <div class="btn-main cyan">💎 شراء النسخة العادية 💎<br><small>السعر: 50,000 جنيه</small></div>
-        <div class="btn-main gray">🎁 تحميل النسخة المجانية 🎁</div>
+    <div class="timer-box">
+        <span class="timer-digits">23:59:54</span>
+        <p>عرض الحصري لفترة محدودة جداً 🔥</p>
+    </div>
 
-        <h3 style="text-align: center; color: #00bcd4;">⚡ قسم الشحن الفوري ⚡</h3>
-        <div class="ship-box"><span>نسخة اسنوكس</span><span style="color: #00bcd4;">10ألف لكل 100ألف</span></div>
-        <div class="ship-box"><span>ترو بورو</span><span style="color: #00bcd4;">10ألف لكل 100ألف</span></div>
-        <div class="ship-box"><span>نسخة موكا</span><span style="color: #00bcd4;">10ألف لكل 100ألف</span></div>
+    <div class="main-container">
+        <div class="rect-card gold">👑 شراء نسخة VIP معاملات 👑<br><small>120,000 جنيه</small></div>
+        <div class="rect-card cyan">💎 شراء النسخة العادية 💎<br><small>50,000 جنيه</small></div>
+        <div class="rect-card gray">🎁 تحميل النسخة المجانية 🎁</div>
 
-        <button class="btn-main cyan" style="margin-top: 20px;" onclick="document.getElementById('versionsOverlay').style.display='flex'">🚀 فتح وتفعيل حساب جديد 🚀</button>
+        <h3 style="text-align: center; margin: 20px 0; color: #00bcd4;">⚡ قسم الشحن الفوري ⚡</h3>
+        <div class="ship-rect"><span>نسخة اسنوكس</span><span>10ألف لكل 100ألف</span></div>
+        <div class="ship-rect"><span>ترو بورو</span><span>10ألف لكل 100ألف</span></div>
+        <div class="ship-rect"><span>نسخة موكا</span><span>10ألف لكل 100ألف</span></div>
 
-        <div style="display: flex; justify-content: space-around; margin: 30px 0;">
+        <button class="rect-card cyan" style="margin-top: 20px;" onclick="document.getElementById('vers').style.display='flex'">🚀 فتح وتفعيل حساب جديد 🚀</button>
+
+        <div style="display: flex; justify-content: space-around; margin: 20px 0;">
             <a href="#" style="color: #0088cc; font-weight: 900; text-decoration: none;">Telegram</a>
             <a href="#" style="color: #1877f2; font-weight: 900; text-decoration: none;">Facebook</a>
         </div>
     </div>
 
-    <div class="overlay" id="versionsOverlay" style="display: none;">
-        <div class="popup-box">
-            <h3 style="color: #00bcd4;">اختر النسخة المراد تفعيلها:</h3>
-            <div class="versions-grid">
-                <div class="ver-item">اسنوكس</div>
-                <div class="ver-item">موكا</div>
-                <div class="ver-item">ترو بورو</div>
-                <div class="ver-item">VIP</div>
+    <div class="overlay" id="vers" style="display: none;">
+        <div class="modal">
+            <h3>اختر النسخة المراد تفعيلها:</h3>
+            <div class="grid-box">
+                <div class="grid-item">اسنوكس</div>
+                <div class="grid-item">موكا</div>
+                <div class="grid-item">ترو بورو</div>
+                <div class="grid-item">VIP</div>
             </div>
-            <button class="btn-main gray" style="padding: 10px; margin-top: 20px;" onclick="document.getElementById('versionsOverlay').style.display='none'">رجوع</button>
+            <button class="rect-card gray" style="padding: 10px; margin-top: 20px;" onclick="document.getElementById('vers').style.display='none'">رجوع</button>
         </div>
     </div>
 
-    <footer>سايكو VIP - المتجر الرسمي المعتمد 2026</footer>
+    <footer>سايكو VIP - المطور الرسمي 2026</footer>
 
 </body>
 </html>
