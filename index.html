@@ -112,9 +112,12 @@
                     <div class="acc-num" id="accNo">300159768</div>
                     <small>اضغط على الرقم لنسخه ✅</small>
                 </div>
-                <input type="number" id="refNumber" placeholder="أدخل رقم العملية (Ref Number)" class="main-input">
-                <button id="uploadBtn" class="btn-upload-action" onclick="validateBeforeUpload()">📸 ارفع إشعار التحويل الآن</button>
-                <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
+                
+                <input type="number" id="refNumber" placeholder="رقم العملية (سيظهر بعد فحص الإشعار)" class="main-input" readonly>
+                
+                <button id="aiUploadBtn" class="btn-upload-action" onclick="document.getElementById('aiReceiptInput').click()">📸 ارفع إشعار التحويل للفحص الذكي</button>
+                <input type="file" id="aiReceiptInput" accept="image/*" hidden onchange="startAiVerification(this)">
+                
                 <div class="alert-danger">⚠️ أي تلاعب برقم العملية أو الإشعار يعرضك للحظر الفوري.</div>
             </div>
 
@@ -131,7 +134,10 @@
                 <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">تواصل للمطالبة بالتفعيل</a>
             </div>
 
-            <div id="loadingArea" style="display:none;"><div class="spinner"></div><p>جاري الفحص الرقمي...</p></div>
+            <div id="loadingArea" style="display:none;">
+                <div class="spinner"></div>
+                <p id="loadingText">جاري الفحص الرقمي بواسطة الذكاء الاصطناعي...</p>
+            </div>
             
             <button class="btn-close" onclick="closeModal()">رجوع</button>
         </div>
