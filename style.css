@@ -3,7 +3,7 @@ body {
     font-family: 'Cairo', sans-serif; 
     background-color: #e0f7fa; 
     margin: 0; direction: rtl; color: #006064; 
-    display: flex; flex-direction: column; align-items: center; /* توسيط المحتوى كاملاً */
+    display: flex; flex-direction: column; align-items: center; 
 }
 
 /* الهيدر الاحترافي */
@@ -14,14 +14,14 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* الحاوية الرئيسية - توسيط مطلق */
+/* الحاوية الرئيسية */
 .container { 
     width: 95%; max-width: 500px; padding: 20px; 
     display: flex; flex-direction: column; align-items: center; 
     gap: 20px; box-sizing: border-box;
 }
 
-/* --- رسالة الترحيب الاحترافية --- */
+/* --- رسالة الترحيب --- */
 .welcome-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 48, 52, 0.95); z-index: 3000;
@@ -34,11 +34,11 @@ body {
 }
 .icon-crown { font-size: 50px; margin-bottom: 10px; }
 
-/* --- تصميم الأزرار (نفس شكل زر فتح الحساب) --- */
-.btn-gold, .btn-regular-pro, .btn-free-pro, .btn-premium-large {
+/* --- تصميم الأزرار --- */
+.btn-gold, .btn-regular-pro, .btn-free-pro, .btn-premium-large, .btn-upload-action {
     width: 100%; padding: 22px; border-radius: 20px;
     font-weight: bold; font-size: 1.2rem; cursor: pointer;
-    text-align: center; transition: 0.3s; box-sizing: border-box;
+    text-align: center; transition: 0.3s; box-sizing: border-box; border: none;
 }
 
 .btn-gold {
@@ -51,24 +51,19 @@ body {
     box-shadow: 0 6px 20px rgba(0, 188, 212, 0.3);
 }
 
+/* زر الرفع الذكي */
+.btn-upload-action {
+    background-color: #ff5722; color: white;
+    margin-top: 15px; border-bottom: 5px solid #e64a19;
+}
+.btn-upload-action:active { transform: translateY(3px); border-bottom: 2px solid #e64a19; }
+
 .btn-free-pro {
     background-color: #78909c; color: white; border: 2px solid #546e7a;
     margin-top: 10px;
 }
 
-.btn-premium-large { animation: glow-pulse 2s infinite; }
-
-/* --- قسم الشحن: مربعات احترافية ثابتة --- */
-.shipping-grid {
-    width: 100%; display: flex; flex-direction: column; gap: 12px;
-}
-.ship-card-pro {
-    background: white; padding: 20px; border-radius: 18px;
-    border: 2px solid #00bcd4; text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer;
-}
-
-/* --- المودال: توسيط وثبات مطلق --- */
+/* --- المودال --- */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0;
     width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85);
@@ -77,36 +72,17 @@ body {
 .modal-content {
     background: white; padding: 25px; border-radius: 25px;
     width: 90%; max-width: 400px; text-align: center;
-    border: 3px solid #00bcd4; position: relative; /* لضمان الثبات */
+    border: 3px solid #00bcd4; position: relative;
 }
 
-/* مربعات اختيار نوع النسخة (فتح الحساب) */
-.type-grid-pro {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0;
-}
-.type-card {
-    padding: 15px; border: 2px solid #00bcd4; border-radius: 15px;
-    font-weight: bold; cursor: pointer; transition: 0.2s;
-}
-.type-card:active { background: #00bcd4; color: white; }
-
-/* صندوق تعليمات الحماية */
-.protection-box {
-    background: #fff3e0; border: 1px solid #ffb74d;
-    padding: 15px; border-radius: 15px; text-align: right; margin-bottom: 15px;
-}
-.protection-box h4 { margin-top: 0; color: #e65100; }
-
-/* المدخلات وبطاقة النتائج */
+/* المدخلات */
 .main-input {
     width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px;
     border: 2px solid #b2ebf2; font-family: 'Cairo'; text-align: center;
-}
-.account-card {
-    background: #e8f5e9; border: 2px solid #4caf50; padding: 15px;
-    border-radius: 18px; margin-top: 15px; text-align: right;
+    box-sizing: border-box;
 }
 
+/* صندوق رقم الحساب */
 .acc-num { 
     font-size: 1.8rem; color: #006064; background: #e0f7fa;
     padding: 15px; border-radius: 15px; border: 2px dashed #00bcd4;
@@ -115,17 +91,18 @@ body {
 
 .price-tag {
     font-size: 1.3rem; color: #c62828; font-weight: bold;
-    background: #ffebee; padding: 12px; border-radius: 12px;
+    background: #ffebee; padding: 12px; border-radius: 12px; margin-bottom: 10px;
 }
 
-/* الأنيميشن */
-@keyframes glow-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); box-shadow: 0 10px 30px rgba(0, 188, 212, 0.6); }
+/* التنبيهات */
+.alert-danger {
+    background: #fff3e3; color: #d32f2f; padding: 10px;
+    border-radius: 10px; font-size: 0.85rem; margin-top: 10px;
 }
 
+/* أنيميشن التحميل الخاص بالذكاء الاصطناعي */
 .spinner {
-    border: 5px solid #f3f3f3; border-top: 5px solid #00bcd4;
+    border: 5px solid #f3f3f3; border-top: 5px solid #ff5722;
     border-radius: 50%; width: 45px; height: 45px;
     animation: spin 1s linear infinite; margin: 20px auto;
 }
