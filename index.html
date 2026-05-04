@@ -5,106 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سايكو VIP | المتجر الرسمي</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div id="welcomeMessage" class="welcome-overlay">
         <div class="welcome-box">
             <div class="icon-crown">👑</div>
-            <h2>مرحباً بك في متجر المطور الرسمي</h2>
-            <p>المنصة الموثوقة لبيع تطبيق بنكك المزيف. المتجر صُمم لضمان أمانك؛ يرجى التعامل بصدق لتجنب حظر جهازك نهائياً.</p>
-            <button onclick="closeWelcome()" class="btn btn-sky">دخول المتجر الآن</button>
+            <h2>مرحباً بك في متجر المطور</h2>
+            <p>المنصة الرسمية لخدمات تطبيق بنكك. يرجى إرفاق إشعار صحيح لتفادي الحظر.</p>
+            <button onclick="closeWelcome()" class="btn btn-welcome">دخول المتجر</button>
         </div>
     </div>
 
-    <header class="main-header">
-        <h1>سايكو VIP</h1>
-        <div class="warning-bar">⚠️ تنبيه: تعامل فقط مع الروابط الرسمية بالأسفل</div>
-    </header>
-
     <main class="container">
+        
         <div class="promo-box">
+            <h2 class="promo-title">🔥 عرض لفترة محدودة جداً 🔥</h2>
             <div id="timer" class="timer">23:59:56</div>
-            <p>تنفيذ العروض مستمر لفترة محدودة</p>
+            <p class="promo-text">سارع قبل انتهاء التخفيض!</p>
         </div>
 
         <section class="services">
-            <button onclick="openPay('نسخة VIP الكاملة', '120,000')" class="btn btn-gold">
-                👑 شراء نسخة VIP معاملات 👑<br> <small>السعر: 120,000 جنيه</small>
+            <button onclick="openPay('نسخة VIP (معاملات وهمية)', '120,000')" class="btn btn-vip">
+                شراء نسخة VIP (معاملات وهمية)
             </button>
             
-            <button onclick="openPay('النسخة العادية', '50,000')" class="btn-regular-pro">
-                💎 شراء النسخة العادية 💎<br> <small>السعر: 50,000 جنيه</small>
-            </button>
-
-            <button onclick="openFreeSection()" class="btn-free-pro">
-                🎁 تحميل النسخة المجانية 🎁
+            <button onclick="openPay('النسخة العادية', '50,000')" class="btn btn-regular">
+                شراء النسخة العادية
             </button>
         </section>
 
-        <h3 class="section-title">⚡ قسم الشحن الفوري</h3>
+        <h3 class="section-title">قسم الشحن السريع</h3>
         <div class="shipping-grid">
-            <div class="ship-card-pro" onclick="openShipping('شحن نسخة اسنوكس')">
-                <strong>اسنوكس</strong><br><small>10ألف لكل 100ألف</small>
-            </div>
-            <div class="ship-card-pro" onclick="openShipping('شحن نسخة ترو بورو')">
-                <strong>ترو بورو</strong><br><small>10ألف لكل 100ألف</small>
-            </div>
-            <div class="ship-card-pro" onclick="openShipping('شحن نسخة موكا')">
-                <strong>موكا</strong><br><small>10ألف لكل 100ألف</small>
-            </div>
+            <div class="ship-card" onclick="openShipping('شحن نسخة موكا')">شحن نسخة موكا</div>
+            <div class="ship-card" onclick="openShipping('شحن نسخة ترو بورو')">شحن نسخة ترو بورو</div>
+            <div class="ship-card" onclick="openShipping('شحن نسخة اسنوكس')">شحن نسخة اسنوكس</div>
         </div>
 
-        <button onclick="openAccountSystem()" class="btn-premium-large">
-            🚀 فتح وتفعيل حساب جديد 🚀
+        <button onclick="openAccountSystem()" class="btn btn-account">
+            تواصل لفتح حساب في كل النسخ
         </button>
 
+        <h3 class="section-title">روابط التواصل الرسمية</h3>
         <div class="social-grid">
-            <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">Telegram</a>
-            <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn btn-blue">Facebook</a>
+            <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-telegram">تليجرام Telegram</a>
+            <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn btn-facebook">فيسبوك Facebook</a>
         </div>
+
+        <div class="footer-copy">VIP © 2026 - جميع الحقوق محفوظة</div>
     </main>
 
     <div id="payModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
-
-            <div id="freeSection" style="display:none;">
-                <div class="protection-box">
-                    <h4>⚠️ تعليمات هامة قبل التثبيت:</h4>
-                    <p>لكي تعمل النسخة معك بدون مشاكل، يجب إيقاف "درع حماية متجر Play":</p>
-                    <ol>
-                        <li>افتح متجر Play</li>
-                        <li>اضغط على أيقونة ملفك الشخصي</li>
-                        <li>اختر (Play للحماية) ثم (الإعدادات)</li>
-                        <li>قم بإيقاف (فحص التطبيقات باستخدام Play للحماية)</li>
-                    </ol>
-                </div>
-                <a href="https://www.mediafire.com/file/sc3v9iwts725tp2/BOK.apk/file" target="_blank" class="btn btn-download-app">📥 تنزيل النسخة المجانية الآن</a>
-            </div>
-
-            <div id="accountTypeSelector" style="display:none;">
-                <p>اختر النسخة المراد تفعيلها:</p>
-                <div class="type-grid-pro">
-                    <div class="type-card" onclick="selectAccType('اسنوكس')">اسنوكس</div>
-                    <div class="type-card" onclick="selectAccType('موكا')">موكا</div>
-                    <div class="type-card" onclick="selectAccType('ترو بورو')">ترو بورو</div>
-                    <div class="type-card" onclick="selectAccType('VIP معاملات')">VIP</div>
-                </div>
-            </div>
-
-            <div id="accountForm" style="display:none;">
-                <input type="text" id="userFullName" placeholder="الاسم الرباعي الكامل" class="main-input">
-                <input type="password" id="userPass" placeholder="اختر كلمة مرور قوية" class="main-input">
-                <button onclick="submitAccountInfo()" class="btn btn-gold">تأكيد البيانات والانتقال للدفع</button>
-            </div>
-
-            <div id="shippingInputs" style="display:none;">
-                <input type="number" id="shipAccount" placeholder="رقم حسابك للشحن" class="main-input">
-                <input type="number" id="shipAmount" placeholder="الكمية (أقل مبلغ 100 ألف)" class="main-input" oninput="calculatePrice()">
-                <p id="calcResult" class="price-tag">المطلوب: 0 جنيه</p>
-                <button onclick="submitShippingInfo()" class="btn btn-gold">بدء الدفع</button>
-            </div>
 
             <div id="paymentArea" style="display:none;">
                 <p id="modalPrice" class="price-tag"></p>
@@ -113,37 +67,25 @@
                     <small>اضغط على الرقم لنسخه ✅</small>
                 </div>
                 
-                <input type="number" id="refNumber" placeholder="رقم العملية (سيظهر بعد فحص الإشعار)" class="main-input" readonly>
+                <input type="number" id="refNumber" placeholder="أدخل رقم العملية (Ref Number)" class="main-input">
                 
-                <button id="aiUploadBtn" class="btn-upload-action" onclick="document.getElementById('aiReceiptInput').click()">📸 ارفع إشعار التحويل للفحص الذكي</button>
-                <input type="file" id="aiReceiptInput" accept="image/*" hidden onchange="startAiVerification(this)">
+                <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">📸 ارفع إشعار التحويل الآن</button>
+                <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
                 
-                <div class="alert-danger">⚠️ أي تلاعب برقم العملية أو الإشعار يعرضك للحظر الفوري.</div>
+                <div class="alert-danger">⚠️ أي تلاعب برقم العملية أو الإشعار يعرضك للحظر.</div>
             </div>
+
+            <div id="loadingArea" style="display:none;"><div class="spinner"></div><p>جاري إرسال الإشعار للمطور...</p></div>
 
             <div id="successArea" style="display:none;">
-                <div class="success-msg">✅ تمت العملية بنجاح!</div>
-                <div id="accountCard" class="account-card" style="display:none;">
-                    <p>اسم المستخدم: <span id="resName"></span></p>
-                    <p>رقم الحساب: <span id="resAcc"></span></p>
-                </div>
-                <div id="downloadSection" style="display:none;">
-                    <a href="https://www.mediafire.com/file/sc3v9iwts725tp2/BOK.apk/file" target="_blank" class="btn btn-download-app">📥 اضغط هنا لتحميل التطبيق</a>
-                </div>
-                <p id="afterActionText"></p>
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-sky">تواصل للمطالبة بالتفعيل</a>
-            </div>
-
-            <div id="loadingArea" style="display:none;">
-                <div class="spinner"></div>
-                <p id="loadingText">جاري الفحص الرقمي بواسطة الذكاء الاصطناعي...</p>
+                <div class="success-msg">✅ تم إرسال الطلب بنجاح!</div>
+                <p id="afterActionText">سيتم التحقق من إشعارك خلال دقائق.</p>
+                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-telegram">متابعة الطلب على تليجرام</a>
             </div>
             
             <button class="btn-close" onclick="closeModal()">رجوع</button>
         </div>
     </div>
-
-    <footer>سايكو VIP - المتجر الرسمي المعتمد 2026</footer>
 
     <script src="script.js"></script>
 </body>
