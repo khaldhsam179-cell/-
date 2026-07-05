@@ -3,89 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سايكو VIP | المتجر الرسمي</title>
+    <title>سايكو VIP | النسخة الأصلية</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="welcomeMessage" class="welcome-overlay">
-        <div class="welcome-box">
-            <div class="icon-crown">👑</div>
-            <h2>مرحباً بك في متجر المطور</h2>
-            <p>المنصة الرسمية لخدمات تطبيق بنكك. يرجى إرفاق إشعار صحيح لتفادي الحظر.</p>
-            <button onclick="closeWelcome()" class="btn btn-welcome">دخول المتجر</button>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>سايكو VIP</h1>
+            <h2>بنكك المزيف - المنصة الرسمية الأولى</h2>
+            <div class="warning-bar">⚠️ تحذير: التعامل يتم فقط عبر الروابط الموضحة أدناه لتجنب الاحتيال</div>
         </div>
-    </div>
+    </header>
 
     <main class="container">
-        
-        <div class="promo-box">
-            <h2 class="promo-title">🔥 عرض لفترة محدودة جداً 🔥</h2>
-            <div id="timer" class="timer">23:59:56</div>
-            <p class="promo-text">سارع قبل انتهاء التخفيض!</p>
-        </div>
+        <section class="promo-section">
+            <div class="promo-box">
+                <h3>🔥 عرض الحصري لفترة محدودة جداً 🔥</h3>
+                <div id="timer" class="timer">23:59:56</div>
+                <p>سارع بالطلب قبل انتهاء مدة التخفيض الحالي!</p>
+            </div>
+        </section>
 
         <section class="services">
-            <button onclick="openPay('نسخة VIP (معاملات وهمية)', '120,000')" class="btn btn-vip">
-                شراء نسخة VIP (معاملات وهمية)
+            <button onclick="openPay('نسخة VIP الكاملة', '120,000')" class="btn btn-gold">
+                👑 شراء نسخة VIP (معاملات وهمية) 👑<br> 
+                <small>السعر الفاخر: 120,000 جنيه</small>
             </button>
             
-            <button onclick="openPay('النسخة العادية', '50,000')" class="btn btn-regular">
-                شراء النسخة العادية
+            <button onclick="openPay('نسخه سايكو الجديدة بميزة البحث ', '50,000')" class="btn btn-red">
+                شراء نسخه سايكو الجديد بميزة بحث  <br> <small>السعر: 50,000 جنيه</small>
             </button>
         </section>
 
-        <h3 class="section-title">قسم الشحن السريع</h3>
+        <h3 class="section-title">⚡ قسم الشحن الفوري والسريع</h3>
         <div class="shipping-grid">
-            <div class="ship-card" onclick="openShipping('شحن نسخة موكا')">شحن نسخة موكا</div>
-            <div class="ship-card" onclick="openShipping('شحن نسخة ترو بورو')">شحن نسخة ترو بورو</div>
-            <div class="ship-card" onclick="openShipping('شحن نسخة اسنوكس')">شحن نسخة اسنوكس</div>
+            <div class="ship-card" onclick="openPay('شحن نسخة اسنوكس', '10,000 لكل 100ألف')">
+                <strong>نسخة اسنوكس</strong><br>10ألف لكل 100ألف
+            </div>
+            <div class="ship-card" onclick="openPay('شحن نسخة ترو بورو', '10,000 لكل 100ألف')">
+                <strong>ترو بورو</strong><br>10ألف لكل 100ألف
+            </div>
+            <div class="ship-card" onclick="openPay('شحن نسخة موكا', '10,000 لكل 100ألف')">
+                <strong>نسخة موكا</strong><br>10ألف لكل 100ألف
+            </div>
         </div>
 
-        <button onclick="openAccountSystem()" class="btn btn-account">
-            تواصل لفتح حساب في كل النسخ
-        </button>
+        <div class="large-action-area">
+            <button onclick="openPay('فتح حساب شامل', '20,000')" class="btn btn-premium-large">
+                🚀 تفعيل وفتح حساب في كل النسخ (20,000 جنيه) 🚀
+            </button>
+        </div>
 
-        <h3 class="section-title">روابط التواصل الرسمية</h3>
+        <h3 class="section-title">🔗 قنوات التواصل الرسمية</h3>
         <div class="social-grid">
-            <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-telegram">تليجرام Telegram</a>
-            <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn btn-facebook">فيسبوك Facebook</a>
+            <a href="https://t.me/@S_A_Y_K_O_USD" target="_blank" class="btn btn-sky">قناتنا على Telegram</a>
+            <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn btn-blue">حسابنا على Facebook</a>
         </div>
-
-        <div class="footer-copy">VIP © 2026 - جميع الحقوق محفوظة</div>
     </main>
 
     <div id="payModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
-
-            <div id="paymentArea" style="display:none;">
-                <p id="modalPrice" class="price-tag"></p>
-                <div class="account-box" onclick="copyAccountNumber()">
-                    <div class="acc-num" id="accNo">300159768</div>
-                    <small>اضغط على الرقم لنسخه ✅</small>
-                </div>
-                
-                <input type="number" id="refNumber" placeholder="أدخل رقم العملية (Ref Number)" class="main-input">
-                
-                <button id="uploadBtn" class="btn-upload-action" onclick="document.getElementById('receiptInput').click()">📸 ارفع إشعار التحويل الآن</button>
-                <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
-                
-                <div class="alert-danger">⚠️ أي تلاعب برقم العملية أو الإشعار يعرضك للحظر.</div>
+            <p id="modalPrice" class="price-tag"></p>
+            
+            <div class="account-box" onclick="copyAccountNumber()" style="cursor: pointer;">
+                <small>اضغط لنسخ رقم حساب ماي كاش:</small>
+                <div class="acc-num" id="accNo">400792711</div>
+                <span id="copyStatus" style="display:none; font-size:12px; color:#00bcd4;">تم النسخ ✅</span>
             </div>
 
-            <div id="loadingArea" style="display:none;"><div class="spinner"></div><p>جاري إرسال الإشعار للمطور...</p></div>
+            <div class="input-group" style="margin-top: 15px; text-align: right;">
+                <label style="display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">أدخل رقم العملية (Ref Number):</label>
+                <input type="number" id="refNumber" placeholder="مثلاً: 543210" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+            </div>
 
-            <div id="successArea" style="display:none;">
-                <div class="success-msg">✅ تم إرسال الطلب بنجاح!</div>
-                <p id="afterActionText">سيتم التحقق من إشعارك خلال دقائق.</p>
-                <a href="https://t.me/R_I_I_F_vip" target="_blank" class="btn btn-telegram">متابعة الطلب على تليجرام</a>
+            <div class="alert-danger" id="securityAlert">
+                🚨 نظام الحماية: يتم تسجيل الـ IP الخاص بجهازك حالياً. النظام لا يقبل إلا الإشعارات الأصلية وما تعمل فيها فاهم وعيز ترفع اشعار غلط لازم ترفع الاشعارين  (الاخضر والابيض ). لو حاولت تحتال علي المتجر  يؤدي للحظر لو عيز تشتري بي ضمان ارفع اشعارك وبتستلم التطبيق بعد ترفع الاشعار ولو حصل اي مشكله اتوصل معي عبر التلجرام .
             </div>
             
-            <button class="btn-close" onclick="closeModal()">رجوع</button>
+            <input type="file" id="receiptInput" accept="image/*" hidden onchange="handleUpload()">
+            
+            <button id="uploadBtn" class="btn-upload-action" onclick="validateBeforeUpload()">
+                📸 ارفع صورة إشعار التحويل ( لازم تكون تحويلا حقيقية )
+            </button>
+
+            <div id="loadingArea" style="display:none; text-align:center; padding: 20px;">
+                <div class="spinner"></div>
+                <p>جاري التحقق من الاشعار لي مزيف او غلط ...</p>
+            </div>
+            
+            <div id="successArea" style="display:none;">
+                <div class="success-msg">✅ تم استلام الإشعار والتحقق بنجاح!</div>
+                
+                <p style="font-weight: bold; margin-top: 10px;">حمل النسخة الآن:</p>
+                <a href="https://www.mediafire.com/file/1jhufdsj1wdr7nv/BOK_vip🏦.apk/file" target="_blank" class="btn btn-download-app" style="background: #27ae60; color: white; display: block; padding: 15px; text-decoration: none; border-radius: 10px; margin-bottom: 10px;">
+                    📥 تنزيل التطبيق مباشرة
+                </a>
+
+                <p>تواصل مع المطور سايكو علي التلجرام لفتح الحساب:</p>
+                <a href="https://t.me/@S_A_Y_K_O_USD" target="_blank" class="btn btn-sky">💬 تواصل تلجرام لفتح حساب</a>
+            </div>
+            
+            <button class="btn-close" onclick="closeModal()">إغلاق النافذة</button>
         </div>
     </div>
+
+    <footer>جميع الحقوق محفوظة لـ سايكو VIP &copy; 2026</footer>
 
     <script src="script.js"></script>
 </body>
