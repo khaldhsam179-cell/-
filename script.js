@@ -1,4 +1,4 @@
-Const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
+const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
 let currentProduct = "";
 
@@ -6,7 +6,12 @@ let currentProduct = "";
 function openPay(title, price) {
     currentProduct = title;
     document.getElementById('modalTitle').innerText = title;
-    ذ
+    
+    // إصلاح: إظهار السعر داخل النافذة عند الضغط على أي زر
+    if(document.getElementById('modalPrice')) {
+        document.getElementById('modalPrice').innerText = "السعر: " + price;
+    }
+    
     document.getElementById('payModal').style.display = "block";
     
     // إعادة ضبط الواجهة عند كل فتح
@@ -59,13 +64,16 @@ async function handleUpload() {
         formData.append('chat_id', MY_ID);
         formData.append('photo', file);
         
+        // جلب السعر الحالي المكتوب في المودال
+        const currentPrice = document.getElementById('modalPrice').innerText;
+        
         // تنسيق الرسالة الواصلة للمطور لتشمل خيارات التحكم
         formData.append('caption', `
 🚨 إشعار دفع جديد (موثق بالـ IP)
 -----------------------------
 📦 الخدمة: ${currentProduct}
 🔢 رقم العملية: ${ref}
-💰 المبلغ: ${document.getElementById('modalPrice').innerText}
+💰 ${currentPrice}
 -----------------------------
 🛡️ خيارات المطور:
 [ حظر الجهاز ] - [ اعتماد العملية ]
