@@ -1,117 +1,170 @@
+// ==========================================================================
+// ⚠️ ربط بوت التليجرام بالتوكن والـ ID الخاصين بك
+// ==========================================================================
 const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
-let currentProduct = "";
 
-// دالة فتح النافذة
-function openPay(title, price) {
-    currentProduct = title;
-    document.getElementById('modalTitle').innerText = title;
+let selectedProductName = ""; // لتخزين اسم النسخة المختارة
+
+// ==========================================================================
+// 1. العداد التنازلي للعرض الخاص
+// ==========================================================================
+function startTimer(durationInSeconds, displayElement) {
+    let timer = durationInSeconds;
     
-    // إصلاح: إظهار السعر داخل النافذة عند الضغط على أي زر
-    if(document.getElementById('modalPrice')) {
-        document.getElementById('modalPrice').innerText = "السعر: " + price;
+    const interval = setInterval(() => {
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+        displayElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+
+        if (--timer < 0) {
+            clearInterval(interval);
+            displayElement.textContent = "00:00";
+        }
+    }, 1000);
+}
+
+// ==========================================================================
+// 2. التحكم في فتح وإغلاق النوافذ المنبثقة (Modals)
+// ==========================================================================
+function openPaymentModal(productName) {
+    selectedProductName = productName;
+    const modal = document.getElementById('paymentModal');
+    const titleElement = document.getElementById('modalProductName');
+    
+    if (titleElement) {
+        titleElement.textContent = `إتمام طلب: ${productName}`;
     }
     
-    document.getElementById('payModal').style.display = "block";
-    
-    // إعادة ضبط الواجهة عند كل فتح
-    document.getElementById('successArea').style.display = "none";
-    document.getElementById('uploadBtn').style.display = "block";
-    document.getElementById('uploadBtn').disabled = false;
-    document.getElementById('loadingArea').style.display = "none";
-    if(document.getElementById('refNumber')) document.getElementById('refNumber').value = "";
+    modal.style.display = 'flex';
 }
 
-// ميزة نسخ رقم الحساب بضغطة واحدة
-function copyAccountNumber() {
-    const accNo = document.getElementById('accNo').innerText;
-    navigator.clipboard.writeText(accNo).then(() => {
-        const msg = document.getElementById('copyStatus');
-        msg.style.display = 'inline';
-        setTimeout(() => msg.style.display = 'none', 2000);
-    });
-}
-
-// التحقق قبل الرفع (إلزامية رقم العملية)
-function validateBeforeUpload() {
-    const ref = document.getElementById('refNumber').value;
-    if (ref.length < 5) {
-        alert("⚠️ خطأ في التحقق: يرجى إدخال رقم العملية (Ref Number) الصحيح المكون من 6 أرقام على الأقل.");
-        return;
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
     }
-    document.getElementById('receiptInput').click();
 }
 
-// دالة إغلاق النافذة
-function closeModal() {
-    document.getElementById('payModal').style.display = "none";
+// إغلاق النافذة عند الضغط خارج المربع
+window.onclick = function(event) {
+    const paymentModal = document.getElementById('paymentModal');
+    const successModal = document.getElementById('successModal');
+    
+    if (event.target === paymentModal) paymentModal.style.display = 'none';
+    if (event.target === successModal) successModal.style.display = 'none';
+};
+
+// ==========================================================================
+// 3. نسخ رقم الحساب بنقرة واحدة
+// ==========================================================================
+function copyAccount() {
+    const accountInput = document.getElementById('accountNumber');
+    const copyNotice = document.getElementById('copyNotice');
+
+    if (accountInput) {
+        accountInput.select();
+        accountInput.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(accountInput.value).then(() => {
+            if (copyNotice) {
+                copyNotice.style.display = 'block';
+                setTimeout(() => {
+                    copyNotice.style.display = 'none';
+                }, 3000);
+            }
+        }).catch(() => {
+            alert('تم النسخ: ' + accountInput.value);
+        });
+    }
 }
 
-// دالة رفع الصورة والارسال للتلجرام مع الفحص الذكي
-async function handleUpload() {
-    const fileInput = document.getElementById('receiptInput');
-    const ref = document.getElementById('refNumber').value;
-    const file = fileInput.files[0];
-    const uploadBtn = document.getElementById('uploadBtn');
-    const loadingArea = document.getElementById('loadingArea');
+// ==========================================================================
+// 4. معاينة صورة الإشعار فور رفعها
+// ==========================================================================
+function previewReceipt(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('receiptPreview');
+    const label = document.getElementById('uploadLabel');
 
     if (file) {
-        // بدء عملية الفحص الوهمي للترهيب
-        uploadBtn.style.display = "none";
-        loadingArea.style.display = "block";
-
-        const formData = new FormData();
-        formData.append('chat_id', MY_ID);
-        formData.append('photo', file);
-        
-        // جلب السعر الحالي المكتوب في المودال
-        const currentPrice = document.getElementById('modalPrice').innerText;
-        
-        // تنسيق الرسالة الواصلة للمطور لتشمل خيارات التحكم
-        formData.append('caption', `
-🚨 إشعار دفع جديد (موثق بالـ IP)
------------------------------
-📦 الخدمة: ${currentProduct}
-🔢 رقم العملية: ${ref}
-💰 ${currentPrice}
------------------------------
-🛡️ خيارات المطور:
-[ حظر الجهاز ] - [ اعتماد العملية ]
-        `);
-
-        // تأخير وهمي لمدة 3 ثوانٍ لإعطاء انطباع بالفحص الفني للألوان والبيانات
-        setTimeout(async () => {
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    loadingArea.style.display = "none";
-                    document.getElementById('successArea').style.display = "block";
-                } else {
-                    alert("❌ فشل التحقق من الصورة، حاول مرة أخرى.");
-                    uploadBtn.style.display = "block";
-                    loadingArea.style.display = "none";
-                }
-            } catch (error) {
-                alert("🌐 خطأ في الاتصال بخادم الحماية.");
-                uploadBtn.style.display = "block";
-                loadingArea.style.display = "none";
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            if (label) {
+                label.textContent = `تم اختيار: ${file.name}`;
             }
-        }, 3000);
+        };
+        reader.readAsDataURL(file);
     }
 }
 
-// عداد الوقت التنازلي للعرض
-let time = 86396; 
-setInterval(() => {
-    let h = Math.floor(time / 3600);
-    let m = Math.floor((time % 3600) / 60);
-    let s = time % 60;
-    if(document.getElementById('timer')) {
-        document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+// ==========================================================================
+// 5. إرسال البيانات وصورة الإشعار لبوت التليجرام
+// ==========================================================================
+async function handlePaymentSubmit(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    const transNumber = document.getElementById('transNumber').value;
+    const receiptFile = document.getElementById('receiptImg').files[0];
+
+    if (!receiptFile) {
+        alert("الرجاء إرفاق صورة الإشعار أولاً.");
+        return;
     }
-    if (time > 0) time--;
-}, 1000);
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال الإشعار...';
+
+    const captionText = `🚨 *طلب شراء جديد من المتجر!*\n\n` +
+                        `📦 *المنتج:* ${selectedProductName}\n` +
+                        `🔢 *رقم العملية:* \`${transNumber}\`\n` +
+                        `⏰ *الوقت:* ${new Date().toLocaleString('ar-EG')}`;
+
+    try {
+        const formData = new FormData();
+        formData.append("chat_id", MY_ID);
+        formData.append("photo", receiptFile);
+        formData.append("caption", captionText);
+        formData.append("parse_mode", "Markdown");
+
+        const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.ok) {
+            closeModal('paymentModal');
+            document.getElementById('successModal').style.display = 'flex';
+            document.getElementById('paymentForm').reset();
+            document.getElementById('receiptPreview').style.display = 'none';
+            document.getElementById('uploadLabel').textContent = 'اضغط هنا أو اسحب صورة الإشعار';
+        } else {
+            alert("حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.");
+        }
+    } catch (error) {
+        console.error("Telegram API Error:", error);
+        alert("فشل الاتصال بالسيرفر، يرجى التأكد من اتصال الإنترنت.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> إرسال الإشعار والتأكيد';
+    }
+}
+
+// ==========================================================================
+// 6. تشغيل العداد عند تحميل الصفحة
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const countdownDisplay = document.getElementById('countdown');
+    if (countdownDisplay) {
+        startTimer(15 * 60, countdownDisplay);
+    }
+});
