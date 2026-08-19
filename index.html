@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المتجر الرسمي للتطبيقات والخدمات</title>
+    <title>متجر بنكك مزيف النسخه المطورة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,8 +13,8 @@
     <!-- الشريط العلوي -->
     <div class="top-bar">
         <div class="container top-bar-content">
-            <span><i class="fa-solid fa-shield-check"></i> متجر معتمد وموثوق 100%</span>
-            <span><i class="fa-solid fa-bolt"></i> تسليم فور وتفعيل سريع</span>
+            <span id="greeting-text"><i class="fa-solid fa-moon"></i> مساء الخير</span>
+            <span><i class="fa-solid fa-bolt"></i> تفعيل وتسليم فوري</span>
         </div>
     </div>
 
@@ -22,193 +22,398 @@
     <header class="main-header">
         <div class="container header-container">
             <div class="logo">
-                <i class="fa-solid fa-store"></i>
-                <span>المتجر الرسمي</span>
+                <i class="fa-solid fa-building-columns"></i>
+                <span>بنكك مزيف النسخه المطورة</span>
             </div>
             <div class="badge-verified">
-                <i class="fa-solid fa-circle-check"></i> حساب موثق
+                <i class="fa-solid fa-circle-check"></i> المتجر الرسمي
             </div>
         </div>
     </header>
 
     <main class="container">
 
-        <!-- العداد والعرض -->
+        <!-- بنر العرض -->
         <section class="hero-card">
-            <h2>أقوى النسخ والخدمات المعتمدة</h2>
-            <p>اختر النسخة المناسبة لك وقم بالشراء المباشر بسهولة</p>
+            <h2>أقوى نسخ بنكك المزيف والخدمات السريعة</h2>
+            <p>اختر الخدمة المطلوبة واتبع خطوات الشراء لضمان التسليم الفوري</p>
             <div class="timer-box">
-                <span>ينتهي العرض خلال: </span>
+                <span>ينتهي العرض الخاص خلال: </span>
                 <span id="countdown">14:59</span>
             </div>
         </section>
 
-        <!-- قسم 1: النسخ والتطبيقات (منفصل) -->
+        <!-- ========================================== -->
+        <!-- 1. قسم شراء النسخ والتطبيقات -->
+        <!-- ========================================== -->
         <section class="store-section">
-            <h3 class="section-title"><i class="fa-solid fa-cubes"></i> قسم النسخ والتطبيقات</h3>
+            <h3 class="section-title"><i class="fa-solid fa-mobile-screen-button"></i> قسم شراء النسخ والتطبيقات</h3>
             <div class="products-grid">
                 
-                <!-- سايكو VIP -->
                 <div class="product-card">
-                    <div class="card-tag">الأكثر طلباً</div>
                     <h4>نسخة سايكو VIP</h4>
-                    <p class="price">السعر: <span>حسب العرض</span></p>
-                    <button class="btn-primary" onclick="openPaymentModal('نسخة سايكو VIP')">
-                        <i class="fa-solid fa-cart-shopping"></i> شراء الآن
+                    <p class="price-tag">السعر: <span>40,000 جنيه سوداني</span></p>
+                    <button class="btn-primary" onclick="openBuyVersionModal('نسخة سايكو VIP', 40000)">
+                        <i class="fa-solid fa-cart-shopping"></i> شراء النسخة
                     </button>
                 </div>
 
-                <!-- FOX -->
                 <div class="product-card">
                     <h4>نسخة FOX</h4>
-                    <p class="price">السعر: <span>حسب العرض</span></p>
-                    <button class="btn-primary" onclick="openPaymentModal('نسخة FOX')">
-                        <i class="fa-solid fa-cart-shopping"></i> شراء الآن
+                    <p class="price-tag">السعر: <span>40,000 جنيه سوداني</span></p>
+                    <button class="btn-primary" onclick="openBuyVersionModal('نسخة FOX', 40000)">
+                        <i class="fa-solid fa-cart-shopping"></i> شراء النسخة
                     </button>
                 </div>
 
-                <!-- موكا -->
                 <div class="product-card">
                     <h4>نسخة موكا</h4>
-                    <p class="price">السعر: <span>حسب العرض</span></p>
-                    <button class="btn-primary" onclick="openPaymentModal('نسخة موكا')">
-                        <i class="fa-solid fa-cart-shopping"></i> شراء الآن
+                    <p class="price-tag">السعر: <span>40,000 جنيه سوداني</span></p>
+                    <button class="btn-primary" onclick="openBuyVersionModal('نسخة موكا', 40000)">
+                        <i class="fa-solid fa-cart-shopping"></i> شراء النسخة
                     </button>
                 </div>
 
-                <!-- VIP PRO (ذهبي) -->
+                <!-- النسخة الذهبية -->
                 <div class="product-card gold-card">
-                    <div class="card-tag gold-tag">النسخة الشاملة</div>
+                    <div class="card-tag gold-tag">النسخة الشاملة والأقوى</div>
                     <h4 class="gold-title">نسخة VIP PRO</h4>
-                    <p class="price">السعر: <span>حسب العرض</span></p>
-                    <button class="btn-gold" onclick="openPaymentModal('نسخة VIP PRO')">
-                        <i class="fa-solid fa-crown"></i> شراء الآن
+                    <p class="price-tag gold-price">السعر: <span>80,000 جنيه سوداني</span></p>
+                    <button class="btn-gold" onclick="openBuyVersionModal('نسخة VIP PRO', 80000)">
+                        <i class="fa-solid fa-crown"></i> شراء النسخة الذهبية
                     </button>
                 </div>
 
             </div>
         </section>
 
-        <!-- قسم 2: خدمات الشحن (منفصل) -->
+        <!-- ========================================== -->
+        <!-- 2. قسم فتح الحسابات الجديدة -->
+        <!-- ========================================== -->
         <section class="store-section">
-            <h3 class="section-title"><i class="fa-solid fa-bolt-lightning"></i> قسم خدمات الشحن</h3>
-            <div class="products-grid">
-                
-                <div class="product-card">
-                    <h4>شحن رصيد سريع</h4>
-                    <p class="price">تفعيل دائم ومباشر</p>
-                    <button class="btn-primary" onclick="openPaymentModal('خدمة شحن رصيد')">
-                        <i class="fa-solid fa-wallet"></i> طلب شحن
-                    </button>
+            <h3 class="section-title"><i class="fa-solid fa-user-plus"></i> قسم فتح حساب جديد</h3>
+            <div class="account-open-card">
+                <div class="account-info-header">
+                    <h4>فتح وتفعيل حساب جديد لجميع النسخ</h4>
+                    <p class="price-tag">رسوم فتح الحساب: <span>20,000 جنيه سوداني</span> (موضحة وموحدة لجميع النسخ)</p>
                 </div>
-
-                <div class="product-card">
-                    <h4>شحن حسابات كاملة</h4>
-                    <p class="price">تسليم فوري</p>
-                    <button class="btn-primary" onclick="openPaymentModal('شحن حساب كامل')">
-                        <i class="fa-solid fa-wallet"></i> طلب شحن
-                    </button>
-                </div>
-
+                <button class="btn-primary btn-large" onclick="openCreateAccountModal()">
+                    <i class="fa-solid fa-key"></i> فتح حساب جديد الآن
+                </button>
             </div>
         </section>
 
-        <!-- قسم 3: مربع فتح حساب جديد -->
-        <section class="new-account-box">
-            <div class="account-box-content">
-                <i class="fa-solid fa-user-plus account-icon"></i>
-                <h3>فتح حساب جديد</h3>
-                <p>تواصل مع المطور مباشرة لفتح وتفعيل حسابك الجديد في ثوانٍ:</p>
-                <div class="social-contact-btns">
-                    <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-contact telegram-btn">
-                        <i class="fa-brands fa-telegram"></i> تواصل عبر التليجرام
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn-contact facebook-btn">
-                        <i class="fa-brands fa-facebook"></i> تواصل عبر الفيسبوك
-                    </a>
+        <!-- ========================================== -->
+        <!-- 3. قسم خدمات الشحن -->
+        <!-- ========================================== -->
+        <section class="store-section">
+            <h3 class="section-title"><i class="fa-solid fa-wallet"></i> قسم شحن رصيد الحسابات</h3>
+            <div class="recharge-card">
+                <p class="recharge-rate-info">💡 سعر الشحن: لكل <span>100,000</span> رصيد = <span>15,000</span> جنيه سوداني (أقل حد للشحن 100 ألف)</p>
+                <button class="btn-primary btn-large" onclick="openRechargeModal()">
+                    <i class="fa-solid fa-bolt-lightning"></i> البدء في شحن حسابك
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. مميزات النسخة (بشكل احترافي) -->
+        <!-- ========================================== -->
+        <section class="features-section">
+            <h3 class="section-title-center"><i class="fa-solid fa-star"></i> مميزات بنكك مزيف النسخة المطورة</h3>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h4>واجهة مطابقة 100%</h4>
+                    <p>تصميم أحدث إصدار مع أدق التفاصيل والألوان والخطوط الرسمية.</p>
                 </div>
+                <div class="feature-box">
+                    <i class="fa-solid fa-receipt"></i>
+                    <h4>إشعارات وتحويلات فورية</h4>
+                    <p>إمكانية استخراج إشعارات تحويل احترافية برقم عملية وتاريخ لحظي.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h4>سلاسة وثبات عالي</h4>
+                    <p>عمل مستقر وسريع بدون أي أخطاء أو توقف في الخدمة.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fa-solid fa-headset"></i>
+                    <h4>دعم وتحديثات مستمرة</h4>
+                    <p>متابعة وتحديثات دائمية مجانية لجميع المشتركين.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. طريقة الشراء من المتجر -->
+        <!-- ========================================== -->
+        <section class="how-to-buy-section">
+            <h3 class="section-title-center"><i class="fa-solid fa-list-check"></i> طريقة الشراء والتفعيل من المتجر</h3>
+            <div class="steps-wrapper">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h4>اختر الخدمة</h4>
+                    <p>حدد النسخة أو فتح الحساب أو كمية الشحن المطلوبة.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h4>تحويل المبلغ</h4>
+                    <p>قم بتحويل المبلغ لرقم حساب ماي كاشي الخاص بنا.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h4>رفع الإشعار</h4>
+                    <p>قم بإرفاق صورة إشعار التحويل وتأكيد الطلب.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <h4>الاستلام والتفعيل</h4>
+                    <p>احصل على رابط التنزيل المباشر أو التفعيل الفوري لحسابك.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. روابط التواصل مع المطور -->
+        <!-- ========================================== -->
+        <section class="contact-section">
+            <h3 class="section-title-center"><i class="fa-solid fa-comments"></i> روابط التواصل المباشر مع المطور</h3>
+            <div class="social-contact-btns">
+                <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-contact telegram-btn">
+                    <i class="fa-brands fa-telegram"></i> التواصل عبر التليجرام
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn-contact facebook-btn">
+                    <i class="fa-brands fa-facebook"></i> التواصل عبر الفيسبوك
+                </a>
             </div>
         </section>
 
     </main>
 
-    <!-- نافذة الدفع ورفع الإشعار -->
-    <div id="paymentModal" class="modal-backdrop">
+    <!-- =================================================================== -->
+    <!-- النوافذ المنبثقة (Modals) -->
+    <!-- =================================================================== -->
+
+    <!-- نافذة 1: دفع وشراء النسخ -->
+    <div id="buyVersionModal" class="modal-backdrop">
         <div class="modal-card">
-            <button class="modal-close" onclick="closeModal('paymentModal')">&times;</button>
+            <button class="modal-close" onclick="closeModal('buyVersionModal')">&times;</button>
             <div class="modal-header">
-                <i class="fa-solid fa-wallet modal-icon"></i>
-                <h3 id="modalProductName">إتمام الشراء</h3>
+                <i class="fa-solid fa-cart-shopping modal-icon"></i>
+                <h3 id="versionModalTitle">إتمام شراء النسخة</h3>
+                <p id="versionModalPrice" class="modal-price-display"></p>
             </div>
-            
             <div class="modal-body">
-                <div class="account-box">
-                    <label>رقم الحساب للتحويل:</label>
+                <!-- مربع رقم الحساب -->
+                <div class="mycashi-box">
+                    <label>رقم الحساب (ماي كاشي):</label>
                     <div class="account-number-wrapper">
-                        <input type="text" id="accountNumber" value="022019796666908" readonly>
-                        <button type="button" class="btn-copy" onclick="copyAccount()">
-                            <i class="fa-regular fa-copy"></i> نسخ
-                        </button>
+                        <input type="text" value="400792711" readonly id="accNumVersion">
+                        <button type="button" class="btn-copy" onclick="copyAcc('accNumVersion', 'copyNotice1')">نسخ</button>
                     </div>
-                    <span id="copyNotice" class="copy-notice">تم نسخ رقم الحساب! ✅</span>
+                    <span id="copyNotice1" class="copy-notice">تم النسخ بنجاح! ✅</span>
+                    <p class="mycashi-note">⚠️ تنبيه: رقم الحساب أعلاه خاص بـ (ماي كاشي).</p>
                 </div>
 
-                <form id="paymentForm" onsubmit="handlePaymentSubmit(event)">
+                <form onsubmit="handleVersionSubmit(event)">
                     <div class="form-group">
-                        <label for="transNumber">رقم العملية / التحويل:</label>
-                        <input type="text" id="transNumber" placeholder="أدخل رقم العملية" required>
+                        <label>رقم العملية / التحويل:</label>
+                        <input type="text" id="versionTransNum" placeholder="أدخل رقم العملية" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="receiptImg">صورة الإشعار (تأكيد الدفع):</label>
+                        <label>صورة الإشعار:</label>
                         <div class="file-upload-box">
-                            <input type="file" id="receiptImg" accept="image/*" onchange="previewReceipt(event)" required>
+                            <input type="file" id="versionReceiptImg" accept="image/*" onchange="previewImg(event, 'previewVersion')" required>
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <span id="uploadLabel">اضغط هنا لرفع صورة الإشعار</span>
-                            <img id="receiptPreview" class="receipt-preview" src="" alt="معاينة الإشعار">
+                            <span>ارفع صورة الإشعار هنا</span>
+                            <img id="previewVersion" class="receipt-preview" src="">
                         </div>
                     </div>
-
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        <i class="fa-solid fa-paper-plane"></i> إرسال الإشعار والتأكيد
-                    </button>
+                    <button type="submit" class="btn-submit" id="btnSubmitVersion">إرسال الإشعار وتأكيد الشراء</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- نافذة النجاح والتحميل التلقائي -->
-    <div id="successModal" class="modal-backdrop">
+    <!-- نافذة نجاح شراء النسخ (تنزيل + تواصل فقط) -->
+    <div id="versionSuccessModal" class="modal-backdrop">
         <div class="modal-card success-card">
             <div class="modal-header">
                 <i class="fa-solid fa-circle-check success-icon"></i>
-                <h3>تم استلام إشعارك بنجاح!</h3>
+                <h3>تم استلام طلبك ورسالتك بنجاح!</h3>
             </div>
             <div class="modal-body">
-                <p class="download-instruction">اضغط على الزر لأسفل لتنزيل التطبيق فوراً:</p>
-
-                <!-- رابط تنزيل التطبيق الخاص بك -->
+                <p class="download-instruction">يمكنك تنزيل التطبيق مباشرة الآن عبر الرابط التالي:</p>
                 <a href="https://www.mediafire.com/file/xt3nh7taa9nx095/BOK_VIP+.apk/file" target="_blank" class="btn-download">
                     <i class="fa-solid fa-download"></i> تنزيل التطبيق (MediaFire)
                 </a>
-
-                <div class="social-links-title">ثم تواصل مع المطور لفتح الحساب:</div>
+                <div class="social-links-title">أو التواصل مع المطور للطلب والاستفسار:</div>
                 <div class="social-buttons">
-                    <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-social telegram">
-                        <i class="fa-brands fa-telegram"></i> التليجرام
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn-social facebook">
-                        <i class="fa-brands fa-facebook"></i> الفيسبوك
-                    </a>
+                    <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-social telegram"><i class="fa-brands fa-telegram"></i> التليجرام</a>
+                    <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn-social facebook"><i class="fa-brands fa-facebook"></i> الفيسبوك</a>
+                </div>
+                <button class="btn-secondary" onclick="closeModal('versionSuccessModal')">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة 2: بيانات فتح حساب جديد -->
+    <div id="createAccountModal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('createAccountModal')">&times;</button>
+            <div class="modal-header">
+                <i class="fa-solid fa-user-plus modal-icon"></i>
+                <h3>طلب فتح حساب جديد</h3>
+                <p class="modal-price-display">الرسوم المطلوبة: 20,000 جنيه سوداني</p>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="handleAccountInfoSubmit(event)">
+                    <div class="form-group">
+                        <label>الاسم الذي تريده للحساب:</label>
+                        <input type="text" id="newAccountName" placeholder="اكتب اسمك الكامل للحساب" required>
+                    </div>
+                    <div class="form-group">
+                        <label>كلمة السر المراد تعيينها:</label>
+                        <input type="password" id="newAccountPass" placeholder="أدخل كلمة السر الخاصة بك" required>
+                    </div>
+                    <button type="submit" class="btn-submit">المتابعة إلى الدفع (20,000 جنيه)</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة دفع فتح الحساب + التحذير الخاص -->
+    <div id="accountPayModal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('accountPayModal')">&times;</button>
+            <div class="modal-header">
+                <i class="fa-solid fa-credit-card modal-icon"></i>
+                <h3>دفع رسوم فتح الحساب</h3>
+                <p class="modal-status-text">تم استلام طلبك لفتح الحساب، سيتم فتح الحساب مباشرة بعد دفع رسوم الحساب في نفس الوقت.</p>
+            </div>
+            <div class="modal-body">
+                <!-- تحذير فتح الحساب -->
+                <div class="red-alert-box">
+                    🚨 <strong>تنبيه هام:</strong> ممنوع رفع اشعار مزيف او اشعار ليس ضمن التحويل هاذه الرجاء تحويل المبلغ ورفع الاشعار واستلام حسابك علي الفور.
                 </div>
 
-                <button class="btn-secondary" onclick="closeModal('successModal')">إغلاق</button>
+                <div class="mycashi-box">
+                    <label>رقم الحساب (ماي كاشي):</label>
+                    <div class="account-number-wrapper">
+                        <input type="text" value="400792711" readonly id="accNumAccount">
+                        <button type="button" class="btn-copy" onclick="copyAcc('accNumAccount', 'copyNotice2')">نسخ</button>
+                    </div>
+                    <span id="copyNotice2" class="copy-notice">تم النسخ بنجاح! ✅</span>
+                    <p class="mycashi-note">⚠️ تنبيه: رقم الحساب أعلاه خاص بـ (ماي كاشي).</p>
+                </div>
+
+                <form onsubmit="handleAccountPaySubmit(event)">
+                    <div class="form-group">
+                        <label>صورة إشعار تحويل الـ 20,000 جنيه:</label>
+                        <div class="file-upload-box">
+                            <input type="file" id="accReceiptImg" accept="image/*" onchange="previewImg(event, 'previewAccount')" required>
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>ارفع صورة الإشعار هنا</span>
+                            <img id="previewAccount" class="receipt-preview" src="">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit" id="btnSubmitAccount">تأكيد الدفع وفتح الحساب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة 3: تفاصيل وإدخال الشحن -->
+    <div id="rechargeModal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('rechargeModal')">&times;</button>
+            <div class="modal-header">
+                <i class="fa-solid fa-bolt modal-icon"></i>
+                <h3>طلب شحن رصيد</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>رقم الحساب المراد شحنه:</label>
+                    <input type="text" id="rechargeTargetAcc" placeholder="أدخل رقم حسابك المرد شحنه" required>
+                </div>
+                <div class="form-group">
+                    <label>اختر كمية الرصيد المطلوب شحنها:</label>
+                    <select id="rechargeAmountSelect" onchange="calculateRechargePrice()">
+                        <option value="100000">100,000 رصيد</option>
+                        <option value="200000">200,000 رصيد</option>
+                        <option value="300000">300,000 رصيد</option>
+                        <option value="400000">400,000 رصيد</option>
+                        <option value="500000">500,000 رصيد</option>
+                        <option value="1000000">1,000,000 رصيد</option>
+                    </select>
+                </div>
+                <div class="calculation-result-box">
+                    <span>المبلغ المطلوب دفع للتحويل: </span>
+                    <strong id="rechargeCostDisplay">15,000 جنيه سوداني</strong>
+                </div>
+                <button type="button" class="btn-submit" onclick="goToRechargePayModal()">المتابعة إلى الدفع</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة دفع الشحن + التحذير الخاص + شاشة نجاح الشحن -->
+    <div id="rechargePayModal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('rechargePayModal')">&times;</button>
+            <div class="modal-header">
+                <i class="fa-solid fa-receipt modal-icon"></i>
+                <h3>إتمام دفع الشحن</h3>
+                <p class="modal-status-text">تم استلام طلب الشحن الرجاء اكمل الدفع لاستلام الرصيد في حسابك علي الفور.</p>
+            </div>
+            <div class="modal-body">
+                <!-- تحذير قسم الشحن -->
+                <div class="red-alert-box">
+                    🚨 <strong>تحذير خاص بالشحن:</strong> ممنوع رفع اشعار مزيف او اشعار ليس ضمن التحويل او اشعار لتحويل اخرة لضمان استلام رصيدك وشحن حسابك بنجاح.
+                </div>
+
+                <div class="mycashi-box">
+                    <label>رقم الحساب (ماي كاشي):</label>
+                    <div class="account-number-wrapper">
+                        <input type="text" value="400792711" readonly id="accNumRecharge">
+                        <button type="button" class="btn-copy" onclick="copyAcc('accNumRecharge', 'copyNotice3')">نسخ</button>
+                    </div>
+                    <span id="copyNotice3" class="copy-notice">تم النسخ بنجاح! ✅</span>
+                    <p class="mycashi-note">⚠️ تنبيه: رقم الحساب أعلاه خاص بـ (ماي كاشي).</p>
+                </div>
+
+                <form onsubmit="handleRechargeSubmit(event)">
+                    <div class="form-group">
+                        <label>صورة الإشعار للتحويل:</label>
+                        <div class="file-upload-box">
+                            <input type="file" id="rechargeReceiptImg" accept="image/*" onchange="previewImg(event, 'previewRecharge')" required>
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>ارفع صورة الإشعار هنا</span>
+                            <img id="previewRecharge" class="receipt-preview" src="">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit" id="btnSubmitRecharge">تأكيد رفع إشعار الشحن</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة نجاح الشحن -->
+    <div id="rechargeSuccessModal" class="modal-backdrop">
+        <div class="modal-card success-card">
+            <div class="modal-header">
+                <i class="fa-solid fa-circle-check success-icon"></i>
+                <h3>تم شحن حساب بنجاح!</h3>
+            </div>
+            <div class="modal-body">
+                <p class="download-instruction">تم إرسال إشعارك بنجاح وسيتلقى حسابك الرصيد فوراً.</p>
+                <button class="btn-primary" onclick="closeModal('rechargeSuccessModal')">موافق</button>
             </div>
         </div>
     </div>
 
     <footer class="main-footer">
-        <p>جميع الحقوق محفوظة &copy; 2026 - المتجر الرسمي</p>
+        <p>جميع الحقوق محفوظة &copy; 2026 - بنكك مزيف النسخه المطورة</p>
     </footer>
 
     <script src="script.js"></script>
