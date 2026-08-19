@@ -3,182 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المتجر الرسمي للتطبيقات والخدمات المعتمدة</title>
-    <!-- خط Cairo الكلاسيكي الأنيق -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome للأيقونات -->
+    <title>المتجر الرسمي للتطبيقات والخدمات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- شريط التوثيق والأمان العلوي -->
+    <!-- الشريط العلوي -->
     <div class="top-bar">
         <div class="container top-bar-content">
-            <span><i class="fa-solid fa-shield-halved"></i> متجر موثق وآمن 100%</span>
+            <span><i class="fa-solid fa-shield-check"></i> متجر معتمد وموثوق 100%</span>
             <span><i class="fa-solid fa-bolt"></i> تسليم فور وتفعيل سريع</span>
         </div>
     </div>
 
-    <!-- الهيدر الرئيسي -->
+    <!-- الهيدر -->
     <header class="main-header">
         <div class="container header-container">
             <div class="logo">
-                <i class="fa-solid fa-building-columns"></i>
+                <i class="fa-solid fa-store"></i>
                 <span>المتجر الرسمي</span>
             </div>
             <div class="badge-verified">
-                <i class="fa-solid fa-circle-check"></i> معتمد
+                <i class="fa-solid fa-circle-check"></i> حساب موثق
             </div>
         </div>
     </header>
 
     <main class="container">
 
-        <!-- بنر التنبيه والعرض المحدد -->
+        <!-- العداد والعرض -->
         <section class="hero-card">
-            <h2>منصة الخدمات والتطبيقات المعتمدة</h2>
-            <p>احصل على أحدث النسخ والتفعيل المباشر بأعلى معايير الأمان</p>
+            <h2>أقوى النسخ والخدمات المعتمدة</h2>
+            <p>اختر النسخة المناسبة لك وقم بالشراء المباشر بسهولة</p>
             <div class="timer-box">
-                <span>ينتهي العرض الخاص خلال: </span>
+                <span>ينتهي العرض خلال: </span>
                 <span id="countdown">14:59</span>
             </div>
         </section>
 
-        <!-- قسم شرح طريقة الشراء (الحل المباشر للزبائن) -->
-        <section class="guide-section">
-            <h3 class="section-title"><i class="fa-solid fa-circle-info"></i> كيف تشتري من المتجر بسهولة؟</h3>
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <i class="fa-solid fa-hand-pointer step-icon"></i>
-                    <h4>اختر النسخة</h4>
-                    <p>حدد النسخة أو الخدمة المطلوبة واضغط على زر الشراء.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <i class="fa-solid fa-file-invoice-dollar step-icon"></i>
-                    <h4>انسخ الحساب وادفع</h4>
-                    <p>انسخ رقم الحساب بضغطة زر، حوّل المبلغ وارفع صورة الإشعار.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <i class="fa-solid fa-cloud-arrow-down step-icon"></i>
-                    <h4>حمّل وتواصل</h4>
-                    <p>نزّل التطبيق فوراً وتوجه للمطور على تليجرام لفتح حسابك.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم شبكة منتجات الشحن والنسخ الجديدة -->
-        <section class="products-section">
-            <h3 class="section-title"><i class="fa-solid fa-cubes"></i> باقات الشحن والنسخ المتاحة</h3>
-            
+        <!-- قسم 1: النسخ والتطبيقات (منفصل) -->
+        <section class="store-section">
+            <h3 class="section-title"><i class="fa-solid fa-cubes"></i> قسم النسخ والتطبيقات</h3>
             <div class="products-grid">
-                <!-- 1. نسخة سايكو VIP -->
-                <div class="product-card featured">
+                
+                <!-- سايكو VIP -->
+                <div class="product-card">
                     <div class="card-tag">الأكثر طلباً</div>
                     <h4>نسخة سايكو VIP</h4>
-                    <p class="price">السعر المطلوب: <span>حسب العرض</span></p>
+                    <p class="price">السعر: <span>حسب العرض</span></p>
                     <button class="btn-primary" onclick="openPaymentModal('نسخة سايكو VIP')">
                         <i class="fa-solid fa-cart-shopping"></i> شراء الآن
                     </button>
                 </div>
 
-                <!-- 2. نسخة FOX -->
+                <!-- FOX -->
                 <div class="product-card">
                     <h4>نسخة FOX</h4>
-                    <p class="price">السعر المطلوب: <span>حسب العرض</span></p>
+                    <p class="price">السعر: <span>حسب العرض</span></p>
                     <button class="btn-primary" onclick="openPaymentModal('نسخة FOX')">
                         <i class="fa-solid fa-cart-shopping"></i> شراء الآن
                     </button>
                 </div>
 
-                <!-- 3. نسخة موكا -->
+                <!-- موكا -->
                 <div class="product-card">
                     <h4>نسخة موكا</h4>
-                    <p class="price">السعر المطلوب: <span>حسب العرض</span></p>
+                    <p class="price">السعر: <span>حسب العرض</span></p>
                     <button class="btn-primary" onclick="openPaymentModal('نسخة موكا')">
                         <i class="fa-solid fa-cart-shopping"></i> شراء الآن
                     </button>
                 </div>
 
-                <!-- 4. نسخة VIP PRO -->
-                <div class="product-card premium">
-                    <div class="card-tag gold">النسخة الشاملة</div>
-                    <h4>نسخة VIP PRO</h4>
-                    <p class="price">السعر المطلوب: <span>حسب العرض</span></p>
-                    <button class="btn-primary" onclick="openPaymentModal('نسخة VIP PRO')">
+                <!-- VIP PRO (ذهبي) -->
+                <div class="product-card gold-card">
+                    <div class="card-tag gold-tag">النسخة الشاملة</div>
+                    <h4 class="gold-title">نسخة VIP PRO</h4>
+                    <p class="price">السعر: <span>حسب العرض</span></p>
+                    <button class="btn-gold" onclick="openPaymentModal('نسخة VIP PRO')">
                         <i class="fa-solid fa-crown"></i> شراء الآن
                     </button>
                 </div>
+
             </div>
         </section>
 
-        <!-- جدول المقارنة الفاخر بين النسخة العادية و VIP -->
-        <section class="comparison-section">
-            <h3 class="section-title"><i class="fa-solid fa-table-list"></i> مقارنة المميزات والخصائص</h3>
-            <div class="table-responsive">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>الميزة / الخاصية</th>
-                            <th>النسخة العادية 💎</th>
-                            <th>نسخة VIP الخارقة 👑</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>تجهيز الحساب</strong></td>
-                            <td>تفعيل عادي عبر المطور</td>
-                            <td><span class="text-success"><i class="fa-solid fa-check"></i> نسخة جاهزة بحساب مفعل</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>رصيد الهدية المجاني</strong></td>
-                            <td>غير متوفر</td>
-                            <td><strong class="text-highlight">2 مليار رصيد هدية فورية</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>جودة الإشعارات والواجهة</strong></td>
-                            <td>إشعار أخضر وأبيض بدقة 4K واجهة حقيقية</td>
-                            <td>إشعار أخضر وأبيض بدقة 4K واجهة حقيقية</td>
-                        </tr>
-                        <tr>
-                            <td><strong>توصيل معاملات وهمية</strong></td>
-                            <td><i class="fa-solid fa-xmark text-muted"></i></td>
-                            <td><span class="text-success"><i class="fa-solid fa-check"></i> مدعوم بالكامل</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>زيادة رصيد الضحية</strong></td>
-                            <td><i class="fa-solid fa-xmark text-muted"></i></td>
-                            <td><span class="text-success"><i class="fa-solid fa-check"></i> مدعوم بالكامل</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>رصيد مجاني دائم</strong></td>
-                            <td>يحتاج شحن</td>
-                            <td><span class="text-success"><i class="fa-solid fa-check"></i> بدون الحاجة للشحن</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>ميزة البحث عن الحسابات</strong></td>
-                            <td><i class="fa-solid fa-xmark text-muted"></i></td>
-                            <td><span class="text-success"><i class="fa-solid fa-check"></i> متوفرة وسريعة</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- قسم 2: خدمات الشحن (منفصل) -->
+        <section class="store-section">
+            <h3 class="section-title"><i class="fa-solid fa-bolt-lightning"></i> قسم خدمات الشحن</h3>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <h4>شحن رصيد سريع</h4>
+                    <p class="price">تفعيل دائم ومباشر</p>
+                    <button class="btn-primary" onclick="openPaymentModal('خدمة شحن رصيد')">
+                        <i class="fa-solid fa-wallet"></i> طلب شحن
+                    </button>
+                </div>
+
+                <div class="product-card">
+                    <h4>شحن حسابات كاملة</h4>
+                    <p class="price">تسليم فوري</p>
+                    <button class="btn-primary" onclick="openPaymentModal('شحن حساب كامل')">
+                        <i class="fa-solid fa-wallet"></i> طلب شحن
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- قسم 3: مربع فتح حساب جديد -->
+        <section class="new-account-box">
+            <div class="account-box-content">
+                <i class="fa-solid fa-user-plus account-icon"></i>
+                <h3>فتح حساب جديد</h3>
+                <p>تواصل مع المطور مباشرة لفتح وتفعيل حسابك الجديد في ثوانٍ:</p>
+                <div class="social-contact-btns">
+                    <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-contact telegram-btn">
+                        <i class="fa-brands fa-telegram"></i> تواصل عبر التليجرام
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn-contact facebook-btn">
+                        <i class="fa-brands fa-facebook"></i> تواصل عبر الفيسبوك
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <!-- النافذة المنبثقة 1: شاشة الدفع ورفع الإشعار -->
+    <!-- نافذة الدفع ورفع الإشعار -->
     <div id="paymentModal" class="modal-backdrop">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('paymentModal')">&times;</button>
             <div class="modal-header">
                 <i class="fa-solid fa-wallet modal-icon"></i>
-                <h3 id="modalProductName">إتمام عملية الشراء</h3>
+                <h3 id="modalProductName">إتمام الشراء</h3>
             </div>
             
             <div class="modal-body">
@@ -190,13 +150,13 @@
                             <i class="fa-regular fa-copy"></i> نسخ
                         </button>
                     </div>
-                    <span id="copyNotice" class="copy-notice">تم نسخ الرقم بنجاح! ✅</span>
+                    <span id="copyNotice" class="copy-notice">تم نسخ رقم الحساب! ✅</span>
                 </div>
 
                 <form id="paymentForm" onsubmit="handlePaymentSubmit(event)">
                     <div class="form-group">
                         <label for="transNumber">رقم العملية / التحويل:</label>
-                        <input type="text" id="transNumber" placeholder="أدخل رقم العملية هنا" required>
+                        <input type="text" id="transNumber" placeholder="أدخل رقم العملية" required>
                     </div>
 
                     <div class="form-group">
@@ -204,7 +164,7 @@
                         <div class="file-upload-box">
                             <input type="file" id="receiptImg" accept="image/*" onchange="previewReceipt(event)" required>
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <span id="uploadLabel">اضغط هنا أو اسحب صورة الإشعار</span>
+                            <span id="uploadLabel">اضغط هنا لرفع صورة الإشعار</span>
                             <img id="receiptPreview" class="receipt-preview" src="" alt="معاينة الإشعار">
                         </div>
                     </div>
@@ -217,33 +177,28 @@
         </div>
     </div>
 
-    <!-- النافذة المنبثقة 2: شاشة النجاح والتحميل والتوجيه للمطور -->
+    <!-- نافذة النجاح والتحميل التلقائي -->
     <div id="successModal" class="modal-backdrop">
         <div class="modal-card success-card">
             <div class="modal-header">
                 <i class="fa-solid fa-circle-check success-icon"></i>
-                <h3>تم إرسال إشعارك بنجاح!</h3>
+                <h3>تم استلام إشعارك بنجاح!</h3>
             </div>
             <div class="modal-body">
-                <!-- التنبيه الرئيسي المتفق عليه -->
-                <div class="important-notice">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <p>الرجاء تنزيل التطبيق والذهاب للمطور لكي يفتح لك حساب</p>
-                </div>
+                <p class="download-instruction">اضغط على الزر لأسفل لتنزيل التطبيق فوراً:</p>
 
-                <!-- زر التحميل المباشر من ميديا فاير -->
+                <!-- رابط تنزيل التطبيق الخاص بك -->
                 <a href="https://www.mediafire.com/file/xt3nh7taa9nx095/BOK_VIP+.apk/file" target="_blank" class="btn-download">
                     <i class="fa-solid fa-download"></i> تنزيل التطبيق (MediaFire)
                 </a>
 
-                <div class="social-links-title">تواصل مع المطور فوراً لتفعيل حسابك:</div>
-
+                <div class="social-links-title">ثم تواصل مع المطور لفتح الحساب:</div>
                 <div class="social-buttons">
-                    <a href="https://t.me/N9_X_N" target="_blank" class="btn-social telegram">
-                        <i class="fa-brands fa-telegram"></i> التليجرام المباشر
+                    <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-social telegram">
+                        <i class="fa-brands fa-telegram"></i> التليجرام
                     </a>
-                    <a href="https://www.facebook.com/share/18S94Q623U/" target="_blank" class="btn-social facebook">
-                        <i class="fa-brands fa-facebook"></i> صفحة الفيسبوك
+                    <a href="https://www.facebook.com/profile.php?id=61562677576193" target="_blank" class="btn-social facebook">
+                        <i class="fa-brands fa-facebook"></i> الفيسبوك
                     </a>
                 </div>
 
@@ -253,9 +208,7 @@
     </div>
 
     <footer class="main-footer">
-        <div class="container">
-            <p>جميع الحقوق محفوظة &copy; 2026 - المتجر الرسمي المعتمد</p>
-        </div>
+        <p>جميع الحقوق محفوظة &copy; 2026 - المتجر الرسمي</p>
     </footer>
 
     <script src="script.js"></script>
