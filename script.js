@@ -1,7 +1,14 @@
 const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
 
-let selectedProductName = "";
+// متغيرات عامة
+let selectedVersionName = "";
+let selectedVersionPrice = 0;
+let tempAccountName = "";
+let tempAccountPass = "";
+let tempRechargeAccount = "";
+let tempRechargeAmount = 100000;
+let tempRechargePrice = 15000;
 
 // العداد التنازلي
 function startTimer(durationInSeconds, displayElement) {
@@ -14,100 +21,175 @@ function startTimer(durationInSeconds, displayElement) {
     }, 1000);
 }
 
-// التحكم بالنوادذ
-function openPaymentModal(productName) {
-    selectedProductName = productName;
-    document.getElementById('modalProductName').textContent = `إتمام طلب: ${productName}`;
-    document.getElementById('paymentModal').style.display = 'flex';
+// نسخ رقم الحساب
+function copyAcc(inputId, noticeId) {
+    const input = document.getElementById(inputId);
+    input.select();
+    navigator.clipboard.writeText(input.value).then(() => {
+        const notice = document.getElementById(noticeId);
+        notice.style.display = 'block';
+        setTimeout(() => notice.style.display = 'none', 3000);
+    });
+}
+
+// معاينة الصور
+function previewImg(event, previewId) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById(previewId);
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
 }
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
-window.onclick = function(event) {
-    if (event.target === document.getElementById('paymentModal')) closeModal('paymentModal');
-    if (event.target === document.getElementById('successModal')) closeModal('successModal');
-};
-
-// نسخ رقم الحساب
-function copyAccount() {
-    const accountInput = document.getElementById('accountNumber');
-    accountInput.select();
-    navigator.clipboard.writeText(accountInput.value).then(() => {
-        const copyNotice = document.getElementById('copyNotice');
-        copyNotice.style.display = 'block';
-        setTimeout(() => copyNotice.style.display = 'none', 3000);
-    });
+// 1. فتح نافذة شراء النسخة
+function openBuyVersionModal(name, price) {
+    selectedVersionName = name;
+    selectedVersionPrice = price;
+    document.getElementById('versionModalTitle').textContent = `إتمام شراء: ${name}`;
+    document.getElementById('versionModalPrice').textContent = `المبلغ المطلوب: ${price.toLocaleString()} جنيه سوداني`;
+    document.getElementById('buyVersionModal').style.display = 'flex';
 }
 
-// معاينة الإشعار
-function previewReceipt(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById('receiptPreview');
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-            document.getElementById('uploadLabel').textContent = `تم اختيار الإشعار ✅`;
-        };
-        reader.readAsDataURL(file);
+async function handleVersionSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmitVersion');
+    const transNum = document.getElementById('versionTransNum').value;
+    const receipt = document.getElementById('versionReceiptImg').files[0];
+
+    btn.disabled = true;
+    btn.innerHTML = 'جاري الإرسال...';
+
+    const caption = `🚨 *طلب شراء نسخة جديد!*\n\n` +
+                    `📦 *النسخة:* ${selectedVersionName}\n` +
+                    `💰 *السعر:* ${selectedVersionPrice.toLocaleString()} جنيه\n` +
+                    `🔢 *رقم العملية:* \`${transNum}\``;
+
+    if (await sendToTelegram(receipt, caption)) {
+        closeModal('buyVersionModal');
+        document.getElementById('versionSuccessModal').style.display = 'flex';
     }
+    btn.disabled = false;
+    btn.innerHTML = 'إرسال الإشعار وتأكيد الشراء';
 }
 
-// إرسال الإشعار والبيانات للبوت
-async function handlePaymentSubmit(event) {
-    event.preventDefault();
+// 2. فتح نافذة فتح حساب جديد
+function openCreateAccountModal() {
+    document.getElementById('createAccountModal').style.display = 'flex';
+}
 
-    const submitBtn = document.getElementById('submitBtn');
-    const transNumber = document.getElementById('transNumber').value;
-    const receiptFile = document.getElementById('receiptImg').files[0];
+function handleAccountInfoSubmit(e) {
+    e.preventDefault();
+    tempAccountName = document.getElementById('newAccountName').value;
+    tempAccountPass = document.getElementById('newAccountPass').value;
+    
+    closeModal('createAccountModal');
+    document.getElementById('accountPayModal').style.display = 'flex';
+}
 
-    if (!receiptFile) {
-        alert("الرجاء رفع صورة الإشعار أولاً.");
+async function handleAccountPaySubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmitAccount');
+    const receipt = document.getElementById('accReceiptImg').files[0];
+
+    btn.disabled = true;
+    btn.innerHTML = 'جاري الإرسال...';
+
+    const caption = `🚨 *طلب فتح حساب جديد!*\n\n` +
+                    `👤 *الاسم المطلوب:* ${tempAccountName}\n` +
+                    `🔑 *كلمة السر:* \`${tempAccountPass}\`\n` +
+                    `💰 *الرسوم:* 20,000 جنيه`;
+
+    if (await sendToTelegram(receipt, caption)) {
+        closeModal('accountPayModal');
+        alert("تم استلام طلبك لفتح الحساب بنجاح! سيتم فتح حسابك وتفعيله في أسرع وقت.");
+    }
+    btn.disabled = false;
+    btn.innerHTML = 'تأكيد الدفع وفتح الحساب';
+}
+
+// 3. قسم الشحن وتثبيت الأسعار
+function openRechargeModal() {
+    document.getElementById('rechargeModal').style.display = 'flex';
+    calculateRechargePrice();
+}
+
+function calculateRechargePrice() {
+    const amount = parseInt(document.getElementById('rechargeAmountSelect').value);
+    tempRechargeAmount = amount;
+    tempRechargePrice = (amount / 100000) * 15000;
+    document.getElementById('rechargeCostDisplay').textContent = `${tempRechargePrice.toLocaleString()} جنيه سوداني`;
+}
+
+function goToRechargePayModal() {
+    tempRechargeAccount = document.getElementById('rechargeTargetAcc').value;
+    if (!tempRechargeAccount) {
+        alert("الرجاء أدخل رقم الحساب المراد شحنه أولاً.");
         return;
     }
+    closeModal('rechargeModal');
+    document.getElementById('rechargePayModal').style.display = 'flex';
+}
 
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال الإشعار...';
+async function handleRechargeSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmitRecharge');
+    const receipt = document.getElementById('rechargeReceiptImg').files[0];
 
-    const captionText = `🚨 *طلب شراء جديد من المتجر!*\n\n` +
-                        `📦 *المنتج:* ${selectedProductName}\n` +
-                        `🔢 *رقم العملية:* \`${transNumber}\`\n` +
-                        `⏰ *الوقت:* ${new Date().toLocaleString('ar-EG')}`;
+    btn.disabled = true;
+    btn.innerHTML = 'جاري الإرسال...';
 
+    const caption = `🚨 *طلب شحن رصيد جديد!*\n\n` +
+                    `💳 *رقم الحساب المراد شحنه:* \`${tempRechargeAccount}\`\n` +
+                    `💎 *كمية الرصيد:* ${tempRechargeAmount.toLocaleString()} رصيد\n` +
+                    `💰 *المبلغ المدفوع:* ${tempRechargePrice.toLocaleString()} جنيه`;
+
+    if (await sendToTelegram(receipt, caption)) {
+        closeModal('rechargePayModal');
+        document.getElementById('rechargeSuccessModal').style.display = 'flex';
+    }
+    btn.disabled = false;
+    btn.innerHTML = 'تأكيد رفع إشعار الشحن';
+}
+
+// دوال إرسال التليجرام
+async function sendToTelegram(photoFile, caption) {
     try {
         const formData = new FormData();
         formData.append("chat_id", MY_ID);
-        formData.append("photo", receiptFile);
-        formData.append("caption", captionText);
+        formData.append("photo", photoFile);
+        formData.append("caption", caption);
         formData.append("parse_mode", "Markdown");
 
-        const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
-            method: "POST",
-            body: formData
-        });
-
-        const result = await response.json();
-
-        if (result.ok) {
-            closeModal('paymentModal');
-            document.getElementById('successModal').style.display = 'flex';
-            document.getElementById('paymentForm').reset();
-            document.getElementById('receiptPreview').style.display = 'none';
-        } else {
-            alert("حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.");
-        }
-    } catch (error) {
-        alert("فشل الاتصال، تأكد من وجود إنترنت.");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> إرسال الإشعار والتأكيد';
+        const res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: "POST", body: formData });
+        const data = await res.json();
+        if (data.ok) return true;
+        alert("حدث خطأ أثناء إرسال الإشعار.");
+        return false;
+    } catch (err) {
+        alert("فشل الاتصال بالإنترنت.");
+        return false;
     }
 }
 
+// ضبط كلمة "مساء الخير" أو "صباح الخير" بحسب زمن المستخدم
 document.addEventListener('DOMContentLoaded', () => {
     const countdownDisplay = document.getElementById('countdown');
     if (countdownDisplay) startTimer(15 * 60, countdownDisplay);
+
+    const greetingElement = document.getElementById('greeting-text');
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+        greetingElement.innerHTML = `<i class="fa-solid fa-sun"></i> صباح الخير`;
+    } else {
+        greetingElement.innerHTML = `<i class="fa-solid fa-moon"></i> مساء الخير`;
+    }
 });
