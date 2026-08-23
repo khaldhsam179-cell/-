@@ -1,7 +1,6 @@
 const TOKEN = '8572250361:AAEB89MDQx_QRBGQR7vTDK9v1k92_4CRxmw';
 const MY_ID = '7908500383';
 
-// متغيرات عامة
 let selectedVersionName = "";
 let selectedVersionPrice = 0;
 let tempAccountName = "";
@@ -10,7 +9,6 @@ let tempRechargeAccount = "";
 let tempRechargeAmount = 100000;
 let tempRechargePrice = 15000;
 
-// العداد التنازلي
 function startTimer(durationInSeconds, displayElement) {
     let timer = durationInSeconds;
     setInterval(() => {
@@ -21,7 +19,6 @@ function startTimer(durationInSeconds, displayElement) {
     }, 1000);
 }
 
-// نسخ رقم الحساب
 function copyAcc(inputId, noticeId) {
     const input = document.getElementById(inputId);
     input.select();
@@ -32,7 +29,6 @@ function copyAcc(inputId, noticeId) {
     });
 }
 
-// معاينة الصور
 function previewImg(event, previewId) {
     const file = event.target.files[0];
     if (file) {
@@ -50,7 +46,6 @@ function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
-// 1. فتح نافذة شراء النسخة
 function openBuyVersionModal(name, price) {
     selectedVersionName = name;
     selectedVersionPrice = price;
@@ -69,7 +64,7 @@ async function handleVersionSubmit(e) {
     btn.innerHTML = 'جاري الإرسال...';
 
     const caption = `🚨 *طلب شراء نسخة جديد!*\n\n` +
-                    `📦 *النسخة:* ${selectedVersionName}\n` +
+                    `📦 *المنتج:* ${selectedVersionName}\n` +
                     `💰 *السعر:* ${selectedVersionPrice.toLocaleString()} جنيه\n` +
                     `🔢 *رقم العملية:* \`${transNum}\``;
 
@@ -81,7 +76,6 @@ async function handleVersionSubmit(e) {
     btn.innerHTML = 'إرسال الإشعار وتأكيد الشراء';
 }
 
-// 2. فتح نافذة فتح حساب جديد
 function openCreateAccountModal() {
     document.getElementById('createAccountModal').style.display = 'flex';
 }
@@ -116,7 +110,6 @@ async function handleAccountPaySubmit(e) {
     btn.innerHTML = 'تأكيد الدفع وفتح الحساب';
 }
 
-// 3. قسم الشحن وتثبيت الأسعار
 function openRechargeModal() {
     document.getElementById('rechargeModal').style.display = 'flex';
     calculateRechargePrice();
@@ -160,7 +153,6 @@ async function handleRechargeSubmit(e) {
     btn.innerHTML = 'تأكيد رفع إشعار الشحن';
 }
 
-// دوال إرسال التليجرام
 async function sendToTelegram(photoFile, caption) {
     try {
         const formData = new FormData();
@@ -180,7 +172,6 @@ async function sendToTelegram(photoFile, caption) {
     }
 }
 
-// ضبط كلمة "مساء الخير" أو "صباح الخير" بحسب زمن المستخدم
 document.addEventListener('DOMContentLoaded', () => {
     const countdownDisplay = document.getElementById('countdown');
     if (countdownDisplay) startTimer(15 * 60, countdownDisplay);
