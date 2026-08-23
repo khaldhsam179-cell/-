@@ -25,11 +25,23 @@
                 <i class="fa-solid fa-building-columns"></i>
                 <span>بنكك مزيف النسخه المطورة</span>
             </div>
-            <div class="badge-verified">
-                <i class="fa-solid fa-circle-check"></i> المتجر الرسمي
+            <div class="header-badges">
+                <div class="badge-verified">
+                    <i class="fa-solid fa-circle-check"></i> المتجر الرسمي
+                </div>
             </div>
         </div>
     </header>
+
+    <!-- شريط مؤشرات الثقة (جديد) -->
+    <div class="trust-bar">
+        <div class="container trust-container">
+            <div class="trust-item"><i class="fa-solid fa-bolt"></i> تفعيل فوري خلال دقائق</div>
+            <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> ضمان شامل على جميع النسخ</div>
+            <div class="trust-item"><i class="fa-solid fa-users"></i> +1000 عميل يثقون بنا</div>
+            <div class="trust-item"><i class="fa-solid fa-headset"></i> دعم متواصل 24/7</div>
+        </div>
+    </div>
 
     <main class="container">
 
@@ -40,6 +52,27 @@
             <div class="timer-box">
                 <span>ينتهي العرض الخاص خلال: </span>
                 <span id="countdown">14:59</span>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- قسم العروض والباقات المدمجة (جديد) -->
+        <!-- ========================================== -->
+        <section class="store-section">
+            <h3 class="section-title"><i class="fa-solid fa-gift"></i> قسم الباقات والعروض الخاصة (وفر أكثر)</h3>
+            <div class="bundle-card">
+                <div class="bundle-tag">🔥 أفضل قيمة مقابل سعر</div>
+                <div class="bundle-content">
+                    <h4>باقة المحترفين الشاملة</h4>
+                    <p class="bundle-desc">احصل على (نسخة VIP PRO الذهبية + فتح حساب جديد + 100,000 رصيد) في عرض واحد!</p>
+                    <div class="bundle-price-box">
+                        <span class="old-price">115,000 جنيه</span>
+                        <span class="new-price">100,000 جنيه سوداني فقط</span>
+                    </div>
+                    <button class="btn-gold btn-large" onclick="openBuyVersionModal('باقة المحترفين الشاملة (VIP PRO + حساب + 100k رصيد)', 100000)">
+                        <i class="fa-solid fa-cart-shopping"></i> شراء باقة المحترفين بـ 100,000 جنيه
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -117,7 +150,7 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- 4. مميزات النسخة (بشكل احترافي) -->
+        <!-- 4. مميزات النسخة -->
         <!-- ========================================== -->
         <section class="features-section">
             <h3 class="section-title-center"><i class="fa-solid fa-star"></i> مميزات بنكك مزيف النسخة المطورة</h3>
@@ -175,7 +208,21 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- 6. روابط التواصل مع المطور -->
+        <!-- 6. قسم الربح والتسويق بالعمولة (جديد) -->
+        <!-- ========================================== -->
+        <section class="referral-section">
+            <div class="referral-box">
+                <i class="fa-solid fa-hand-holding-dollar referral-icon"></i>
+                <h3>اربح معنا! (برنامج التسويق بالعمولة)</h3>
+                <p>اجلب عميلاً لشراء نسخة VIP PRO واحصل فوراً على <strong>5,000 جنيه كاش</strong> أو رصيد مجاني في حسابك!</p>
+                <a href="https://t.me/S_A_Y_K_O_USD" target="_blank" class="btn-primary inline-btn">
+                    <i class="fa-brands fa-telegram"></i> تواصل مع المطور لبدء التسويق
+                </a>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 7. روابط التواصل المباشر -->
         <!-- ========================================== -->
         <section class="contact-section">
             <h3 class="section-title-center"><i class="fa-solid fa-comments"></i> روابط التواصل المباشر مع المطور</h3>
@@ -191,9 +238,7 @@
 
     </main>
 
-    <!-- =================================================================== -->
     <!-- النوافذ المنبثقة (Modals) -->
-    <!-- =================================================================== -->
 
     <!-- نافذة 1: دفع وشراء النسخ -->
     <div id="buyVersionModal" class="modal-backdrop">
@@ -205,7 +250,6 @@
                 <p id="versionModalPrice" class="modal-price-display"></p>
             </div>
             <div class="modal-body">
-                <!-- مربع رقم الحساب -->
                 <div class="mycashi-box">
                     <label>رقم الحساب (ماي كاشي):</label>
                     <div class="account-number-wrapper">
@@ -236,7 +280,7 @@
         </div>
     </div>
 
-    <!-- نافذة نجاح شراء النسخ (تنزيل + تواصل فقط) -->
+    <!-- نافذة نجاح شراء النسخ -->
     <div id="versionSuccessModal" class="modal-backdrop">
         <div class="modal-card success-card">
             <div class="modal-header">
@@ -283,7 +327,7 @@
         </div>
     </div>
 
-    <!-- نافذة دفع فتح الحساب + التحذير الخاص -->
+    <!-- نافذة دفع فتح الحساب -->
     <div id="accountPayModal" class="modal-backdrop">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('accountPayModal')">&times;</button>
@@ -293,7 +337,6 @@
                 <p class="modal-status-text">تم استلام طلبك لفتح الحساب، سيتم فتح الحساب مباشرة بعد دفع رسوم الحساب في نفس الوقت.</p>
             </div>
             <div class="modal-body">
-                <!-- تحذير فتح الحساب -->
                 <div class="red-alert-box">
                     🚨 <strong>تنبيه هام:</strong> ممنوع رفع اشعار مزيف او اشعار ليس ضمن التحويل هاذه الرجاء تحويل المبلغ ورفع الاشعار واستلام حسابك علي الفور.
                 </div>
@@ -357,7 +400,7 @@
         </div>
     </div>
 
-    <!-- نافذة دفع الشحن + التحذير الخاص + شاشة نجاح الشحن -->
+    <!-- نافذة دفع الشحن -->
     <div id="rechargePayModal" class="modal-backdrop">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('rechargePayModal')">&times;</button>
@@ -367,7 +410,6 @@
                 <p class="modal-status-text">تم استلام طلب الشحن الرجاء اكمل الدفع لاستلام الرصيد في حسابك علي الفور.</p>
             </div>
             <div class="modal-body">
-                <!-- تحذير قسم الشحن -->
                 <div class="red-alert-box">
                     🚨 <strong>تحذير خاص بالشحن:</strong> ممنوع رفع اشعار مزيف او اشعار ليس ضمن التحويل او اشعار لتحويل اخرة لضمان استلام رصيدك وشحن حسابك بنجاح.
                 </div>
