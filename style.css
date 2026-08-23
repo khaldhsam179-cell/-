@@ -1,6 +1,8 @@
 :root {
     --primary-neon: #00ff66;
     --primary-hover: #00cc52;
+    --gradient-neon: linear-gradient(135deg, #00ff66, #00b347);
+    --gradient-gold: linear-gradient(135deg, #ffcc00, #ff9900);
     --bg-black: #0b0e11;
     --card-bg: #161b22;
     --text-light: #ffffff;
@@ -8,8 +10,8 @@
     --border-color: #232d39;
     --accent-gold: #ffcc00;
     --alert-red: #ff3344;
-    --shadow-neon: 0 0 15px rgba(0, 255, 102, 0.25);
-    --shadow-gold: 0 0 15px rgba(255, 204, 0, 0.35);
+    --shadow-neon: 0 4px 20px rgba(0, 255, 102, 0.25);
+    --shadow-gold: 0 4px 20px rgba(255, 204, 0, 0.35);
     --radius: 12px;
 }
 
@@ -18,7 +20,7 @@ body { background-color: var(--bg-black); color: var(--text-light); direction: r
 .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 15px; }
 
 /* الشريط العلوي */
-.top-bar { background-color: var(--primary-neon); color: #000; font-weight: 800; padding: 8px 0; font-size: 0.9rem; }
+.top-bar { background: var(--gradient-neon); color: #000; font-weight: 800; padding: 8px 0; font-size: 0.9rem; }
 .top-bar-content { display: flex; justify-content: space-between; }
 
 /* الهيدر */
@@ -27,10 +29,24 @@ body { background-color: var(--bg-black); color: var(--text-light); direction: r
 .logo { font-size: 1.3rem; font-weight: 900; color: var(--primary-neon); display: flex; align-items: center; gap: 10px; }
 .badge-verified { background-color: rgba(0, 255, 102, 0.1); color: var(--primary-neon); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; border: 1px solid var(--primary-neon); }
 
+/* شريط مؤشرات الثقة (جديد) */
+.trust-bar { background-color: #11161d; border-bottom: 1px solid var(--border-color); padding: 10px 0; }
+.trust-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; }
+.trust-item { font-size: 0.82rem; color: var(--primary-neon); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+
 /* بنر العرض */
 .hero-card { background: linear-gradient(135deg, #111, var(--card-bg)); border: 1px solid var(--primary-neon); border-radius: var(--radius); padding: 25px; margin: 20px 0; text-align: center; box-shadow: var(--shadow-neon); }
 .hero-card h2 { color: var(--primary-neon); font-size: 1.5rem; margin-bottom: 5px; }
 .timer-box { margin-top: 15px; background: rgba(0, 255, 102, 0.1); display: inline-block; padding: 8px 20px; border-radius: 20px; border: 1px solid var(--primary-neon); font-weight: 800; }
+
+/* كرت العروض والباقات المدمجة (جديد) */
+.bundle-card { background: linear-gradient(135deg, #1a222d, #0f141c); border: 2px solid var(--accent-gold); border-radius: var(--radius); padding: 25px; text-align: center; position: relative; box-shadow: var(--shadow-gold); }
+.bundle-tag { position: absolute; top: -14px; right: 20px; background: var(--gradient-gold); color: #000; font-weight: 900; padding: 3px 15px; border-radius: 12px; font-size: 0.85rem; }
+.bundle-content h4 { font-size: 1.4rem; color: var(--accent-gold); margin-bottom: 8px; }
+.bundle-desc { color: var(--text-light); font-size: 0.95rem; margin-bottom: 15px; }
+.bundle-price-box { margin-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+.old-price { text-decoration: line-through; color: var(--alert-red); font-weight: 700; font-size: 1rem; }
+.new-price { color: var(--primary-neon); font-weight: 900; font-size: 1.2rem; }
 
 /* عناوين الأقسام */
 .section-title { font-size: 1.3rem; margin: 30px 0 15px; color: var(--primary-neon); display: flex; align-items: center; gap: 10px; }
@@ -41,18 +57,19 @@ body { background-color: var(--bg-black); color: var(--text-light); direction: r
 .product-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; text-align: center; position: relative; transition: 0.3s; }
 .product-card:hover { border-color: var(--primary-neon); box-shadow: var(--shadow-neon); }
 
-.card-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background-color: var(--primary-neon); color: #000; font-size: 0.75rem; font-weight: 800; padding: 2px 10px; border-radius: 10px; }
+.card-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-neon); color: #000; font-size: 0.75rem; font-weight: 800; padding: 2px 10px; border-radius: 10px; }
 .price-tag { color: var(--primary-neon); font-weight: 800; margin: 10px 0 15px; font-size: 0.95rem; }
 
 /* كرت VIP PRO الذهبي */
 .gold-card { border: 2px solid var(--accent-gold) !important; }
 .gold-card:hover { box-shadow: var(--shadow-gold) !important; }
-.gold-tag { background-color: var(--accent-gold) !important; color: #000 !important; }
+.gold-tag { background: var(--gradient-gold) !important; color: #000 !important; }
 .gold-title, .gold-price span { color: var(--accent-gold) !important; }
 
 /* أزرار العامة */
-.btn-primary { width: 100%; background-color: var(--primary-neon); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 1rem; }
-.btn-gold { width: 100%; background-color: var(--accent-gold); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 1rem; }
+.btn-primary { width: 100%; background: var(--gradient-neon); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+.btn-gold { width: 100%; background: var(--gradient-gold); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+.btn-primary:hover, .btn-gold:hover { transform: translateY(-2px); opacity: 0.95; }
 .btn-large { padding: 15px; font-size: 1.1rem; }
 
 /* كروت الأقسام الفرعية */
@@ -61,11 +78,19 @@ body { background-color: var(--bg-black); color: var(--text-light); direction: r
 .recharge-rate-info { font-size: 1.05rem; margin-bottom: 20px; font-weight: 700; }
 .recharge-rate-info span { color: var(--primary-neon); }
 
+/* قسم التسويق بالعمولة (جديد) */
+.referral-section { margin: 30px 0; }
+.referral-box { background: linear-gradient(135deg, #131d27, #0b0e11); border: 2px dashed var(--primary-neon); border-radius: var(--radius); padding: 25px; text-align: center; }
+.referral-icon { font-size: 2.5rem; color: var(--primary-neon); margin-bottom: 10px; }
+.referral-box h3 { font-size: 1.3rem; margin-bottom: 8px; }
+.referral-box p { color: var(--text-muted); margin-bottom: 15px; }
+.inline-btn { width: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 25px; }
+
 /* مميزات وطريقة الشراء */
 .features-grid, .steps-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
 .feature-box, .step-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; text-align: center; }
 .feature-box i { font-size: 2.2rem; color: var(--primary-neon); margin-bottom: 12px; }
-.step-num { width: 35px; height: 35px; background-color: var(--primary-neon); color: #000; border-radius: 50%; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
+.step-num { width: 35px; height: 35px; background: var(--gradient-neon); color: #000; border-radius: 50%; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
 
 /* التنبيه الأحمر الحصري */
 .red-alert-box { background-color: rgba(255, 51, 68, 0.15); border: 1.5px solid var(--alert-red); color: #ff8899; padding: 12px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; line-height: 1.5; margin-bottom: 15px; text-align: right; }
@@ -75,7 +100,7 @@ body { background-color: var(--bg-black); color: var(--text-light); direction: r
 .mycashi-note { color: var(--accent-gold); font-size: 0.8rem; margin-top: 6px; font-weight: 700; text-align: right; }
 .account-number-wrapper { display: flex; gap: 8px; margin-top: 5px; }
 .account-number-wrapper input { flex: 1; background-color: #111; color: var(--primary-neon); border: 1px solid var(--border-color); padding: 8px; border-radius: 6px; text-align: center; font-weight: 800; font-size: 1.1rem; }
-.btn-copy { background-color: var(--primary-neon); color: #000; border: none; padding: 8px 15px; border-radius: 6px; font-weight: 800; cursor: pointer; }
+.btn-copy { background: var(--gradient-neon); color: #000; border: none; padding: 8px 15px; border-radius: 6px; font-weight: 800; cursor: pointer; }
 .copy-notice { display: none; color: var(--primary-neon); font-size: 0.8rem; text-align: center; margin-top: 5px; }
 
 /* النوافذ المنبثقة */
@@ -98,12 +123,12 @@ body { background-color: var(--bg-black); color: var(--text-light); direction: r
 .calculation-result-box { background-color: #000; padding: 12px; border-radius: 8px; border: 1px solid var(--primary-neon); margin-bottom: 15px; text-align: center; }
 .calculation-result-box strong { color: var(--primary-neon); font-size: 1.1rem; }
 
-.btn-submit { width: 100%; background-color: var(--primary-neon); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+.btn-submit { width: 100%; background: var(--gradient-neon); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; }
 .social-contact-btns, .social-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
 .btn-contact, .btn-social { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 8px; color: #fff; text-decoration: none; font-weight: 800; text-align: center; flex: 1; }
 .telegram-btn, .btn-social.telegram { background-color: #0088cc; }
 .facebook-btn, .btn-social.facebook { background-color: #1877f2; }
 
-.btn-download { display: flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--primary-neon); color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 900; margin-bottom: 15px; }
+.btn-download { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--gradient-neon); color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 900; margin-bottom: 15px; }
 .btn-secondary { width: 100%; background: transparent; border: 1px solid var(--border-color); padding: 8px; border-radius: 6px; color: var(--text-muted); cursor: pointer; margin-top: 10px; }
 .main-footer { text-align: center; padding: 25px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 40px; }
